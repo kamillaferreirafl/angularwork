@@ -1,0 +1,41 @@
+.container-produtos {
+  padding: 32px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container-produtos h1 {
+  margin-bottom: 32px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.grid-produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.card-produto {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card-produto img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: center;
+}
+
+mat-card-content {
+  flex-grow: 1;
+  padding: 16px;
+}
+
+mat-card-actions {
+  padding: 16px;
+}

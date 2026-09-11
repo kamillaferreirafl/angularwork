@@ -1,0 +1,73 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="brand">
+      <h1>MegaSport</h1>
+      <p>Acesse sua conta para continuar</p>
+    </div>
+
+    <!-- Seletor de Perfil: Usuário Comum vs ADM -->
+    <div class="tipo-usuario-wrapper">
+      <mat-button-toggle-group [(ngModel)]="tipoUsuario" name="tipoUsuario" aria-label="Tipo de Usuário" class="toggle-grupo">
+        <mat-button-toggle value="CLIENTE">
+          <mat-icon>person</mat-icon>
+          Usuário
+        </mat-button-toggle>
+        <mat-button-toggle value="ADMIN">
+          <mat-icon>admin_panel_settings</mat-icon>
+          ADM
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="login-form">
+      <!-- Campo E-mail -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>E-mail</mat-label>
+        <input 
+          matInput 
+          type="email" 
+          [(ngModel)]="email" 
+          name="email" 
+          placeholder="exemplo@email.com" 
+          required>
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+
+      <!-- Campo Senha -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Senha</mat-label>
+        <input 
+          matInput 
+          [type]="esconderSenha ? 'password' : 'text'" 
+          [(ngModel)]="senha" 
+          name="senha" 
+          placeholder="Sua senha" 
+          required>
+        <button 
+          mat-icon-button 
+          matSuffix 
+          type="button" 
+          (click)="esconderSenha = !esconderSenha" 
+          [attr.aria-label]="'Ocultar senha'" 
+          [attr.aria-pressed]="esconderSenha">
+          <mat-icon>{{ esconderSenha ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      @if (mensagemErro) {
+        <div class="erro-container">
+          <mat-icon>error_outline</mat-icon>
+          <span>{{ mensagemErro }}</span>
+        </div>
+      }
+
+      <button mat-raised-button class="btn-entrar" type="submit">
+        Entrar como {{ tipoUsuario === 'ADMIN' ? 'Administrador' : 'Usuário' }}
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <a routerLink="/home">Voltar para a Home</a>
+    </div>
+  </div>
+</div>

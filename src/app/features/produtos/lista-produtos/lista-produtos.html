@@ -1,0 +1,26 @@
+<section class="container-produtos">
+  <h1>Produtos</h1>
+
+  <div class="grid-produtos">
+    @for (produto of produtos; track $index) {
+      <mat-card class="card-produto">
+        @if (produto.imagem) {
+          <img mat-card-image [src]="produto.imagem" [alt]="produto.nome" />
+        }
+        <mat-card-content>
+          <span class="categoria">{{ produto.categoria }}</span>
+          <h2>{{ produto.nome }}</h2>
+          <p class="preco">R$ {{ produto.preco.toFixed(2) }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button 
+            mat-raised-button 
+            color="primary" 
+            (click)="adicionarAoCarrinho(produto)">
+            Adicionar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+</section>

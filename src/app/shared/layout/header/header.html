@@ -1,0 +1,22 @@
+<nav class="navbar">
+  <div class="logo" routerLink="/">MegaSport</div>
+
+  <div class="nav-links">
+    <a routerLink="/home" routerLinkActive="active">Home</a>
+    <a routerLink="/produtos" routerLinkActive="active">Produtos</a>
+    <a routerLink="/carrinho" routerLinkActive="active">
+      Carrinho ({{ carrinhoFacade.quantidade() }})
+    </a>
+    <a routerLink="/checkout" routerLinkActive="active">Checkout</a>
+    <a routerLink="/admin" routerLinkActive="active">Admin</a>
+  </div>
+
+  <div class="user-info">
+    @if (authService.estaLogado()) {
+      <span>{{ authService.usuario()?.email }}</span>
+      <button class="btn-sair" type="button" (click)="deslogar()">Sair</button>
+    } @else {
+      <a routerLink="/login" class="btn-sair" style="text-decoration: none;">Entrar</a>
+    }
+  </div>
+</nav>

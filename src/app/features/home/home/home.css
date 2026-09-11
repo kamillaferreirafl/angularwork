@@ -1,0 +1,99 @@
+.home-container {
+  width: 100%;
+}
+
+.hero-banner {
+  background: linear-gradient(rgba(17, 24, 39, 0.75), rgba(31, 41, 55, 0.75)), url('/caracorrendo.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.hero-content h1 span {
+  color: #ff5722;
+}
+
+.hero-content p {
+  font-size: 1.15rem;
+  color: #9ca3af;
+  margin-bottom: 35px;
+  line-height: 1.6;
+}
+
+.btn-cta {
+  background-color: #ff5722;
+  color: white;
+  padding: 14px 30px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 8px;
+  display: inline-block;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4);
+}
+
+.btn-cta:hover {
+  background-color: #e64a19;
+  transform: translateY(-2px);
+}
+
+.features-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1200px;
+  margin: -40px auto 60px auto;
+  padding: 0 20px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 10;
+}
+
+.feature-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  flex: 1;
+  min-width: 280px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card .icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  color: #111827;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  color: #6b7280;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}

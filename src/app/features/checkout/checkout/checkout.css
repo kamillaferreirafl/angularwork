@@ -1,0 +1,41 @@
+.pagina-checkout {
+  max-width: 700px;
+}
+
+.bloco-checkout {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.sucesso {
+  border-color: #b7e4c7;
+  background-color: #f1fff5;
+}
+
+.alerta {
+  border-color: #f3b7b7;
+  background-color: #fff5f5;
+}
+
+form {
+  max-width: 500px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+small {
+  display: block;
+  color: red;
+  margin-bottom: 8px;
+}
+
+button {
+  margin-right: 8px;
+  margin-top: 8px;
+}
