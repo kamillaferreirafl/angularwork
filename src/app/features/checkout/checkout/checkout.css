@@ -1,41 +1,97 @@
-.pagina-checkout {
+.container-checkout {
   max-width: 700px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-.bloco-checkout {
-  border: 1px solid #ddd;
+.container-checkout h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 12px;
+}
+
+.resumo-checkout {
+  background-color: #f8fafc;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 24px;
+}
+
+.resumo-checkout p {
+  font-size: 1rem;
+  color: #475569;
+  margin-bottom: 6px;
+}
+
+.resumo-checkout h3 {
+  font-size: 1.3rem;
+  color: #0f172a;
+  margin: 8px 0 16px 0;
+}
+
+.form-checkout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-checkout label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  color: #334155;
+  font-size: 0.95rem;
+}
+
+.form-checkout input {
+  margin-top: 6px;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
   border-radius: 8px;
-  padding: 16px;
-  margin: 16px 0;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.sucesso {
-  border-color: #b7e4c7;
-  background-color: #f1fff5;
+.form-checkout input:focus {
+  border-color: #e65100;
+  box-shadow: 0 0 0 3px rgba(230, 81, 0, 0.15);
 }
 
-.alerta {
-  border-color: #f3b7b7;
-  background-color: #fff5f5;
+.acoes-checkout {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
 }
 
-form {
-  max-width: 500px;
+.acoes-checkout button {
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+  transition: opacity 0.2s;
 }
 
-input {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
+.acoes-checkout button:hover {
+  opacity: 0.9;
 }
 
-small {
-  display: block;
-  color: red;
-  margin-bottom: 8px;
+.btn-revisar {
+  background-color: #e2e8f0;
+  color: #334155;
 }
 
-button {
-  margin-right: 8px;
-  margin-top: 8px;
+.btn-finalizar {
+  background-color: #e65100;
+  color: white;
+  flex-grow: 1;
 }

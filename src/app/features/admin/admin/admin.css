@@ -32,10 +32,122 @@ button {
   margin-right: 8px;
   margin-top: 8px;
   padding: 8px 16px;
+  cursor: pointer;
 }
 
 @media (min-width: 700px) {
   .cards-admin {
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+.lista-gerenciamento {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.lista-gerenciamento li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.btn-remover {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.btn-remover:hover {
+  background-color: #c82333;
+}
+
+.vazio {
+  text-align: center;
+  color: #666;
+  padding: 15px;
+}
+
+.badge {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: 6px;
+}
+
+.badge.pendente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.badge.admin {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.badge.cliente {
+  background-color: #cce5ff;
+  color: #004085;
+}
+.lista-gerenciamento {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.lista-gerenciamento li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.btn-remover {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.btn-remover:hover {
+  background-color: #c82333;
+}
+
+.vazio {
+  text-align: center;
+  color: #666;
+  padding: 15px;
+}
+.btn-editar {
+  background-color: #ffc107;
+  color: #333;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.btn-editar:hover {
+  background-color: #e0a800;
 }

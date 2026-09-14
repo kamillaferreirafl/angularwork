@@ -15,6 +15,7 @@
 
   <hr />
 
+  <!-- Cards com os contadores reativos -->
   <section class="cards-admin">
     <article>
       <h3>Produtos cadastrados</h3>
@@ -37,9 +38,10 @@
   <section class="bloco-admin">
     <h3>Ações administrativas simuladas</h3>
     <p>
-      <button type="button">Cadastrar produto</button>
-      <button type="button">Gerenciar pedidos</button>
-      <button type="button">Gerenciar usuários</button>
+      <button type="button" (click)="abrirModalCadastro()">Cadastrar produto</button>
+      <button type="button" (click)="abrirModalProdutos()">Gerenciar produtos</button>
+      <button type="button" (click)="abrirModalPedidos()">Gerenciar pedidos</button>
+      <button type="button" (click)="abrirModalUsuarios()">Gerenciar usuários</button>
     </p>
   </section>
 
@@ -49,3 +51,98 @@
     Sair da conta administrativa
   </button>
 </section>
+
+<!-- Modal de Cadastro / Edição de Produto -->
+<dialog #modalCadastro class="modal-produto">
+  <div class="modal-conteudo">
+    <h3>{{ editandoIndex !== null ? 'Editar Produto' : 'Cadastrar Novo Produto' }}</h3>
+    
+    <form (ngSubmit)="salvarProduto()">
+      <label>
+        Nome do Produto:
+        <input type="text" [(ngModel)]="novoProduto.nome" name="nome" required>
+      </label>
+
+      <label>
+        Preço (R$):
+        <input type="number" [(ngModel)]="novoProduto.preco" name="preco" step="0.01" required>
+      </label>
+
+      <label>
+        URL da Imagem:
+        <input type="url" [(ngModel)]="novoProduto.imagem" name="imagem" placeholder="https://exemplo.com/imagem.jpg" required>
+      </label>
+
+      <div class="modal-botoes">
+        <button type="button" (click)="modalCadastro.close()">Cancelar</button>
+        <button type="submit" class="btn-salvar">Salvar</button>
+      </div>
+    </form>
+  </div>
+</dialog>
+
+<!-- Modal de Gerenciar Produtos -->
+<dialog #modalProdutos class="modal-produto">
+  <div class="modal-conteudo">
+    <h3>Gerenciar Produtos</h3>
+    <ul class="lista-gerenciamento">
+      @for (prod of produtosService.obterProdutos(); track $index) {
+        <li>
+          <span><strong>{{ prod.nome }}</strong> - R$ {{ prod.preco }}</span>
+          <div>
+            <button type="button" class="btn-editar" (click)="prepararEdicao($index, prod)">Editar</button>
+            <button type="button" class="btn-remover" (click)="removerProduto($index)">Excluir</button>
+          </div>
+        </li>
+      } @empty {
+        <p class="vazio">Nenhum produto cadastrado.</p>
+      }
+    </ul>
+    <div class="modal-botoes">
+      <button type="button" (click)="modalProdutos.close()">Fechar</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Modal de Gerenciar Pedidos -->
+<dialog #modalPedidos class="modal-produto">
+  <div class="modal-conteudo">
+    <h3>Gerenciar Pedidos Pendentes</h3>
+    <ul class="lista-gerenciamento">
+      @for (pedido of pedidos(); track pedido.id) {
+        <li>
+          <span><strong>Pedido #{{ pedido.id }}</strong> - {{ pedido.produto }}</span>
+          <button type="button" class="btn-remover" (click)="removerPedido(pedido.id)">Remover</button>
+        </li>
+      } @empty {
+        <p class="vazio">Nenhum pedido pendente.</p>
+      }
+    </ul>
+    <div class="modal-botoes">
+      <button type="button" (click)="modalPedidos.close()">Fechar</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Modal de Gerenciar Usuários -->
+<dialog #modalUsuarios class="modal-produto">
+  <div class="modal-conteudo">
+    <h3>Usuários Cadastrados</h3>
+    <ul class="lista-gerenciamento">
+      @for (user of usuarios(); track user.email) {
+        <li>
+          <span>
+            {{ user.email }} 
+            <span class="badge" [ngClass]="user.perfil === 'ADMIN' ? 'admin' : 'cliente'">{{ user.perfil }}</span>
+          </span>
+          <button type="button" class="btn-remover" (click)="removerUsuario(user.email)">Remover</button>
+        </li>
+      } @empty {
+        <p class="vazio">Nenhum usuário cadastrado.</p>
+      }
+    </ul>
+    <div class="modal-botoes">
+      <button type="button" (click)="modalUsuarios.close()">Fechar</button>
+    </div>
+  </div>
+</dialog>
