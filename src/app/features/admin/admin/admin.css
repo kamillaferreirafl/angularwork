@@ -1,38 +1,67 @@
+/* Container Principal */
 .painel-admin {
-  max-width: 900px;
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
 }
 
+/* Cabeçalho da Página */
+.painel-admin h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+}
+
+.painel-admin p {
+  color: #6c757d;
+  margin: 2px 0;
+  font-size: 14px;
+}
+
+.painel-admin hr {
+  border: none;
+  border-top: 1px solid #e9ecef;
+  margin: 24px 0;
+}
+
+/* Card do Usuário Autenticado */
 .bloco-admin {
-  margin: 16px 0;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
 }
 
+.bloco-admin h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 18px;
+  color: #333;
+}
+
+.info-usuario {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.info-usuario p {
+  margin: 0;
+  font-size: 15px;
+  color: #444;
+}
+
+/* Cards Métricos (Contadores) */
 .cards-admin {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
-  margin: 16px 0;
-}
-
-.cards-admin article {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 16px;
-}
-
-.cards-admin h3 {
-  margin-top: 0;
-}
-
-.cards-admin p {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-button {
-  margin-right: 8px;
-  margin-top: 8px;
-  padding: 8px 16px;
-  cursor: pointer;
+  gap: 20px;
+  margin: 24px 0;
 }
 
 @media (min-width: 700px) {
@@ -41,113 +70,223 @@ button {
   }
 }
 
+.cards-admin article {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  border-left: 5px solid #d97706; /* Cor da marca MegaSport */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cards-admin article:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.cards-admin h3 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6c757d;
+}
+
+.cards-admin p {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+/* Grupo de Botões de Ações */
+.acoes-botoes {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.btn-acao {
+  background-color: #ffffff;
+  color: #d97706;
+  border: 1.5px solid #d97706;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0;
+}
+
+.btn-acao:hover {
+  background-color: #d97706;
+  color: #ffffff;
+}
+
+.btn-sair {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 8px;
+}
+
+.btn-sair:hover {
+  background-color: #bb2d3b;
+}
+
+/* --- Modais Centralizados (<dialog>) --- */
+
+dialog.modal-produto {
+  border: none;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 90%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  overflow: hidden;
+}
+
+dialog.modal-produto::backdrop {
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+.modal-conteudo {
+  padding: 24px;
+  background-color: #ffffff;
+}
+
+.modal-conteudo h3 {
+  margin-top: 0;
+  margin-bottom: 18px;
+  font-size: 20px;
+  color: #1a1a1a;
+}
+
+.modal-conteudo form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal-conteudo label {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  font-weight: 600;
+  color: #495057;
+}
+
+.modal-conteudo input {
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+.modal-conteudo input:focus {
+  border-color: #d97706;
+}
+
+.modal-botoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-cancelar {
+  background-color: #e9ecef;
+  color: #495057;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-salvar {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Listas Gerenciáveis */
 .lista-gerenciamento {
   list-style: none;
   padding: 0;
   margin: 15px 0;
-  max-height: 250px;
+  max-height: 280px;
   overflow-y: auto;
 }
 
 .lista-gerenciamento li {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+  padding: 12px;
+  border-bottom: 1px solid #f1f3f5;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 14px;
+}
+
+.btn-editar {
+  background-color: #ffc107;
+  color: #212529;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  margin-right: 6px;
 }
 
 .btn-remover {
   background-color: #dc3545;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 6px 12px;
   border-radius: 4px;
-  cursor: pointer;
   font-size: 12px;
-}
-
-.btn-remover:hover {
-  background-color: #c82333;
+  cursor: pointer;
 }
 
 .vazio {
   text-align: center;
-  color: #666;
-  padding: 15px;
+  color: #868e96;
+  padding: 20px;
 }
 
 .badge {
-  padding: 3px 8px;
-  border-radius: 4px;
+  padding: 4px 8px;
+  border-radius: 12px;
   font-size: 11px;
-  font-weight: bold;
-  margin-left: 6px;
-}
-
-.badge.pendente {
-  background-color: #fff3cd;
-  color: #856404;
+  font-weight: 700;
+  margin-left: 8px;
 }
 
 .badge.admin {
-  background-color: #d4edda;
-  color: #155724;
+  background-color: #d1e7dd;
+  color: #0f5132;
 }
 
 .badge.cliente {
-  background-color: #cce5ff;
-  color: #004085;
-}
-.lista-gerenciamento {
-  list-style: none;
-  padding: 0;
-  margin: 15px 0;
-  max-height: 250px;
-  overflow-y: auto;
-}
-
-.lista-gerenciamento li {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-}
-
-.btn-remover {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-.btn-remover:hover {
-  background-color: #c82333;
-}
-
-.vazio {
-  text-align: center;
-  color: #666;
-  padding: 15px;
-}
-.btn-editar {
-  background-color: #ffc107;
-  color: #333;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
-  margin-right: 5px;
-  font-weight: bold;
-}
-
-.btn-editar:hover {
-  background-color: #e0a800;
+  background-color: #cff4fc;
+  color: #055160;
 }

@@ -1,31 +1,39 @@
-<section class="pagina-carrinho">
-  <h1>Carrinho</h1>
+<section class="container-carrinho">
+  <h2>Seu Carrinho</h2>
+
   @if (carrinhoFacade.carrinhoVazio()) {
-    <p>Seu carrinho está vazio.</p>
-    <button mat-raised-button color="primary" routerLink="/produtos">Ver produtos</button>
+    <div class="carrinho-vazio-card">
+      <div class="icone-carrinho-vazio">🛒</div>
+      <h3>Seu carrinho está vazio</h3>
+      <p>Parece que você ainda não escolheu seus produtos. Explore nosso catálogo e encontre os melhores artigos esportivos!</p>
+      <a routerLink="/produtos" class="btn-catalogo">Ver produtos</a>
+    </div>
   } @else {
     <section class="lista-carrinho">
       @for (item of carrinhoFacade.itens(); track $index) {
         <article class="item-carrinho">
-          <div>
+          <div class="info-produto">
             <h3>{{ item.nome }}</h3>
             <p>R$ {{ item.preco.toFixed(2) }}</p>
           </div>
-          <button mat-stroked-button color="warn" type="button" (click)="removerItem($index)">
+          <button class="btn-remover-item" type="button" (click)="removerItem($index)">
             Remover
           </button>
         </article>
       }
     </section>
+
     <hr />
+
     <section class="resumo-carrinho">
       <h3>Itens no carrinho: {{ carrinhoFacade.quantidade() }}</h3>
       <h2>Total: R$ {{ carrinhoFacade.total().toFixed(2) }}</h2>
     </section>
+
     <section class="acoes-carrinho">
-      <button mat-button type="button" (click)="limparCarrinho()">Limpar carrinho</button>
-      <button mat-stroked-button color="primary" routerLink="/produtos">Continuar comprando</button>
-      <button mat-raised-button color="primary" routerLink="/checkout">Ir para checkout</button>
+      <button class="btn-limpar" type="button" (click)="limparCarrinho()">Limpar carrinho</button>
+      <button class="btn-continuar" type="button" routerLink="/produtos">Continuar comprando</button>
+      <button class="btn-checkout" type="button" routerLink="/checkout">Ir para checkout</button>
     </section>
   }
 </section>

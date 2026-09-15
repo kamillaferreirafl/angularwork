@@ -1,12 +1,73 @@
+/* Container Principal Centralizado */
 .acesso-negado {
   max-width: 600px;
+  margin: 60px auto;
+  padding: 48px 32px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Ícone Ilustrativo de Alerta */
+.icone-alerta {
+  width: 80px;
+  height: 80px;
+  background-color: #fef2f2;
+  color: #dc2626;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+/* Textos */
+.acesso-negado h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
 }
 
 .acesso-negado p {
+  color: #6c757d;
+  font-size: 15px;
   line-height: 1.5;
+  margin: 0 0 8px 0;
+  max-width: 440px;
 }
 
-button {
-  margin-top: 16px;
-  padding: 8px 16px;
+.acesso-negado p.subtexto {
+  font-size: 13px;
+  color: #9ca3af;
+  margin-bottom: 24px;
+}
+
+/* Botão de Ação Destacado */
+.acesso-negado button {
+  background-color: #d97706;
+  color: #ffffff;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+}
+
+.acesso-negado button:hover {
+  background-color: #b45309;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(217, 119, 6, 0.35);
 }
