@@ -1,8 +1,18 @@
+/* Remove limites do container principal da Home */
 .home-container {
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
+/* Banner esticado de ponta a ponta sem cortar */
 .hero-banner {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   background: linear-gradient(rgba(17, 24, 39, 0.75), rgba(31, 41, 55, 0.75)), url('/caracorrendo.jpeg');
   background-size: cover;
   background-position: center;
@@ -10,6 +20,7 @@
   color: white;
   padding: 100px 20px;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .hero-content {
@@ -53,6 +64,7 @@
   transform: translateY(-2px);
 }
 
+/* Cards centralizados dentro da área útil */
 .features-grid {
   display: flex;
   justify-content: center;
@@ -96,4 +108,122 @@
   color: #6b7280;
   font-size: 0.95rem;
   line-height: 1.5;
+}
+
+/* Rodapé esticado 100% sem cortes */
+.rodape-megasport {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background-color: #111111;
+  color: #ffffff;
+  padding: 50px 20px 20px 20px;
+  margin-top: 60px;
+  box-sizing: border-box;
+}
+
+.rodape-conteudo {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.rodape-coluna h3.logo-rodape {
+  color: #ff5722;
+  font-size: 24px;
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+
+.rodape-coluna h4 {
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: #f3f4f6;
+}
+
+.rodape-coluna p {
+  color: #9ca3af;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.rodape-coluna ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.rodape-coluna ul li {
+  margin-bottom: 8px;
+}
+
+.rodape-coluna a {
+  color: #9ca3af;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.rodape-coluna a:hover {
+  color: #ff5722;
+}
+
+.whatsapp-titulo {
+  font-weight: 600;
+  color: #ffffff !important;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.link-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #22c55e !important;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.link-whatsapp:hover {
+  color: #16a34a !important;
+}
+
+.redes-sociais {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.redes-sociais a {
+  font-size: 18px;
+  color: #ffffff;
+  background-color: #222222;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.redes-sociais a:hover {
+  background-color: #ff5722;
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+
+.rodape-direitos {
+  text-align: center;
+  border-top: 1px solid #222222;
+  margin-top: 40px;
+  padding-top: 20px;
+  color: #6b7280;
+  font-size: 13px;
 }
