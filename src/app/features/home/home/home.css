@@ -1,0 +1,377 @@
+/* Remove limites do container principal da Home */
+.home-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Banner esticado de ponta a ponta sem cortar */
+.hero-banner {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: linear-gradient(rgba(17, 24, 39, 0.75), rgba(31, 41, 55, 0.75)), url('/caracorrendo.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  padding: 100px 20px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.hero-content h1 span {
+  color: #ff5722;
+}
+
+.hero-content p {
+  font-size: 1.15rem;
+  color: #9ca3af;
+  margin-bottom: 35px;
+  line-height: 1.6;
+}
+
+.btn-cta {
+  background-color: #ff5722;
+  color: white;
+  padding: 14px 30px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 8px;
+  display: inline-block;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4);
+}
+
+.btn-cta:hover {
+  background-color: #e64a19;
+  transform: translateY(-2px);
+}
+
+/* Cards centralizados dentro da área útil */
+.features-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1200px;
+  margin: -40px auto 40px auto;
+  padding: 0 20px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 10;
+}
+
+.feature-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  flex: 1;
+  min-width: 280px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card .icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  color: #111827;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  color: #6b7280;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* --- SEÇÃO MAIS VENDIDOS --- */
+.secao-mais-vendidos {
+  max-width: 1200px;
+  margin: 40px auto 60px auto;
+  padding: 0 20px;
+}
+
+.titulo-secao {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 24px;
+}
+
+.carrossel-produtos {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  scroll-behavior: smooth;
+}
+
+.carrossel-produtos::-webkit-scrollbar {
+  height: 6px;
+}
+
+.carrossel-produtos::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 10px;
+}
+
+.card-produto {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  min-width: 220px;
+  max-width: 240px;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.card-produto:hover {
+  border-color: #d97706;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.badge-desconto {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: 1px solid #d1d5db;
+  color: #4b5563;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  z-index: 2;
+}
+
+.imagem-container {
+  width: 100%;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.imagem-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s;
+}
+
+.card-produto:hover .imagem-container img {
+  transform: scale(1.05);
+}
+
+.info-produto {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nome-produto {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+  min-height: 38px;
+}
+
+.preco-antigo {
+  font-size: 12px;
+  color: #9ca3af;
+  text-decoration: line-through;
+}
+
+.preco-pix {
+  font-size: 1rem;
+  color: #111827;
+}
+
+.preco-pix strong {
+  font-weight: 800;
+}
+
+.preco-pix span {
+  font-size: 12px;
+  color: #4b5563;
+  font-weight: 400;
+}
+
+.parcelamento {
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: 2px;
+  margin-bottom: 8px;
+}
+
+.btn-comprar {
+  margin-top: 6px;
+  background-color: #d97706;
+  color: #ffffff;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.btn-comprar:hover {
+  background-color: #b45309;
+}
+
+/* Rodapé esticado 100% sem cortes */
+.rodape-megasport {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background-color: #111111;
+  color: #ffffff;
+  padding: 50px 20px 20px 20px;
+  margin-top: 60px;
+  box-sizing: border-box;
+}
+
+.rodape-conteudo {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.rodape-coluna h3.logo-rodape {
+  color: #ff5722;
+  font-size: 24px;
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+
+.rodape-coluna h4 {
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: #f3f4f6;
+}
+
+.rodape-coluna p {
+  color: #9ca3af;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.rodape-coluna ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.rodape-coluna ul li {
+  margin-bottom: 8px;
+}
+
+.rodape-coluna a {
+  color: #9ca3af;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.rodape-coluna a:hover {
+  color: #ff5722;
+}
+
+.whatsapp-titulo {
+  font-weight: 600;
+  color: #ffffff !important;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.link-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #22c55e !important;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.link-whatsapp:hover {
+  color: #16a34a !important;
+}
+
+.redes-sociais {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.redes-sociais a {
+  font-size: 18px;
+  color: #ffffff;
+  background-color: #222222;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.redes-sociais a:hover {
+  background-color: #ff5722;
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+
+.rodape-direitos {
+  text-align: center;
+  border-top: 1px solid #222222;
+  margin-top: 40px;
+  padding-top: 20px;
+  color: #6b7280;
+  font-size: 13px;
+}

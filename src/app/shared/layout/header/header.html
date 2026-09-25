@@ -1,0 +1,62 @@
+<header class="header">
+  <div class="logo">
+    <a routerLink="/">MegaSport</a>
+  </div>
+
+  <nav class="nav-links">
+    <a routerLink="/">Home</a>
+    <a routerLink="/produtos">Produtos</a>
+    <a routerLink="/carrinho">Carrinho ({{ carrinhoFacade.quantidade() }})</a>
+    <a routerLink="/checkout">Checkout</a>
+    <a routerLink="/admin" *ngIf="authService.ehAdmin">Admin</a>
+  </nav>
+
+  <div class="auth-area">
+    @if (authService.estaLogado) {
+      <div class="menu-perfil-container">
+        <!-- Botão com Avatar "US" -->
+        <button class="btn-avatar" (click)="toggleMenu()">
+          <span class="avatar-circle">US</span>
+          <span class="seta-menu" [class.ativa]="menuAberto()">▼</span>
+        </button>
+
+        <!-- Menu Flutuante Dropdown -->
+        @if (menuAberto()) {
+          <div class="dropdown-menu" (mouseleave)="fecharMenu()">
+            <div class="header-usuario">
+              <span class="avatar-lg">US</span>
+              <div class="info-texto">
+                <span class="saudacao">Olá,</span>
+                <strong>Usuário</strong>
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="grupo-links">
+              <a routerLink="/perfil" (click)="fecharMenu()">👤 Meu Perfil</a>
+              <a routerLink="/pedidos" (click)="fecharMenu()">📦 Meus Pedidos</a>
+              <a routerLink="/favoritos" (click)="fecharMenu()">❤️ Favoritos</a>
+            </div>
+
+            <hr />
+
+            <div class="grupo-links">
+              <a routerLink="/configuracoes" (click)="fecharMenu()">⚙️ Configurações</a>
+            </div>
+
+            <hr />
+
+            <div class="grupo-links">
+              <button class="item-sair" (click)="deslogar()">
+                🚪 Sair
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <a routerLink="/login" class="btn-entrar">Entrar</a>
+    }
+  </div>
+</header>

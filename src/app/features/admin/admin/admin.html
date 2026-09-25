@@ -1,0 +1,148 @@
+<section class="painel-admin">
+  <h2>Área Administrativa</h2>
+  <p>Gestão centralizada e controle restrito da plataforma MegaSport.</p>
+  <hr />
+
+  <!-- Usuário Autenticado -->
+  <section class="bloco-admin">
+    <h3>Sessão Ativa</h3>
+    @if (usuarioAtual()) {
+      <div class="info-usuario">
+        <p><strong>E-mail:</strong> {{ usuarioAtual()?.email }}</p>
+        <p><strong>Perfil:</strong> <span class="badge admin">{{ usuarioAtual()?.perfil }}</span></p>
+      </div>
+    }
+  </section>
+
+  <!-- Cards de Estatísticas -->
+  <section class="cards-admin">
+    <article>
+      <h3>Produtos Cadastrados</h3>
+      <p>{{ totalProdutos() }}</p>
+    </article>
+
+    <article>
+      <h3>Pedidos Pendentes</h3>
+      <p>{{ pedidosPendentes() }}</p>
+    </article>
+
+    <article>
+      <h3>Usuários Ativos</h3>
+      <p>{{ usuariosCadastrados() }}</p>
+    </article>
+  </section>
+
+  <hr />
+
+  <!-- Ações Rápidas -->
+  <section class="bloco-admin">
+    <h3>Ações Administrativas</h3>
+    <div class="acoes-botoes">
+      <button type="button" class="btn-acao" (click)="abrirModalCadastro()">+ Cadastrar Produto</button>
+      <button type="button" class="btn-acao" (click)="abrirModalProdutos()">Gerenciar Produtos</button>
+      <button type="button" class="btn-acao" (click)="abrirModalPedidos()">Gerenciar Pedidos</button>
+      <button type="button" class="btn-acao" (click)="abrirModalUsuarios()">Gerenciar Usuários</button>
+    </div>
+  </section>
+
+  <hr />
+
+  <button type="button" class="btn-sair" (click)="sair()">
+    Sair da conta
+  </button>
+</section>
+
+<!-- Modal Cadastro/Edição -->
+<dialog #modalCadastro class="modal-produto">
+  <div class="modal-conteudo">
+    <h3>{{ editandoIndex !== null ? 'Editar Produto' : 'Cadastrar Novo Produto' }}</h3>
+    
+    <form (ngSubmit)="salvarProduto()">
+      <label>
+        Nome do Produto
+        <input type="text" [(ngModel)]="novoProduto.nome" name="nome" placeholder="Ex: Tênis de Corrida" required>
+      </label>
+
+      <label>
+        Preço (R$)
+        <input type="number" [(ngModel)]="novoProduto.preco" name="preco" step="0.01" placeholder="0.00" required>
+      </label>
+
+      <label>
+        URL da Imagem
+        <input type="url" [(ngModel)]="novoProduto.imagem" name="imagem" placeholder="https://exemplo.com/imagem.jpg" required>
+      </label>
+
+      <div class="modal-botoes">
+        <button type="button" class="btn-cancelar" (click)="modalCadastro.close()">Cancelar</button>
+        <button type="submit" class="btn-salvar">Salvar Produto</button>
+      </div>
+    </form>
+  </div>
+</dialog>
+
+<!-- Modal Gerenciar Produtos -->
+<dialog #modalProdutos class="modal-produto">
+  <div class="modal-conteudo">
+    <h3>Gerenciar Produtos</h3>
+    <ul class="lista-gerenciamento">
+      @for (prod of produtosService.obterProdutos(); track $index) {
+        <li>
+          <span><strong>{{ prod.nome }}</strong> — R$ {{ prod.preco }}</span>
+          <div>
+            <button type="button" class="btn-editar" (click)="prepararEdicao($index, prod)">Editar</button>
+            <button type="button" class="btn-remover" (click)="removerProduto($index)">Excluir</button>
+          </div>
+        </li>
+      } @empty {
+        <p class="vazio">Nenhum produto cadastrado.</p>
+      }
+    </ul>
+    <div class="modal-botoes">
+      <button type="button" class="btn-cancelar" (click)="modalProdutos.close()">Fechar</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Modal Gerenciar Pedidos -->
+<dialog #modalPedidos class="modal-produto">
+  <div class="modal-conteudo">
+    <h3>Gerenciar Pedidos Pendentes</h3>
+    <ul class="lista-gerenciamento">
+      @for (pedido of pedidos(); track pedido.id) {
+        <li>
+          <span><strong>Pedido #{{ pedido.id }}</strong> — {{ pedido.produto }}</span>
+          <button type="button" class="btn-remover" (click)="removerPedido(pedido.id)">Remover</button>
+        </li>
+      } @empty {
+        <p class="vazio">Nenhum pedido pendente.</p>
+      }
+    </ul>
+    <div class="modal-botoes">
+      <button type="button" class="btn-cancelar" (click)="modalPedidos.close()">Fechar</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Modal Gerenciar Usuários -->
+<dialog #modalUsuarios class="modal-produto">
+  <div class="modal-conteudo">
+    <h3>Usuários Cadastrados</h3>
+    <ul class="lista-gerenciamento">
+      @for (user of usuarios(); track user.email) {
+        <li>
+          <span>
+            {{ user.email }} 
+            <span class="badge" [ngClass]="user.perfil === 'ADMIN' ? 'admin' : 'cliente'">{{ user.perfil }}</span>
+          </span>
+          <button type="button" class="btn-remover" (click)="removerUsuario(user.email)">Remover</button>
+        </li>
+      } @empty {
+        <p class="vazio">Nenhum usuário cadastrado.</p>
+      }
+    </ul>
+    <div class="modal-botoes">
+      <button type="button" class="btn-cancelar" (click)="modalUsuarios.close()">Fechar</button>
+    </div>
+  </div>
+</dialog>

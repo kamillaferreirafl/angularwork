@@ -1,0 +1,187 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #f4f5f7;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 40px 20px;
+}
+
+.card-cadastro, .card-sucesso {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+.card-cadastro h2 {
+  font-size: 1.6rem;
+  color: #111827;
+  margin-top: 0;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.subtitulo, .subtitulo-etapa {
+  color: #6b7280;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.campo label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.campo input, .campo select {
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  background-color: #ffffff;
+}
+
+.campo input:focus, .campo select:focus {
+  border-color: #e66b00;
+}
+
+.linha-dupla {
+  display: flex;
+  gap: 16px;
+}
+
+.linha-dupla .campo {
+  flex: 1;
+}
+
+.requisitos-senha {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 14px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.titulo-requisitos {
+  font-size: 12px;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.requisitos-senha ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.requisitos-senha li {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.requisitos-senha li::before {
+  content: "✖";
+  color: #ef4444;
+}
+
+.requisitos-senha li.valido {
+  color: #16a34a;
+}
+
+.requisitos-senha li.valido::before {
+  content: "✔";
+  color: #16a34a;
+}
+
+.erro-senha {
+  color: #dc2626;
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.btn-acao {
+  width: 100%;
+  background-color: #e66b00;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 8px;
+}
+
+.btn-acao:hover:not(:disabled) {
+  background-color: #cc5f00;
+}
+
+.btn-acao:disabled {
+  background-color: #d1d5db;
+  cursor: not-allowed;
+}
+
+.botoes-linha {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-voltar {
+  background-color: #e5e7eb;
+  color: #374151;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* TELA DE SUCESSO */
+.card-sucesso {
+  text-align: center;
+}
+
+.card-sucesso .icone-emoji {
+  font-size: 52px;
+  line-height: 1;
+  margin-bottom: 16px; /* Espaçamento equilibrado abaixo do emoji */
+  display: block;
+}
+
+.card-sucesso h2 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 1.5rem;
+  color: #111827;
+  font-weight: 700;
+}
+
+.card-sucesso p {
+  margin-top: 0;
+  margin-bottom: 24px;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.4;
+}

@@ -1,0 +1,165 @@
+<section class="container-checkout">
+  <!-- Estado de Compra Confirmada (Pago) -->
+  @if (pedidoConcluido) {
+    <div class="card-sucesso">
+      <div class="icone-sucesso">✅</div>
+      <h2>Pedido Realizado com Sucesso!</h2>
+      <p class="status-linha">Status do Pagamento: <strong class="badge-pago">PAGO</strong></p>
+
+      <div class="codigo-pedido-box">
+        <span>Número do Pedido:</span>
+        <strong>#{{ codigoPedido }}</strong>
+      </div>
+
+      <p class="subtexto">Enviamos os detalhes do seu pedido e o código de rastreio para o seu e-mail.</p>
+      
+      <button type="button" class="btn-voltar-home" routerLink="/produtos">
+        Voltar para a Loja
+      </button>
+    </div>
+  } 
+  
+  <!-- Formulário de Checkout -->
+  @else {
+    <h2>Finalizar Compra</h2>
+    
+    <form (ngSubmit)="confirmarPedido()" #formCheckout="ngForm" class="form-checkout">
+      
+      <!-- Dados Pessoais -->
+      <fieldset class="grupo-checkout">
+        <legend>Dados Pessoais</legend>
+
+        <label>
+          Nome Completo:
+          <input 
+            type="text" 
+            [(ngModel)]="dadosCheckout.nome" 
+            name="nome" 
+            required 
+            minlength="3" 
+            #nome="ngModel">
+          @if (nome.invalid && nome.touched) {
+            <span class="erro-validacao">O nome deve ter no mínimo 3 caracteres.</span>
+          }
+        </label>
+
+        <div class="linha-dupla">
+          <label>
+            E-mail:
+            <input 
+              type="email" 
+              [(ngModel)]="dadosCheckout.email" 
+              name="email" 
+              required 
+              email 
+              #email="ngModel">
+            @if (email.invalid && email.touched) {
+              <span class="erro-validacao">Digite um e-mail válido.</span>
+            }
+          </label>
+
+          <label>
+            Senha de Confirmação:
+            <input 
+              type="password" 
+              [(ngModel)]="dadosCheckout.senha" 
+              name="senha" 
+              required 
+              minlength="3" 
+              #senha="ngModel">
+            @if (senha.invalid && senha.touched) {
+              <span class="erro-validacao">A senha deve ter no mínimo 3 caracteres.</span>
+            }
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- Endereço de Entrega Detalhado -->
+      <fieldset class="grupo-checkout">
+        <legend>Endereço de Entrega</legend>
+
+        <div class="linha-dupla">
+          <label class="campo-cep">
+            CEP:
+            <input 
+              type="text" 
+              [(ngModel)]="dadosCheckout.cep" 
+              (ngModelChange)="onCepChange()" 
+              name="cep" 
+              required 
+              maxlength="9"
+              placeholder="00000-000"
+              #cep="ngModel">
+            @if (cep.invalid && cep.touched) {
+              <span class="erro-validacao">Informe o CEP.</span>
+            }
+          </label>
+
+          <label class="campo-rua">
+            Logradouro / Rua:
+            <input 
+              type="text" 
+              [(ngModel)]="dadosCheckout.endereco" 
+              name="endereco" 
+              required 
+              minlength="3" 
+              placeholder="Rua, Avenida, Alameda..."
+              #endereco="ngModel">
+            @if (endereco.invalid && endereco.touched) {
+              <span class="erro-validacao">O endereço deve ter no mínimo 3 caracteres.</span>
+            }
+          </label>
+        </div>
+
+        <div class="linha-tripla">
+          <label>
+            Número:
+            <input 
+              type="text" 
+              [(ngModel)]="dadosCheckout.numero" 
+              name="numero" 
+              required 
+              placeholder="Ex: 123"
+              #numero="ngModel">
+            @if (numero.invalid && numero.touched) {
+              <span class="erro-validacao">Obrigatório.</span>
+            }
+          </label>
+
+          <label>
+            Complemento:
+            <input 
+              type="text" 
+              [(ngModel)]="dadosCheckout.complemento" 
+              name="complemento" 
+              placeholder="Apt 101, Bloco B (Opcional)">
+          </label>
+
+          <label>
+            Bairro:
+            <input 
+              type="text" 
+              [(ngModel)]="dadosCheckout.bairro" 
+              name="bairro" 
+              required 
+              placeholder="Seu Bairro"
+              #bairro="ngModel">
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- Resumo do Pedido -->
+      <div class="resumo-checkout">
+        <h3>Total da Compra: <span>R$ {{ carrinhoFacade.total().toFixed(2) }}</span></h3>
+      </div>
+
+      <button 
+        type="submit" 
+        class="btn-finalizar" 
+        [disabled]="formCheckout.invalid">
+        Confirmar e Pagar
+      </button>
+
+    </form>
+  }
+</section>

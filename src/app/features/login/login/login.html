@@ -1,0 +1,38 @@
+<div class="card-login">
+  <h2 class="logo-titulo">MegaSport</h2>
+  <p class="subtitulo">Acesse sua conta para continuar</p>
+
+  <!-- Botoes de tipo de usuario -->
+  <div class="seletor-perfil">
+    <button type="button" [class.ativo]="ehUsuario" (click)="ehUsuario = true">👤 Usuário</button>
+    <button type="button" [class.ativo]="!ehUsuario" (click)="ehUsuario = false">🛡️ ADM</button>
+  </div>
+
+  <form (ngSubmit)="fazerLogin()" class="form-login">
+    <div class="campo">
+      <label>E-mail *</label>
+      <input type="email" [(ngModel)]="email" name="email" required placeholder="Seu e-mail">
+    </div>
+
+    <div class="campo">
+      <label>Senha *</label>
+      <input type="password" [(ngModel)]="senha" name="senha" required placeholder="Sua senha">
+    </div>
+
+    <!-- Link Esqueci minha senha -->
+    <div class="link-esqueci-senha">
+      <a href="#" (click)="$event.preventDefault()">Esqueci minha senha</a>
+    </div>
+
+    <button type="submit" class="btn-entrar">
+      Entrar como {{ ehUsuario ? 'Usuário' : 'ADM' }}
+    </button>
+  </form>
+
+  <!-- Link para a tela de cadastro -->
+  <div class="criar-conta-box">
+    <p>Não tem uma conta? <a routerLink="/cadastro">Crie sua conta MegaSport</a></p>
+  </div>
+
+  <a routerLink="/" class="btn-home">Voltar para a Home</a>
+</div>

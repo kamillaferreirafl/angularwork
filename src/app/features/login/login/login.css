@@ -1,0 +1,159 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #f4f5f7;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card-login {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.logo-titulo {
+  color: #e66b00;
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 4px 0;
+}
+
+.subtitulo {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+/* Seletor Usuário / ADM */
+.seletor-perfil {
+  display: flex;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  background-color: #f9fafb;
+}
+
+.seletor-perfil button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  font-weight: 600;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.seletor-perfil button.ativo {
+  background-color: #e66b00;
+  color: #ffffff;
+}
+
+/* Campos do Formulário */
+.form-login {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.campo label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.campo input {
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.campo input:focus {
+  border-color: #e66b00;
+}
+
+/* Links Adicionais */
+.link-esqueci-senha {
+  text-align: right;
+  margin-top: -8px;
+  margin-bottom: 8px;
+}
+
+.link-esqueci-senha a {
+  color: #e66b00;
+  font-size: 12px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link-esqueci-senha a:hover {
+  text-decoration: underline;
+}
+
+.btn-entrar {
+  width: 100%;
+  background-color: #e66b00;
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 8px;
+}
+
+.btn-entrar:hover {
+  background-color: #cc5f00;
+}
+
+.criar-conta-box {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #f3f4f6;
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.criar-conta-box a {
+  color: #e66b00;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.criar-conta-box a:hover {
+  text-decoration: underline;
+}
+
+.btn-home {
+  display: inline-block;
+  margin-top: 16px;
+  color: #e66b00;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.btn-home:hover {
+  text-decoration: underline;
+}

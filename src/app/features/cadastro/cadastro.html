@@ -1,0 +1,144 @@
+<section class="container-cadastro">
+  
+  <!-- Tela de Sucesso -->
+  @if (contaCriada) {
+    <div class="card-sucesso">
+      <span class="icone-emoji">🎉</span>
+      <h2>Sua conta foi criada com sucesso!</h2>
+      <p>Bem-vindo(a) à MegaSport. Você já pode fazer login e aproveitar nossas ofertas.</p>
+      <button class="btn-acao" routerLink="/login">Ir para o Login</button>
+    </div>
+  }
+
+  <!-- Formulário de Cadastro em Etapas -->
+  @else {
+    <div class="card-cadastro">
+      <h2>Vamos criar a sua conta</h2>
+      <p class="subtitulo">Preencha os dados abaixo para se cadastrar na MegaSport.</p>
+
+      <!-- ETAPA 1: Dados Pessoais -->
+      @if (etapa === 1) {
+        <form (ngSubmit)="proximaEtapa()" #formEtapa1="ngForm">
+          <div class="campo">
+            <label>CPF ou CNPJ *</label>
+            <input type="text" [(ngModel)]="dados.documento" name="documento" required placeholder="Digite seu CPF ou CNPJ">
+          </div>
+
+          <div class="linha-dupla">
+            <div class="campo">
+              <label>Nome *</label>
+              <input type="text" [(ngModel)]="dados.nome" name="nome" required placeholder="Seu nome">
+            </div>
+            <div class="campo">
+              <label>Sobrenome *</label>
+              <input type="text" [(ngModel)]="dados.sobrenome" name="sobrenome" required placeholder="Seu sobrenome">
+            </div>
+          </div>
+
+          <div class="linha-dupla">
+            <div class="campo">
+              <label>Data de Nascimento *</label>
+              <input type="date" [(ngModel)]="dados.dataNascimento" name="dataNascimento" required>
+            </div>
+            <div class="campo">
+              <label>Telefone *</label>
+              <input type="tel" [(ngModel)]="dados.telefone" name="telefone" required placeholder="(00) 00000-0000">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label>Selecione seu gênero *</label>
+            <select [(ngModel)]="dados.genero" name="genero" required>
+              <option value="" disabled selected>Selecione seu gênero</option>
+              <option value="Feminino">Feminino</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Prefiro não dizer">Prefiro não dizer</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-acao" [disabled]="formEtapa1.invalid">Próximo</button>
+        </form>
+      }
+
+      <!-- ETAPA 2: Dados de Acesso -->
+      @if (etapa === 2) {
+        <form (ngSubmit)="concluirCadastro()" #formEtapa2="ngForm">
+          <h3>Dados de acesso à conta</h3>
+          <p class="subtitulo-etapa">Informe e-mail e senha para você utilizar sua conta.</p>
+
+          <div class="campo">
+            <label>E-mail *</label>
+            <input 
+              type="email" 
+              [(ngModel)]="dados.email" 
+              name="email" 
+              (blur)="validarEmail()" 
+              required 
+              placeholder="seuemail@dominio.com"
+            >
+
+            <!-- Feedback da Validação do Disify -->
+            @if (carregandoValidacaoEmail) {
+              <small style="color: #aaa; display: block; margin-top: 4px;">Validando e-mail...</small>
+            }
+
+            @if (resultadoValidacaoEmail) {
+              @if (resultadoValidacaoEmail.sugestao) {
+                <div style="margin-top: 6px; padding: 8px 12px; background-color: #332b00; border: 1px solid #FFC107; border-radius: 4px;">
+                  <small style="color: #FFC107; font-weight: bold;">
+                    ⚠️ Você quis dizer 
+                    <button 
+                      type="button" 
+                      (click)="aplicarSugestaoEmail()" 
+                      style="background: none; border: none; color: #4CAF50; text-decoration: underline; cursor: pointer; font-weight: bold; padding: 0;"
+                    >
+                      {{ resultadoValidacaoEmail.sugestao }}
+                    </button>?
+                  </small>
+                </div>
+              } @else if (resultadoValidacaoEmail.format && resultadoValidacaoEmail.dns && !resultadoValidacaoEmail.disposable) {
+                <small style="color: #4CAF50; font-weight: bold; display: block; margin-top: 4px;">
+                  ✓ E-mail válido
+                </small>
+              } @else {
+                <small style="color: #FF5252; font-weight: bold; display: block; margin-top: 4px;">
+                  ✕ E-mail inválido ou domínio não permitido
+                </small>
+              }
+            }
+          </div>
+
+          <div class="campo">
+            <label>Nova Senha *</label>
+            <input type="password" [(ngModel)]="dados.senha" name="senha" required placeholder="Digite sua nova senha">
+          </div>
+
+          <!-- Requisitos de Senha -->
+          <div class="requisitos-senha">
+            <p class="titulo-requisitos">A nova senha deve conter:</p>
+            <ul>
+              <li [class.valido]="tem8Caracteres">Mínimo 8 caracteres</li>
+              <li [class.valido]="temMinuscula">Pelo menos uma letra minúscula</li>
+              <li [class.valido]="temMaiuscula">Pelo menos uma letra maiúscula</li>
+              <li [class.valido]="temDigito">Pelo menos um dígito numérico</li>
+              <li [class.valido]="temEspecial">Pelo menos um caractere especial ($, #, &#64;, !, etc.)</li>
+            </ul>
+          </div>
+
+          <div class="campo">
+            <label>Confirmar sua Senha *</label>
+            <input type="password" [(ngModel)]="dados.confirmarSenha" name="confirmarSenha" required placeholder="Repita a senha">
+            @if (dados.confirmarSenha && !senhasConferem) {
+              <span class="erro-senha">As senhas não coincidem.</span>
+            }
+          </div>
+
+          <div class="botoes-linha">
+            <button type="button" class="btn-voltar" (click)="etapa = 1">Voltar</button>
+            <button type="submit" class="btn-acao" [disabled]="!senhaValida || !emailValido">Continuar</button>
+          </div>
+        </form>
+      }
+    </div>
+  }
+</section>
