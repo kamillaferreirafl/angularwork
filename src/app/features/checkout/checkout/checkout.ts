@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { CarrinhoFacade } from '../../../core/facades/carrinho.facade';
 import { FormsModule } from '@angular/forms';
-import { ViaCepService } from '../../../core/services/viacep.service'; // Confirme se este caminho está correto até a pasta core/services
+import { ViaCepService } from '../../../core/services/viacep.service';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './checkout.html',
   styleUrls: ['./checkout.css']
 })
-export class Checkout implements OnInit {
+export class Checkout {
   pedidoConcluido = false;
   codigoPedido = '';
   
@@ -25,13 +27,8 @@ export class Checkout implements OnInit {
     bairro: ''
   };
 
-  carrinhoFacade = {
-    total: () => 449.90 
-  };
-
-  constructor(private viaCepService: ViaCepService) {}
-
-  ngOnInit(): void {}
+  readonly carrinhoFacade = inject(CarrinhoFacade);
+  private readonly viaCepService = inject(ViaCepService);
 
   onCepChange(): void {
     const cepLimpo = this.dadosCheckout.cep ? this.dadosCheckout.cep.replace(/\D/g, '') : '';
@@ -62,6 +59,10 @@ export class Checkout implements OnInit {
   confirmarPedido(): void {
     const numeroAleatorio = Math.floor(10000000000000 + Math.random() * 90000000000000);
     this.codigoPedido = '8' + numeroAleatorio.toString().substring(0, 14);
+    if (this.carrinhoFacade.carrinhoVazio()) {
+      return;
+    }
+    this.carrinhoFacade.limparCarrinho();
     this.pedidoConcluido = true;
   }
 }
