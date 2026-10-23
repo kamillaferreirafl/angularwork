@@ -375,3 +375,21 @@
   color: #6b7280;
   font-size: 13px;
 }
+/* Identidade esportiva vibrante: azul elétrico + laranja */
+.hero-banner { width: 100%; left: auto; right: auto; margin: 0; min-height: 520px; display: flex; align-items: center; text-align: left; padding: clamp(64px, 9vw, 130px) clamp(24px, 8vw, 110px); background-image: linear-gradient(100deg, rgba(5, 22, 58, .96) 0%, rgba(9, 48, 118, .84) 52%, rgba(10, 32, 72, .22) 100%), url('/caracorrendo.jpeg'); }
+.hero-content { max-width: 1180px; width: 100%; }
+.hero-content h1 { max-width: 720px; font-size: clamp(2.6rem, 5.6vw, 5rem); line-height: 1.05; letter-spacing: -.045em; }
+.hero-content h1 span { color: #ff793d; }
+.hero-content p { max-width: 610px; color: #e4edff; font-size: clamp(1rem, 1.5vw, 1.2rem); }
+.btn-cta, .btn-comprar { background: #ff5a1f; color: #fff; border-radius: 12px; }
+.btn-cta:hover, .btn-comprar:hover { background: #e9470b; }
+.features-grid { margin-top: -38px; }
+.feature-card { text-align: left; border: 1px solid #e1eaff; border-radius: 20px; box-shadow: 0 16px 45px rgba(17, 64, 136, .1); }
+.feature-card .icon { background: #e7efff; border-radius: 14px; width: 62px; height: 62px; display: grid; place-items: center; }
+.titulo-secao { font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -.04em; }
+.card-produto { border-radius: 18px; border-color: #e1eaff; min-width: 240px; }
+.card-produto:hover { border-color: #1465ff; box-shadow: 0 15px 30px rgba(20, 101, 255, .12); }
+.badge-desconto { background: #1465ff; color: #fff; border: 0; padding: 6px 9px; border-radius: 8px; }
+.imagem-container { background: #f2f6ff; border-radius: 12px; }
+.rodape-megasport { width: 100%; left: auto; right: auto; margin-left: 0; margin-right: 0; background: #071632; }
+@media (max-width: 640px) { .hero-banner { min-height: 440px; background-position: 65% center; } .features-grid { margin-top: 20px; } .feature-card { min-width: 100%; } .carrossel-produtos { scroll-snap-type: x mandatory; } .card-produto { scroll-snap-align: start; } }
