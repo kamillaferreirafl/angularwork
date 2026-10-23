@@ -40,3 +40,15 @@ mat-card-content {
 mat-card-actions {
   padding: 16px;
 }
+/* Vitrine MegaSport */
+.container-produtos { padding: clamp(32px, 5vw, 72px) 20px; }
+.container-produtos h1 { font-size: clamp(2.1rem, 4vw, 3.3rem); letter-spacing: -.05em; color: #071632; }
+.grid-produtos { gap: 22px; }
+.card-produto { border: 1px solid #dce8ff; border-radius: 20px; background: #fff; box-shadow: 0 6px 20px rgba(15, 49, 110, .05); transition: transform .2s, box-shadow .2s; }
+.card-produto:hover { transform: translateY(-5px); box-shadow: 0 20px 38px rgba(20, 101, 255, .13); }
+.card-produto img { height: 240px; padding: 18px; background: #f1f6ff; }
+.card-produto .categoria { color: #1465ff; font-size: .75rem; font-weight: 800; letter-spacing: .09em; }
+.card-produto h2 { font-size: 1.12rem; line-height: 1.35; margin: 10px 0; }
+.card-produto .preco { color: #071632; font-size: 1.5rem; font-weight: 800; }
+.card-produto mat-card-actions button { background: #ff5a1f; color: white; border-radius: 10px; width: 100%; }
+@media (max-width: 640px) { .grid-produtos { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; } }
