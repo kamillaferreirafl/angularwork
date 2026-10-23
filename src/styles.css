@@ -1,7 +1,9 @@
 :root {
-  --primary-color: #ff4600; /* Laranja esportivo / Ação */
+  --primary-color: #ff5a1f; /* Laranja esportivo / Ação */
   --secondary-color: #111111; /* Preto carvão para contraste */
-  --bg-color: #f4f5f7;
+  --bg-color: #f3f7ff;
+  --accent-color: #1465ff;
+  --accent-soft: #e7efff;
   --white: #ffffff;
   --gray-light: #e5e7eb;
   --gray-text: #6b7280;
@@ -135,3 +137,9 @@ a {
   color: #6b7280;
   font-size: 13px;
 }
+html { scroll-behavior: smooth; }
+body { min-width: 320px; }
+button, input, a { font: inherit; }
+:focus-visible { outline: 3px solid var(--accent-color); outline-offset: 3px; }
+::selection { background: #1465ff; color: white; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
