@@ -1,17 +1,17 @@
 <section class="container-checkout">
-  <!-- Estado de Compra Confirmada (Pago) -->
+  <!-- Confirmação de pedido demonstrativo: nenhum pagamento é processado. -->
   @if (pedidoConcluido) {
     <div class="card-sucesso">
       <div class="icone-sucesso">✅</div>
       <h2>Pedido Realizado com Sucesso!</h2>
-      <p class="status-linha">Status do Pagamento: <strong class="badge-pago">PAGO</strong></p>
+      <p class="status-linha">Pedido demonstrativo confirmado. Nenhum pagamento foi realizado.</p>
 
       <div class="codigo-pedido-box">
         <span>Número do Pedido:</span>
         <strong>#{{ codigoPedido }}</strong>
       </div>
 
-      <p class="subtexto">Enviamos os detalhes do seu pedido e o código de rastreio para o seu e-mail.</p>
+      <p class="subtexto">Esta é uma simulação acadêmica. Nenhum e-mail ou código de rastreio foi enviado.</p>
       
       <button type="button" class="btn-voltar-home" routerLink="/produtos">
         Voltar para a Loja
@@ -156,8 +156,8 @@
       <button 
         type="submit" 
         class="btn-finalizar" 
-        [disabled]="formCheckout.invalid">
-        Confirmar e Pagar
+        [disabled]="formCheckout.invalid || carrinhoFacade.carrinhoVazio()">
+        Confirmar pedido de demonstração
       </button>
 
     </form>
