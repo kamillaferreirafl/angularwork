@@ -1,67 +1,89 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ViaCepService } from '../../../core/services/viacep.service'; // Confirme se este caminho está correto até a pasta core/services
+import { RouterLink } from '@angular/router';
+
+import { ViaCepService } from '../../../core/services/viacep.service';
+import { CarrinhoFacade } from '../../../core/facades/carrinho.facade';
+import { PedidosService } from '../../../core/services/pedidos.service';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './checkout.html',
-  styleUrls: ['./checkout.css']
+  styleUrl: './checkout.css'
 })
-export class Checkout implements OnInit {
+export class Checkout {
+  private viaCepService = inject(ViaCepService);
+  private pedidosService = inject(PedidosService);
+
+  carrinhoFacade = inject(CarrinhoFacade);
+
   pedidoConcluido = false;
   codigoPedido = '';
-  
+
   dadosCheckout = {
     nome: '',
     email: '',
     senha: '',
     cep: '',
-    endereco: '', 
+    endereco: '',
     numero: '',
     complemento: '',
     bairro: ''
   };
 
-  carrinhoFacade = {
-    total: () => 449.90 
-  };
-
-  constructor(private viaCepService: ViaCepService) {}
-
-  ngOnInit(): void {}
-
   onCepChange(): void {
-    const cepLimpo = this.dadosCheckout.cep ? this.dadosCheckout.cep.replace(/\D/g, '') : '';
-    
-    // Dispara a busca apenas quando atingir 8 números
-    if (cepLimpo.length === 8) {
-      console.log('A consultar CEP:', cepLimpo); // Ajuda a depurar no F12
-      
-      this.viaCepService.consultarCep(cepLimpo).subscribe({
-        next: (dados) => {
-          console.log('Resposta da API ViaCEP:', dados); // Veja no console do navegador se os dados chegam aqui
-          
-          if (dados && !dados.erro) {
-            // Atribui os valores retornados pela API aos campos do formulário
-            this.dadosCheckout.endereco = dados.logradouro || '';
-            this.dadosCheckout.bairro = dados.bairro || '';
-          } else {
-            alert('CEP não encontrado.');
-          }
-        },
-        error: (erro) => {
-          console.error('Erro ao buscar o CEP:', erro);
-        }
-      });
+    const cepLimpo = this.dadosCheckout.cep.replace(/\D/g, '');
+
+    if (cepLimpo.length !== 8) {
+      return;
     }
+
+    this.viaCepService.consultarCep(cepLimpo).subscribe({
+      next: dados => {
+        if (dados && !dados.erro) {
+          this.dadosCheckout.endereco = dados.logradouro || '';
+          this.dadosCheckout.bairro = dados.bairro || '';
+        } else {
+          alert('CEP não encontrado.');
+        }
+      },
+      error: erro => {
+        console.error('Erro ao consultar CEP:', erro);
+        alert('Não foi possível consultar o CEP.');
+      }
+    });
   }
 
   confirmarPedido(): void {
-    const numeroAleatorio = Math.floor(10000000000000 + Math.random() * 90000000000000);
-    this.codigoPedido = '8' + numeroAleatorio.toString().substring(0, 14);
+    const itens = this.carrinhoFacade.itens();
+
+    if (itens.length === 0) {
+      alert('Seu carrinho está vazio.');
+      return;
+    }
+
+    const pedido = this.pedidosService.criarPedido({
+      cliente: {
+        nome: this.dadosCheckout.nome.trim(),
+        email: this.dadosCheckout.email.trim().toLowerCase()
+      },
+      endereco: {
+        cep: this.dadosCheckout.cep,
+        rua: this.dadosCheckout.endereco,
+        numero: this.dadosCheckout.numero,
+        complemento: this.dadosCheckout.complemento,
+        bairro: this.dadosCheckout.bairro
+      },
+      itens: itens.map(item => ({ ...item })),
+      total: this.carrinhoFacade.total()
+    });
+
+    this.codigoPedido = pedido.id;
     this.pedidoConcluido = true;
+
+    this.carrinhoFacade.limparCarrinho();
   }
 }

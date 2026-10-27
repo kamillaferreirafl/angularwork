@@ -1,84 +1,205 @@
 <div class="home-container">
 
+  <!-- BANNER PRINCIPAL -->
   <section class="hero-banner">
     <div class="hero-content">
       <h1>Supere Seus Limites com a <span>MegaSport</span></h1>
-      <p>Equipamentos de alta performance, vestuário tecnológico e camisas oficiais dos maiores clubes para elevar o seu nível no esporte.</p>
-      <a routerLink="/produtos" class="btn-cta">Ver Catálogo Esportivo</a>
+      <p>
+        Equipamentos de alta performance, vestuário tecnológico e camisas
+        oficiais dos maiores clubes para elevar o seu nível no esporte.
+      </p>
+      <a routerLink="/produtos" class="btn-cta">
+        Ver Catálogo Esportivo
+      </a>
     </div>
   </section>
 
+  <!-- DIFERENCIAIS DA LOJA -->
   <section class="features-grid">
     <div class="feature-card">
       <span class="icon">🚀</span>
       <h3>Performance Máxima</h3>
-      <p>Produtos testados para garantir durabilidade e rendimento profissional.</p>
+      <p>
+        Produtos testados para garantir durabilidade e rendimento profissional.
+      </p>
     </div>
+
     <div class="feature-card">
       <span class="icon">📦</span>
       <h3>Envio Rápido</h3>
-      <p>Receba seus equipamentos e mantos com agilidade direto na sua casa.</p>
+      <p>
+        Receba seus equipamentos e mantos com agilidade direto na sua casa.
+      </p>
     </div>
+
     <div class="feature-card">
       <span class="icon">🛡️</span>
       <h3>Qualidade Garantida</h3>
-      <p>Trabalhamos apenas com marcas e produtos oficiais de alto padrão.</p>
+      <p>
+        Trabalhamos apenas com marcas e produtos oficiais de alto padrão.
+      </p>
+    </div>
+  </section>
+
+  <!-- CATEGORIAS EM DESTAQUE -->
+  <section class="secao-categorias">
+    <div class="categorias-container">
+
+      <div class="categorias-cabecalho">
+        <span class="categorias-etiqueta">
+          ESCOLHA SEU ESTILO
+        </span>
+
+        <h2>Explore por categoria</h2>
+
+        <p>
+          Encontre os equipamentos certos para cada desafio.
+        </p>
+      </div>
+
+      <div class="categorias-grid">
+
+        <!-- CALÇADOS -->
+        <a
+          routerLink="/produtos"
+          [queryParams]="{ categoria: 'CALÇADOS' }"
+          class="categoria-card categoria-calcados"
+        >
+          <span class="categoria-icone">👟</span>
+
+          <div class="categoria-info">
+            <h3>Calçados</h3>
+            <p>Performance a cada passo.</p>
+            <span class="categoria-link">
+              Explorar categoria →
+            </span>
+          </div>
+        </a>
+
+        <!-- VESTUÁRIO -->
+        <a
+          routerLink="/produtos"
+          [queryParams]="{ categoria: 'VESTUÁRIO' }"
+          class="categoria-card categoria-vestuario"
+        >
+          <span class="categoria-icone">👕</span>
+
+          <div class="categoria-info">
+            <h3>Vestuário</h3>
+            <p>Conforto dentro e fora do jogo.</p>
+            <span class="categoria-link">
+              Explorar categoria →
+            </span>
+          </div>
+        </a>
+
+        <!-- ACESSÓRIOS -->
+        <a
+          routerLink="/produtos"
+          [queryParams]="{ categoria: 'ACESSÓRIOS' }"
+          class="categoria-card categoria-acessorios"
+        >
+          <span class="categoria-icone">🎒</span>
+
+          <div class="categoria-info">
+            <h3>Acessórios</h3>
+            <p>Os detalhes fazem a diferença.</p>
+            <span class="categoria-link">
+              Explorar categoria →
+            </span>
+          </div>
+        </a>
+
+      </div>
     </div>
   </section>
 
   <!-- SEÇÃO MAIS VENDIDOS -->
   <section class="secao-mais-vendidos">
     <div class="container-vitrine">
+
       <h2 class="titulo-secao">Mais vendidos</h2>
 
       <div class="carrossel-produtos">
         @for (produto of produtosMaisVendidos; track produto.id) {
+
           <div class="card-produto">
+
             @if (produto.desconto) {
-              <span class="badge-desconto">-{{ produto.desconto }}%</span>
+              <span class="badge-desconto">
+                -{{ produto.desconto }}%
+              </span>
             }
 
             <div class="imagem-container">
-              <img [src]="produto.imagem" [alt]="produto.nome" />
+              <img
+                [src]="produto.imagem"
+                [alt]="produto.nome"
+              />
             </div>
 
             <div class="info-produto">
-              <h4 class="nome-produto">{{ produto.nome }}</h4>
-              
+              <h4 class="nome-produto">
+                {{ produto.nome }}
+              </h4>
+
               @if (produto.precoAntigo) {
-                <span class="preco-antigo">R$ {{ produto.precoAntigo.toFixed(2) }}</span>
+                <span class="preco-antigo">
+                  R$ {{ produto.precoAntigo.toFixed(2) }}
+                </span>
               }
 
               <div class="preco-pix">
-                <strong>R$ {{ produto.preco.toFixed(2) }}</strong> <span>no Pix</span>
+                <strong>
+                  R$ {{ produto.preco.toFixed(2) }}
+                </strong>
+                <span>no Pix</span>
               </div>
-              <span class="parcelamento">{{ produto.parcelamento }}</span>
 
-              <button class="btn-comprar" (click)="adicionarAoCarrinho(produto)">
+              <span class="parcelamento">
+                {{ produto.parcelamento }}
+              </span>
+
+              <button
+                class="btn-comprar"
+                (click)="adicionarAoCarrinho(produto)"
+              >
                 Adicionar ao Carrinho
               </button>
+
             </div>
           </div>
         }
       </div>
+
     </div>
   </section>
 
-  <!-- SEÇÃO DE VALIDAÇÃO DE E-MAIL (DISIFY) -->
-  <section class="secao-newsletter" style="padding: 40px 20px; background-color: #111; color: #fff; text-align: center;">
+  <!-- VALIDAÇÃO DE E-MAIL -->
+  <section
+    class="secao-newsletter"
+    style="padding: 40px 20px; background-color: #111; color: #fff; text-align: center;"
+  >
     <div style="max-width: 600px; margin: 0 auto;">
-      <h2>Receba Ofertas Exclusivas</h2>
-      <p>Digite seu e-mail para validar e se inscrever na nossa lista VIP:</p>
 
-      <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
-        <input 
-          type="email" 
-          [(ngModel)]="emailNewsletter" 
-          placeholder="seuemail@dominio.com" 
+      <h2>Receba Ofertas Exclusivas</h2>
+
+      <p>
+        Digite seu e-mail para validar e se inscrever na nossa lista VIP:
+      </p>
+
+      <div
+        style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;"
+      >
+        <input
+          type="email"
+          [(ngModel)]="emailNewsletter"
+          placeholder="seuemail@dominio.com"
           style="padding: 12px; width: 70%; border-radius: 4px; border: none;"
         />
-        <button 
-          (click)="validarEmailNewsletter()" 
+
+        <button
+          (click)="validarEmailNewsletter()"
           [disabled]="carregandoValidacao"
           style="padding: 12px 20px; background-color: #ff5500; color: #fff; border: none; border-radius: 4px; cursor: pointer;"
         >
@@ -86,40 +207,69 @@
         </button>
       </div>
 
-      <!-- Resposta do Disify -->
       @if (resultadoValidacao) {
-        <div style="margin-top: 20px; padding: 15px; border-radius: 6px; text-align: left; background-color: #222;">
+        <div
+          style="margin-top: 20px; padding: 15px; border-radius: 6px; text-align: left; background-color: #222;"
+        >
+
           @if (resultadoValidacao.sugestao) {
             <p style="color: #FFC107; font-weight: bold; margin: 0;">
-              ⚠️ Você quis dizer <u>{{ resultadoValidacao.sugestao }}</u>?
+              ⚠️ Você quis dizer
+              <u>{{ resultadoValidacao.sugestao }}</u>?
             </p>
-          } @else if (resultadoValidacao.format && resultadoValidacao.dns && !resultadoValidacao.disposable) {
-            <p style="color: #4CAF50; font-weight: bold; margin: 0;">✅ E-mail válido e pronto para cadastro!</p>
+          } @else if (
+            resultadoValidacao.format &&
+            resultadoValidacao.dns &&
+            !resultadoValidacao.disposable
+          ) {
+            <p style="color: #4CAF50; font-weight: bold; margin: 0;">
+              ✅ E-mail válido e pronto para cadastro!
+            </p>
           } @else {
-            <p style="color: #FF5252; font-weight: bold; margin: 0;">❌ E-mail inválido:</p>
+            <p style="color: #FF5252; font-weight: bold; margin: 0;">
+              ❌ E-mail inválido:
+            </p>
+
             <ul style="margin-top: 5px; padding-left: 20px;">
-              @if (!resultadoValidacao.format) { <li>Formato incorreto ou domínio inválido</li> }
-              @if (!resultadoValidacao.dns) { <li>Domínio não possui servidor de e-mail ativo</li> }
-              @if (resultadoValidacao.disposable) { <li>E-mails temporários/descartáveis não são permitidos</li> }
+              @if (!resultadoValidacao.format) {
+                <li>Formato incorreto ou domínio inválido</li>
+              }
+
+              @if (!resultadoValidacao.dns) {
+                <li>Domínio não possui servidor de e-mail ativo</li>
+              }
+
+              @if (resultadoValidacao.disposable) {
+                <li>E-mails temporários/descartáveis não são permitidos</li>
+              }
             </ul>
           }
+
         </div>
       }
+
     </div>
   </section>
 
-  <!-- Rodapé Integrado -->
+  <!-- RODAPÉ -->
   <footer class="rodape-megasport">
     <div class="rodape-conteudo">
-     
+
       <div class="rodape-coluna">
         <h3 class="logo-rodape">MegaSport</h3>
-        <p>A sua melhor loja de artigos esportivos com garantia e entrega rápida.</p>
-        <p class="endereco">📍 Av. Principal, 1000 - Centro, Rio de Janeiro - RJ</p>
+
+        <p>
+          A sua melhor loja de artigos esportivos com garantia e entrega rápida.
+        </p>
+
+        <p class="endereco">
+          📍 Av. Principal, 1000 - Centro, Rio de Janeiro - RJ
+        </p>
       </div>
 
       <div class="rodape-coluna">
         <h4>Navegação</h4>
+
         <ul>
           <li><a routerLink="/produtos">Produtos</a></li>
           <li><a routerLink="/carrinho">Carrinho</a></li>
@@ -129,18 +279,41 @@
 
       <div class="rodape-coluna">
         <h4>Suporte</h4>
-        <p><a href="#">FAQ & Central de Ajuda</a></p>
-       
-        <p class="whatsapp-titulo">Fale com a gente no WhatsApp!</p>
-        <a href="https://wa.me/5521999999999" target="_blank" class="link-whatsapp">
-          <i class="fa-brands fa-whatsapp"></i> +55 (21) 96423-8098
+
+        <p>
+          <a href="#">FAQ & Central de Ajuda</a>
+        </p>
+
+        <p class="whatsapp-titulo">
+          Fale com a gente no WhatsApp!
+        </p>
+
+        <a
+          href="https://wa.me/5521999999999"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="link-whatsapp"
+        >
+          <i class="fa-brands fa-whatsapp"></i>
+          +55 (21) 96423-8098
         </a>
 
         <div class="redes-sociais">
-          <a href="#" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
-          <a href="#" target="_blank" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="#" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" target="_blank" title="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+
+          <a href="#" target="_blank" title="Facebook">
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+
+          <a href="#" target="_blank" title="X (Twitter)">
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
+
+          <a href="#" target="_blank" title="YouTube">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
         </div>
       </div>
 

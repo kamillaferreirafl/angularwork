@@ -5,38 +5,58 @@ import { adminGuard } from './core/admin.guard';
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./features/home/home/home').then((m) => m.Home),
+    loadComponent: () =>
+      import('./features/home/home/home').then(m => m.Home),
   },
   {
     path: 'produtos',
-    loadComponent: () => import('./features/produtos/lista-produtos/lista-produtos').then((m) => m.ListaProdutos),
+    loadComponent: () =>
+      import('./features/produtos/lista-produtos/lista-produtos')
+        .then(m => m.ListaProdutos),
   },
   {
     path: 'carrinho',
-    canActivate: [authGuard],
-    loadComponent: () => import('./features/carrinho/carrinho/carrinho').then((m) => m.Carrinho),
+    loadComponent: () =>
+      import('./features/carrinho/carrinho/carrinho')
+        .then(m => m.Carrinho),
   },
   {
     path: 'checkout',
     canActivate: [authGuard],
-    loadComponent: () => import('./features/checkout/checkout/checkout').then((m) => m.Checkout),
+    loadComponent: () =>
+      import('./features/checkout/checkout/checkout')
+        .then(m => m.Checkout),
+  },
+  {
+    path: 'admin/login',
+    loadComponent: () =>
+      import('./features/login/login/login')
+        .then(m => m.Login),
   },
   {
     path: 'admin',
     canActivate: [adminGuard],
-    loadComponent: () => import('./features/admin/admin/admin').then((m) => m.Admin),
+    loadComponent: () =>
+      import('./features/admin/admin/admin')
+        .then(m => m.Admin),
   },
   {
     path: 'acesso-negado',
-    loadComponent: () => import('./features/acesso-negado/acesso-negado/acesso-negado').then((m) => m.AcessoNegado),
+    loadComponent: () =>
+      import('./features/acesso-negado/acesso-negado/acesso-negado')
+        .then(m => m.AcessoNegado),
   },
   {
     path: 'login',
-    loadComponent: () => import('./features/login/login/login').then((m) => m.Login),
+    loadComponent: () =>
+      import('./features/login/login/login')
+        .then(m => m.Login),
   },
   {
     path: 'cadastro',
-    loadComponent: () => import('./features/cadastro/cadastro').then((m) => m.CadastroComponent),
+    loadComponent: () =>
+      import('./features/cadastro/cadastro')
+        .then(m => m.CadastroComponent),
   },
   {
     path: '**',

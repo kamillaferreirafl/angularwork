@@ -1,24 +1,55 @@
-import { Component, ElementRef, ViewChild, signal, inject, computed } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  signal,
+  inject,
+  computed
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+
 import { ProdutosService } from '../../../core/services/produtos.service';
+import { AuthService } from '../../../core/services/auth.service';
+
+import {
+  PedidosService,
+  StatusPedido
+} from '../../../core/services/pedidos.service';
+
+import { Produto } from '../../../core/models/produto-loja';
+
+type SecaoAdmin =
+  | 'visao-geral'
+  | 'produtos'
+  | 'pedidos'
+  | 'usuarios';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './admin.html',
-  styleUrls: ['./admin.css']
+  styleUrl: './admin.css'
 })
 export class Admin {
-  private router = inject(Router);
-  produtosService = inject(ProdutosService);
 
-  @ViewChild('modalCadastro') modalCadastro!: ElementRef<HTMLDialogElement>;
-  @ViewChild('modalProdutos') modalProdutos!: ElementRef<HTMLDialogElement>;
-  @ViewChild('modalPedidos') modalPedidos!: ElementRef<HTMLDialogElement>;
-  @ViewChild('modalUsuarios') modalUsuarios!: ElementRef<HTMLDialogElement>;
+  private router = inject(Router);
+  private authService = inject(AuthService);
+
+  produtosService = inject(ProdutosService);
+  pedidosService = inject(PedidosService);
+
+  secaoAtiva = signal<SecaoAdmin>('visao-geral');
+
+  selecionarSecao(secao: SecaoAdmin): void {
+    this.secaoAtiva.set(secao);
+  }
+
+  @ViewChild('modalCadastro')
+  modalCadastro!: ElementRef<HTMLDialogElement>;
 
   novoProduto = {
     nome: '',
@@ -29,86 +60,135 @@ export class Admin {
 
   editandoIndex: number | null = null;
 
-  usuarioAtual = signal<any>({ email: 'admin@gmail.com', perfil: 'ADMIN' });
-  mensagemPerfil = signal<string>('Usuário autenticado como ADMIN.');
+  usuarioAtual = computed(() => {
+    const usuario = this.authService.usuarioAtual();
 
-  pedidos = signal([
-    { id: 101, produto: 'Tênis de Corrida', status: 'Pendente' },
-    { id: 102, produto: 'Camisa Dry-Fit', status: 'Pendente' },
-    { id: 103, produto: 'Mochila Esportiva', status: 'Pendente' }
+    if (!usuario) {
+      return null;
+    }
+
+    return {
+      email: usuario.email,
+      perfil: usuario.eAdmin ? 'ADMIN' : 'CLIENTE'
+    };
+  });
+
+  // PEDIDOS
+  pedidos = this.pedidosService.pedidos;
+  pedidosPendentes = this.pedidosService.pedidosPendentes;
+  totalPedidos = this.pedidosService.totalPedidos;
+
+  // USUÁRIOS CADASTRADOS
+  usuarios = computed(() => [
+    {
+      email: 'admin@email.com',
+      nome: 'Administrador',
+      perfil: 'ADMIN' as const,
+      dataCadastro: ''
+    },
+    ...this.authService.usuarios()
   ]);
 
-  usuarios = signal([
-    { email: 'admin@gmail.com', perfil: 'ADMIN' },
-    { email: 'usuario1@gmail.com', perfil: 'CLIENTE' }
-  ]);
+  usuariosCadastrados = computed(() => this.usuarios().length);
 
-  // Contador dinâmico baseado diretamente na quantidade real do serviço
-  totalProdutos = computed(() => this.produtosService.obterProdutos().length);
-  pedidosPendentes = signal<number>(3);
-  usuariosCadastrados = signal<number>(8);
+  // PRODUTOS
+  totalProdutos = computed(
+    () => this.produtosService.obterProdutos().length
+  );
 
-  abrirModalCadastro() {
+  abrirModalCadastro(): void {
     this.editandoIndex = null;
-    this.novoProduto = { nome: '', preco: 0, categoria: 'GERAL', imagem: '' };
+
+    this.novoProduto = {
+      nome: '',
+      preco: 0,
+      categoria: 'GERAL',
+      imagem: ''
+    };
+
     this.modalCadastro.nativeElement.showModal();
   }
 
-  abrirModalProdutos() {
-    this.modalProdutos.nativeElement.showModal();
-  }
-
-  abrirModalPedidos() {
-    this.modalPedidos.nativeElement.showModal();
-  }
-
-  abrirModalUsuarios() {
-    this.modalUsuarios.nativeElement.showModal();
-  }
-
-  salvarProduto() {
-    if (!this.novoProduto.nome || this.novoProduto.preco <= 0 || !this.novoProduto.imagem) {
+  salvarProduto(): void {
+    if (
+      !this.novoProduto.nome.trim() ||
+      this.novoProduto.preco <= 0 ||
+      !this.novoProduto.imagem.trim()
+    ) {
       alert('Preencha todos os campos corretamente.');
       return;
     }
 
     if (this.editandoIndex !== null) {
-      this.produtosService.atualizarProduto(this.editandoIndex, { ...this.novoProduto });
+      this.produtosService.atualizarProduto(
+        this.editandoIndex,
+        { ...this.novoProduto }
+      );
+
       this.editandoIndex = null;
     } else {
-      this.produtosService.adicionarProduto({ ...this.novoProduto });
+      this.produtosService.adicionarProduto({
+        ...this.novoProduto
+      });
     }
 
-    this.novoProduto = { nome: '', preco: 0, categoria: 'GERAL', imagem: '' };
+    this.novoProduto = {
+      nome: '',
+      preco: 0,
+      categoria: 'GERAL',
+      imagem: ''
+    };
+
     this.modalCadastro.nativeElement.close();
   }
 
-  prepararEdicao(index: number, produto: any) {
+  prepararEdicao(index: number, produto: Produto): void {
     this.editandoIndex = index;
-    this.novoProduto = { ...produto };
-    this.modalProdutos.nativeElement.close();
+
+    this.novoProduto = {
+      nome: produto.nome,
+      preco: produto.preco,
+      categoria: produto.categoria ?? 'GERAL',
+      imagem: produto.imagem ?? ''
+    };
+
     this.modalCadastro.nativeElement.showModal();
   }
 
-  removerProduto(index: number) {
+  removerProduto(index: number): void {
     this.produtosService.removerProduto(index);
   }
 
-  removerPedido(id: number) {
-    this.pedidos.update(lista => lista.filter(p => p.id !== id));
-    this.pedidosPendentes.update(val => Math.max(0, val - 1));
+  atualizarStatusPedido(
+    id: string,
+    status: StatusPedido
+  ): void {
+    this.pedidosService.atualizarStatus(id, status);
   }
 
-  removerUsuario(email: string) {
-    if (email === 'admin@gmail.com') {
+  removerPedido(id: string): void {
+    if (!confirm('Deseja realmente remover este pedido?')) {
+      return;
+    }
+
+    this.pedidosService.removerPedido(id);
+  }
+
+  removerUsuario(email: string): void {
+    if (email === 'admin@email.com') {
       alert('Não é possível remover o administrador principal.');
       return;
     }
-    this.usuarios.update(lista => lista.filter(u => u.email !== email));
-    this.usuariosCadastrados.update(val => Math.max(0, val - 1));
+
+    if (!confirm('Deseja realmente remover este usuário?')) {
+      return;
+    }
+
+    this.authService.removerUsuario(email);
   }
 
-  sair() {
+  sair(): void {
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }

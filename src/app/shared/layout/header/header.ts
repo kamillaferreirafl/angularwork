@@ -1,6 +1,16 @@
-import { Component, inject, signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+
+import {
+  Router,
+  RouterModule
+} from '@angular/router';
+
 import { CarrinhoFacade } from '../../../core/facades/carrinho.facade';
 import { AuthService } from '../../../core/services/auth.service';
 
@@ -12,27 +22,55 @@ import { AuthService } from '../../../core/services/auth.service';
   styleUrl: './header.css'
 })
 export class Header {
+
   public carrinhoFacade = inject(CarrinhoFacade);
   public authService = inject(AuthService);
+
   private router = inject(Router);
 
-  // Propriedade de estado do menu flutuante
   menuAberto = signal(false);
+  termoBusca = signal('');
 
-  // Alterna a abertura e fechamento do menu
-  toggleMenu() {
-    this.menuAberto.update(estado => !estado);
+  // ABRIR / FECHAR MENU
+  toggleMenu(): void {
+    this.menuAberto.update(
+      estado => !estado
+    );
   }
 
-  // Fecha o menu suspenso
-  fecharMenu() {
+  fecharMenu(): void {
     this.menuAberto.set(false);
   }
 
-  deslogar() {
+  // ATUALIZAR PESQUISA
+  atualizarBusca(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.termoBusca.set(input.value);
+  }
+
+  // PESQUISAR PRODUTOS
+  buscarProdutos(event: Event): void {
+
+    event.preventDefault();
+
+    const termo = this.termoBusca().trim();
+
+    this.router.navigate(['/produtos'], {
+      queryParams: termo
+        ? { busca: termo }
+        : {}
+    });
+  }
+
+  // ENCERRAR SESSÃO
+  deslogar(): void {
+
     this.fecharMenu();
+
+    // Encerra a autenticação
     this.authService.logout();
-    this.carrinhoFacade.limparCarrinho();
+
+    // Mantém os produtos do carrinho
     this.router.navigate(['/login']);
   }
 }

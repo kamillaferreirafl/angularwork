@@ -1,62 +1,170 @@
 <header class="header">
-  <div class="logo">
-    <a routerLink="/">MegaSport</a>
+
+  <div class="header-principal">
+
+    <!-- LOGO -->
+    <a routerLink="/" class="logo">
+      MEGA<span>SPORT</span>
+    </a>
+
+    <!-- PESQUISA -->
+    <form class="busca" (submit)="buscarProdutos($event)">
+
+      <input
+        type="search"
+        name="busca"
+        aria-label="Buscar produtos"
+        placeholder="Buscar produtos e esportes..."
+        [value]="termoBusca()"
+        (input)="atualizarBusca($event)"
+      />
+
+      <button type="submit" aria-label="Buscar">
+        🔍
+      </button>
+
+    </form>
+
+    <!-- AÇÕES -->
+    <div class="acoes">
+
+      <!-- CARRINHO -->
+      <a
+        routerLink="/carrinho"
+        class="acao-carrinho"
+        aria-label="Ver carrinho"
+      >
+        🛒
+
+        <span class="contador">
+          {{ carrinhoFacade.quantidade() }}
+        </span>
+      </a>
+
+      <!-- USUÁRIO AUTENTICADO -->
+      @if (authService.estaLogado) {
+
+        <div class="menu-perfil-container">
+
+          <button
+            type="button"
+            class="btn-avatar"
+            aria-label="Abrir menu do usuário"
+            [attr.aria-expanded]="menuAberto()"
+            (click)="toggleMenu()"
+          >
+            <span class="avatar-circle">
+              US
+            </span>
+
+            <span class="seta-menu">
+              ⌄
+            </span>
+          </button>
+
+          @if (menuAberto()) {
+
+            <div class="dropdown-menu">
+
+              <div class="header-usuario">
+
+                <span class="avatar-lg">
+                  US
+                </span>
+
+                <div class="info-texto">
+                  <span class="saudacao">
+                    Olá,
+                  </span>
+
+                  <strong>
+                    {{ authService.usuarioAtual()?.nome || 'Usuário' }}
+                  </strong>
+                </div>
+
+              </div>
+
+              <hr />
+
+              <div class="grupo-links">
+
+                <a
+                  routerLink="/produtos"
+                  (click)="fecharMenu()"
+                >
+                  Explorar produtos
+                </a>
+
+                <a
+                  routerLink="/carrinho"
+                  (click)="fecharMenu()"
+                >
+                  Meu carrinho
+                </a>
+
+              </div>
+
+              <hr />
+
+              <button
+                type="button"
+                class="item-sair"
+                (click)="deslogar()"
+              >
+                Sair da conta
+              </button>
+
+            </div>
+
+          }
+
+        </div>
+
+      } @else {
+
+        <!-- VISITANTE -->
+        <a routerLink="/login" class="btn-entrar">
+          Entrar
+        </a>
+
+      }
+
+    </div>
+
   </div>
 
-  <nav class="nav-links">
-    <a routerLink="/">Home</a>
-    <a routerLink="/produtos">Produtos</a>
-    <a routerLink="/carrinho">Carrinho ({{ carrinhoFacade.quantidade() }})</a>
-    <a routerLink="/checkout">Checkout</a>
-    <a routerLink="/admin" *ngIf="authService.ehAdmin">Admin</a>
+  <!-- NAVEGAÇÃO PRINCIPAL -->
+  <nav class="nav-links" aria-label="Navegação principal">
+
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Início
+    </a>
+
+    <a
+      routerLink="/produtos"
+      routerLinkActive="active"
+    >
+      Produtos
+    </a>
+
+    <a
+      routerLink="/carrinho"
+      routerLinkActive="active"
+    >
+      Carrinho
+    </a>
+
+    <a
+      routerLink="/checkout"
+      routerLinkActive="active"
+    >
+      Checkout
+    </a>
+
   </nav>
 
-  <div class="auth-area">
-    @if (authService.estaLogado) {
-      <div class="menu-perfil-container">
-        <!-- Botão com Avatar "US" -->
-        <button class="btn-avatar" (click)="toggleMenu()">
-          <span class="avatar-circle">US</span>
-          <span class="seta-menu" [class.ativa]="menuAberto()">▼</span>
-        </button>
-
-        <!-- Menu Flutuante Dropdown -->
-        @if (menuAberto()) {
-          <div class="dropdown-menu" (mouseleave)="fecharMenu()">
-            <div class="header-usuario">
-              <span class="avatar-lg">US</span>
-              <div class="info-texto">
-                <span class="saudacao">Olá,</span>
-                <strong>Usuário</strong>
-              </div>
-            </div>
-
-            <hr />
-
-            <div class="grupo-links">
-              <a routerLink="/perfil" (click)="fecharMenu()">👤 Meu Perfil</a>
-              <a routerLink="/pedidos" (click)="fecharMenu()">📦 Meus Pedidos</a>
-              <a routerLink="/favoritos" (click)="fecharMenu()">❤️ Favoritos</a>
-            </div>
-
-            <hr />
-
-            <div class="grupo-links">
-              <a routerLink="/configuracoes" (click)="fecharMenu()">⚙️ Configurações</a>
-            </div>
-
-            <hr />
-
-            <div class="grupo-links">
-              <button class="item-sair" (click)="deslogar()">
-                🚪 Sair
-              </button>
-            </div>
-          </div>
-        }
-      </div>
-    } @else {
-      <a routerLink="/login" class="btn-entrar">Entrar</a>
-    }
-  </div>
 </header>

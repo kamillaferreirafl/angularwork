@@ -1,32 +1,94 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, Router } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+  ActivatedRoute
+} from '@angular/router';
+
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
 export class Login {
+
   private authService = inject(AuthService);
   private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
 
-  ehUsuario = true;
   email = '';
   senha = '';
+  mensagemErro = '';
 
-  fazerLogin() {
-    // Caso o AuthService aceite apenas o método login() padrão
-    if (typeof (this.authService as any).login === 'function') {
-      (this.authService as any).login(this.email, this.senha);
-    } else if (typeof (this.authService as any).loginUsuario === 'function') {
-      (this.authService as any).loginUsuario(this.email, this.senha);
+  // IDENTIFICA O LOGIN ADMINISTRATIVO
+  get modoAdmin(): boolean {
+    return this.router.url.split('?')[0] === '/admin/login';
+  }
+
+  // REALIZAR LOGIN
+  fazerLogin(): void {
+
+    this.mensagemErro = '';
+
+    const email = this.email.trim();
+    const senha = this.senha;
+
+    if (!email || !senha) {
+      this.mensagemErro = 'Preencha seu e-mail e sua senha.';
+      return;
     }
 
-    this.router.navigate(['/']);
+    // LOGIN ADMINISTRATIVO
+    if (this.modoAdmin) {
+
+      const autorizado = this.authService.loginAdmin(
+        email,
+        senha
+      );
+
+      if (!autorizado) {
+        this.mensagemErro =
+          'E-mail ou senha de administrador incorretos.';
+        return;
+      }
+
+      this.router.navigate(['/admin']);
+      return;
+    }
+
+    // LOGIN DO CLIENTE
+    const autorizado = this.authService.loginUsuario(
+      email,
+      senha
+    );
+
+    if (!autorizado) {
+      this.mensagemErro =
+        'E-mail não cadastrado ou credenciais inválidas.';
+      return;
+    }
+
+    // VERIFICA SE EXISTE UMA PÁGINA DE RETORNO
+    const returnUrl =
+      this.activatedRoute.snapshot.queryParamMap.get('returnUrl');
+
+    // PERMITE APENAS ROTAS INTERNAS SEGURAS
+    const rotaValida =
+      returnUrl &&
+      returnUrl.startsWith('/') &&
+      !returnUrl.startsWith('//') &&
+      !returnUrl.includes('\\') &&
+      !returnUrl.startsWith('/admin');
+
+    if (rotaValida) {
+      this.router.navigateByUrl(returnUrl);
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 }
