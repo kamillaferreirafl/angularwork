@@ -1,38 +1,92 @@
-<div class="card-login">
-  <h2 class="logo-titulo">MegaSport</h2>
-  <p class="subtitulo">Acesse sua conta para continuar</p>
+<div class="pagina-login">
 
-  <!-- Botoes de tipo de usuario -->
-  <div class="seletor-perfil">
-    <button type="button" [class.ativo]="ehUsuario" (click)="ehUsuario = true">👤 Usuário</button>
-    <button type="button" [class.ativo]="!ehUsuario" (click)="ehUsuario = false">🛡️ ADM</button>
+  <div class="card-login">
+
+    <div class="login-cabecalho">
+      <span class="login-etiqueta">
+        {{ modoAdmin ? 'ÁREA RESTRITA' : 'BEM-VINDO À MEGASPORT' }}
+      </span>
+
+      <h1 class="logo-titulo">
+        {{ modoAdmin ? 'Painel administrativo' : 'MegaSport' }}
+      </h1>
+
+      <p class="subtitulo">
+        @if (modoAdmin) {
+          Entre com suas credenciais de administrador.
+        } @else {
+          Acesse sua conta para continuar.
+        }
+      </p>
+    </div>
+
+    <form (ngSubmit)="fazerLogin()" class="form-login">
+
+      <div class="campo">
+        <label for="email">E-mail *</label>
+
+        <input
+          id="email"
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          required
+          autocomplete="email"
+          placeholder="Seu e-mail"
+        />
+      </div>
+
+      <div class="campo">
+        <label for="senha">Senha *</label>
+
+        <input
+          id="senha"
+          type="password"
+          [(ngModel)]="senha"
+          name="senha"
+          required
+          autocomplete="current-password"
+          placeholder="Sua senha"
+        />
+      </div>
+
+      @if (mensagemErro) {
+        <p class="mensagem-erro" role="alert">
+          {{ mensagemErro }}
+        </p>
+      }
+
+      <button type="submit" class="btn-entrar">
+        {{ modoAdmin ? 'Acessar painel' : 'Entrar na minha conta' }}
+        <span aria-hidden="true">→</span>
+      </button>
+
+    </form>
+
+    @if (!modoAdmin) {
+      <div class="criar-conta-box">
+        <p>
+          Não tem uma conta?
+          <a routerLink="/cadastro">Cadastre-se</a>
+        </p>
+      </div>
+    }
+
+    <a routerLink="/" class="btn-home">
+      ← Voltar para a loja
+    </a>
+
   </div>
 
-  <form (ngSubmit)="fazerLogin()" class="form-login">
-    <div class="campo">
-      <label>E-mail *</label>
-      <input type="email" [(ngModel)]="email" name="email" required placeholder="Seu e-mail">
-    </div>
-
-    <div class="campo">
-      <label>Senha *</label>
-      <input type="password" [(ngModel)]="senha" name="senha" required placeholder="Sua senha">
-    </div>
-
-    <!-- Link Esqueci minha senha -->
-    <div class="link-esqueci-senha">
-      <a href="#" (click)="$event.preventDefault()">Esqueci minha senha</a>
-    </div>
-
-    <button type="submit" class="btn-entrar">
-      Entrar como {{ ehUsuario ? 'Usuário' : 'ADM' }}
-    </button>
-  </form>
-
-  <!-- Link para a tela de cadastro -->
-  <div class="criar-conta-box">
-    <p>Não tem uma conta? <a routerLink="/cadastro">Crie sua conta MegaSport</a></p>
+  <div class="acesso-administrativo">
+    @if (modoAdmin) {
+      <span>Quer acessar como cliente?</span>
+      <a routerLink="/login">Entrar na loja</a>
+    } @else {
+      <span>Você administra a MegaSport?</span>
+      <a routerLink="/admin/login">Acessar painel administrativo</a>
+    }
   </div>
 
-  <a routerLink="/" class="btn-home">Voltar para a Home</a>
+
 </div>

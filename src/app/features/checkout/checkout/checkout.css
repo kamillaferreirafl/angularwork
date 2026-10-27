@@ -19,7 +19,10 @@
   padding-bottom: 12px;
 }
 
-/* Quadro de Endereço e Grupos */
+/* ========================================
+   FORMULÁRIO
+======================================== */
+
 .grupo-checkout {
   border: 1px solid #e5e7eb;
   border-radius: 12px;
@@ -65,7 +68,18 @@
   border-color: #ff5722;
 }
 
-/* Disposição em Linhas Responsivas */
+.form-checkout input:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.1);
+}
+
+.form-checkout input.ng-invalid.ng-touched {
+  border-color: #dc2626;
+}
+
+/* ========================================
+   LINHAS RESPONSIVAS
+======================================== */
+
 .linha-dupla {
   display: flex;
   gap: 16px;
@@ -84,6 +98,7 @@
 
 .campo-rua {
   flex: 1;
+  min-width: 0;
 }
 
 .erro-validacao {
@@ -92,6 +107,10 @@
   margin-top: 4px;
   font-weight: normal;
 }
+
+/* ========================================
+   RESUMO DO PEDIDO
+======================================== */
 
 .resumo-checkout {
   background-color: #f8fafc;
@@ -113,6 +132,10 @@
   font-size: 1.3rem;
   font-weight: 800;
 }
+
+/* ========================================
+   BOTÃO FINALIZAR
+======================================== */
 
 .btn-finalizar {
   width: 100%;
@@ -139,7 +162,10 @@
   cursor: not-allowed;
 }
 
-/* Tela de Sucesso sem sobreposição do Emoji */
+/* ========================================
+   CONFIRMAÇÃO DO PEDIDO
+======================================== */
+
 .card-sucesso {
   text-align: center;
   padding: 20px 0;
@@ -170,18 +196,29 @@
   margin-bottom: 24px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
-.badge-pago {
-  background-color: #d1fae5;
-  color: #065f46;
-  padding: 4px 10px;
-  border-radius: 12px;
+/* ========================================
+   STATUS PENDENTE
+======================================== */
+
+.badge-pendente {
+  display: inline-block;
+  background: #fff2dc;
+  color: #a66508;
+  padding: 6px 12px;
+  border-radius: 20px;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.5px;
 }
+
+/* ========================================
+   CÓDIGO DO PEDIDO
+======================================== */
 
 .codigo-pedido-box {
   background-color: #fff7ed;
@@ -206,6 +243,7 @@
   font-size: 20px;
   color: #111827;
   letter-spacing: 1px;
+  overflow-wrap: anywhere;
 }
 
 .subtexto {
@@ -216,7 +254,14 @@
   line-height: 1.5;
 }
 
+/* ========================================
+   BOTÃO VOLTAR À LOJA
+======================================== */
+
 .btn-voltar-home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background-color: #ff5722;
   color: white;
   border: none;
@@ -225,11 +270,86 @@
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
+  text-decoration: none;
   transition: all 0.2s;
   box-shadow: 0 4px 12px rgba(255, 87, 34, 0.25);
 }
 
 .btn-voltar-home:hover {
   background-color: #e64a19;
+  color: white;
   transform: translateY(-2px);
+}
+
+/* ========================================
+   CARRINHO VAZIO
+======================================== */
+
+.checkout-vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  padding: 35px 15px;
+  text-align: center;
+}
+
+.checkout-vazio p {
+  color: #6b7280;
+  font-size: 15px;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 650px) {
+  .container-checkout {
+    margin: 25px 15px;
+    padding: 25px 20px;
+  }
+
+  .linha-dupla,
+  .linha-tripla {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .campo-cep,
+  .campo-rua {
+    flex: auto;
+    width: 100%;
+  }
+
+  .container-checkout h2 {
+    font-size: 1.4rem;
+  }
+
+  .resumo-checkout {
+    text-align: center;
+  }
+
+  .resumo-checkout h3 {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 380px) {
+  .container-checkout {
+    padding: 20px 15px;
+  }
+
+  .grupo-checkout {
+    padding: 15px;
+  }
+
+  .codigo-pedido-box {
+    padding: 18px 12px;
+  }
+
+  .codigo-pedido-box strong {
+    font-size: 16px;
+  }
 }

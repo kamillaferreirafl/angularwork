@@ -1,39 +1,211 @@
-<section class="container-carrinho">
-  <h2>Seu Carrinho</h2>
+<div class="pagina-carrinho">
 
-  @if (carrinhoFacade.carrinhoVazio()) {
-    <div class="carrinho-vazio-card">
-      <div class="icone-carrinho-vazio">🛒</div>
-      <h3>Seu carrinho está vazio</h3>
-      <p>Parece que você ainda não escolheu seus produtos. Explore nosso catálogo e encontre os melhores artigos esportivos!</p>
-      <a routerLink="/produtos" class="btn-catalogo">Ver produtos</a>
+  <div class="container-carrinho">
+
+    <!-- CABEÇALHO -->
+    <div class="cabecalho-carrinho">
+      <span class="etiqueta-carrinho">MEGASPORT STORE</span>
+
+      <h1>Meu Carrinho <span>🛒</span></h1>
+
+      <p>
+        Confira seus produtos antes de finalizar a compra.
+      </p>
     </div>
-  } @else {
-    <section class="lista-carrinho">
-      @for (item of carrinhoFacade.itens(); track $index) {
-        <article class="item-carrinho">
-          <div class="info-produto">
-            <h3>{{ item.nome }}</h3>
-            <p>R$ {{ item.preco.toFixed(2) }}</p>
+
+    @if (carrinhoFacade.carrinhoVazio()) {
+
+      <!-- CARRINHO VAZIO -->
+      <div class="carrinho-vazio-card">
+
+        <div class="icone-carrinho-vazio">
+          🛒
+        </div>
+
+        <h2>Seu carrinho está vazio</h2>
+
+        <p>
+          Parece que você ainda não escolheu seus produtos.
+          Explore nosso catálogo e encontre os melhores
+          artigos esportivos para elevar sua performance!
+        </p>
+
+        <a routerLink="/produtos" class="btn-catalogo">
+          Explorar produtos →
+        </a>
+
+      </div>
+
+    } @else {
+
+      <!-- LAYOUT DO CARRINHO -->
+      <div class="layout-carrinho">
+
+        <!-- PRODUTOS -->
+        <section class="area-produtos">
+
+          <div class="titulo-area">
+            <h2>Produtos selecionados</h2>
+
+            <span class="contador-itens">
+              {{ carrinhoFacade.quantidade() }} itens
+            </span>
           </div>
-          <button class="btn-remover-item" type="button" (click)="removerItem($index)">
-            Remover
-          </button>
-        </article>
-      }
-    </section>
 
-    <hr />
+          <div class="lista-carrinho">
 
-    <section class="resumo-carrinho">
-      <h3>Itens no carrinho: {{ carrinhoFacade.quantidade() }}</h3>
-      <h2>Total: R$ {{ carrinhoFacade.total().toFixed(2) }}</h2>
-    </section>
+            @for (item of carrinhoFacade.itens(); track $index) {
 
-    <section class="acoes-carrinho">
-      <button class="btn-limpar" type="button" (click)="limparCarrinho()">Limpar carrinho</button>
-      <button class="btn-continuar" type="button" routerLink="/produtos">Continuar comprando</button>
-      <button class="btn-checkout" type="button" routerLink="/checkout">Ir para checkout</button>
-    </section>
-  }
-</section>
+              <article class="item-carrinho">
+
+                <!-- IMAGEM -->
+                <div class="imagem-produto">
+
+                  @if (item.imagem) {
+                    <img
+                      [src]="item.imagem"
+                      [alt]="item.nome"
+                      loading="lazy"
+                    />
+                  } @else {
+                    <span class="imagem-placeholder">
+                      🏅
+                    </span>
+                  }
+
+                </div>
+
+                <!-- INFORMAÇÕES -->
+                <div class="info-produto">
+
+                  <span class="produto-etiqueta">
+                    MEGASPORT
+                  </span>
+
+                  <h3>{{ item.nome }}</h3>
+
+                  <p class="produto-disponibilidade">
+                    ● Adicionado ao carrinho
+                  </p>
+
+                  <strong class="preco-produto">
+                    R$ {{ item.preco.toFixed(2).replace('.', ',') }}
+                  </strong>
+
+                </div>
+
+                <!-- REMOVER -->
+                <button
+                  class="btn-remover-item"
+                  type="button"
+                  (click)="removerItem($index)"
+                  [attr.aria-label]="'Remover ' + item.nome"
+                >
+                  ✕
+                  <span>Remover</span>
+                </button>
+
+              </article>
+
+            }
+
+          </div>
+
+          <!-- AÇÕES DOS PRODUTOS -->
+          <div class="acoes-produtos">
+
+            <a
+              routerLink="/produtos"
+              class="btn-continuar"
+            >
+              ← Continuar comprando
+            </a>
+
+            <button
+              class="btn-limpar"
+              type="button"
+              (click)="limparCarrinho()"
+            >
+              Limpar carrinho
+            </button>
+
+          </div>
+
+        </section>
+
+        <!-- RESUMO -->
+        <aside class="resumo-carrinho">
+
+          <h2>Resumo do pedido</h2>
+
+          <div class="linha-resumo">
+
+            <span>Produtos</span>
+
+            <strong>
+              {{ carrinhoFacade.quantidade() }}
+            </strong>
+
+          </div>
+
+          <div class="linha-resumo">
+
+            <span>Subtotal</span>
+
+            <strong>
+              R$ {{ carrinhoFacade.total().toFixed(2).replace('.', ',') }}
+            </strong>
+
+          </div>
+
+          <div class="linha-resumo">
+
+            <span>Frete</span>
+
+            <span class="frete-info">
+              Calculado no checkout
+            </span>
+
+          </div>
+
+          <div class="divisor-resumo"></div>
+
+          <div class="linha-total">
+
+            <span>Total dos produtos</span>
+
+            <strong>
+              R$ {{ carrinhoFacade.total().toFixed(2).replace('.', ',') }}
+            </strong>
+
+          </div>
+
+          <p class="aviso-frete">
+            O valor do frete, quando aplicável, será informado
+            durante a finalização da compra.
+          </p>
+
+          <a
+            routerLink="/checkout"
+            class="btn-checkout"
+          >
+            Finalizar compra →
+          </a>
+
+          <div class="seguranca-compra">
+            <span>🔒</span>
+
+            <p>
+              Continue para a próxima etapa da sua compra.
+            </p>
+          </div>
+
+        </aside>
+
+      </div>
+
+    }
+
+  </div>
+
+</div>

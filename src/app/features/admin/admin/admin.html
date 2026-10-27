@@ -1,148 +1,839 @@
-<section class="painel-admin">
-  <h2>Área Administrativa</h2>
-  <p>Gestão centralizada e controle restrito da plataforma MegaSport.</p>
-  <hr />
+<div class="admin-layout">
 
-  <!-- Usuário Autenticado -->
-  <section class="bloco-admin">
-    <h3>Sessão Ativa</h3>
-    @if (usuarioAtual()) {
-      <div class="info-usuario">
-        <p><strong>E-mail:</strong> {{ usuarioAtual()?.email }}</p>
-        <p><strong>Perfil:</strong> <span class="badge admin">{{ usuarioAtual()?.perfil }}</span></p>
-      </div>
-    }
-  </section>
+  <!-- =====================================
+       MENU LATERAL
+  ====================================== -->
 
-  <!-- Cards de Estatísticas -->
-  <section class="cards-admin">
-    <article>
-      <h3>Produtos Cadastrados</h3>
-      <p>{{ totalProdutos() }}</p>
-    </article>
+  <aside class="admin-sidebar">
 
-    <article>
-      <h3>Pedidos Pendentes</h3>
-      <p>{{ pedidosPendentes() }}</p>
-    </article>
+    <div class="sidebar-topo">
+      <a routerLink="/" class="sidebar-logo">
+        MEGA<span>SPORT</span>
+      </a>
 
-    <article>
-      <h3>Usuários Ativos</h3>
-      <p>{{ usuariosCadastrados() }}</p>
-    </article>
-  </section>
-
-  <hr />
-
-  <!-- Ações Rápidas -->
-  <section class="bloco-admin">
-    <h3>Ações Administrativas</h3>
-    <div class="acoes-botoes">
-      <button type="button" class="btn-acao" (click)="abrirModalCadastro()">+ Cadastrar Produto</button>
-      <button type="button" class="btn-acao" (click)="abrirModalProdutos()">Gerenciar Produtos</button>
-      <button type="button" class="btn-acao" (click)="abrirModalPedidos()">Gerenciar Pedidos</button>
-      <button type="button" class="btn-acao" (click)="abrirModalUsuarios()">Gerenciar Usuários</button>
+      <span class="sidebar-subtitulo">
+        PAINEL ADMINISTRATIVO
+      </span>
     </div>
-  </section>
 
-  <hr />
+    <nav class="sidebar-navegacao">
 
-  <button type="button" class="btn-sair" (click)="sair()">
-    Sair da conta
-  </button>
-</section>
+      <span class="menu-titulo">
+        MENU PRINCIPAL
+      </span>
 
-<!-- Modal Cadastro/Edição -->
-<dialog #modalCadastro class="modal-produto">
+      <button
+        type="button"
+        class="menu-item"
+        [class.ativo]="secaoAtiva() === 'visao-geral'"
+        (click)="selecionarSecao('visao-geral')"
+      >
+        <span class="menu-icone">📊</span>
+        Visão geral
+      </button>
+
+      <button
+        type="button"
+        class="menu-item"
+        [class.ativo]="secaoAtiva() === 'produtos'"
+        (click)="selecionarSecao('produtos')"
+      >
+        <span class="menu-icone">📦</span>
+        Produtos
+      </button>
+
+      <button
+        type="button"
+        class="menu-item"
+        [class.ativo]="secaoAtiva() === 'pedidos'"
+        (click)="selecionarSecao('pedidos')"
+      >
+        <span class="menu-icone">🛒</span>
+        Pedidos
+      </button>
+
+      <button
+        type="button"
+        class="menu-item"
+        [class.ativo]="secaoAtiva() === 'usuarios'"
+        (click)="selecionarSecao('usuarios')"
+      >
+        <span class="menu-icone">👥</span>
+        Usuários
+      </button>
+
+    </nav>
+
+    <div class="sidebar-rodape">
+
+      <div class="sidebar-perfil">
+        <div class="perfil-avatar">
+          AD
+        </div>
+
+        <div class="perfil-dados">
+          <strong>Administrador</strong>
+          <span>
+            {{ usuarioAtual()?.email || 'admin@email.com' }}
+          </span>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="sidebar-sair"
+        (click)="sair()"
+      >
+        ↪ Sair do painel
+      </button>
+
+    </div>
+
+  </aside>
+
+  <!-- =====================================
+       CONTEÚDO PRINCIPAL
+  ====================================== -->
+
+  <main class="admin-main">
+
+    <header class="admin-topbar">
+
+      <div>
+        <span class="topbar-etiqueta">
+          MEGASPORT / ADMIN
+        </span>
+
+        <h1>
+          @switch (secaoAtiva()) {
+            @case ('visao-geral') {
+              Visão geral
+            }
+
+            @case ('produtos') {
+              Produtos
+            }
+
+            @case ('pedidos') {
+              Pedidos
+            }
+
+            @case ('usuarios') {
+              Usuários
+            }
+          }
+        </h1>
+
+        <p>
+          Gerencie sua loja em um só lugar.
+        </p>
+      </div>
+
+      <div class="topbar-perfil">
+        <span class="status-online"></span>
+        Painel administrativo
+
+        <div class="topbar-avatar">
+          AD
+        </div>
+      </div>
+
+    </header>
+
+    <!-- =====================================
+         VISÃO GERAL
+    ====================================== -->
+
+    @if (secaoAtiva() === 'visao-geral') {
+
+      <section class="boas-vindas">
+
+        <div>
+          <span class="boas-vindas-etiqueta">
+            CENTRAL DE CONTROLE
+          </span>
+
+          <h2>
+            Bem-vindo à MegaSport!
+          </h2>
+
+          <p>
+            Acompanhe seus produtos, pedidos e usuários
+            através do painel administrativo.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="btn-destaque"
+          (click)="selecionarSecao('produtos')"
+        >
+          Gerenciar produtos →
+        </button>
+
+      </section>
+
+      <section class="cards-admin">
+
+        <article class="card-estatistica">
+
+          <div class="card-estatistica-topo">
+            <span class="card-icone azul">📦</span>
+            <span class="card-indicador">CATÁLOGO</span>
+          </div>
+
+          <h3>Total de produtos</h3>
+
+          <strong>
+            {{ totalProdutos() }}
+          </strong>
+
+          <p>
+            Produtos disponíveis na loja.
+          </p>
+
+        </article>
+
+        <article class="card-estatistica">
+
+          <div class="card-estatistica-topo">
+            <span class="card-icone laranja">🛒</span>
+            <span class="card-indicador">PEDIDOS</span>
+          </div>
+
+          <h3>Pedidos pendentes</h3>
+
+          <strong>
+            {{ pedidosPendentes() }}
+          </strong>
+
+          <p>
+            Pedidos aguardando processamento.
+          </p>
+
+        </article>
+
+        <article class="card-estatistica">
+
+          <div class="card-estatistica-topo">
+            <span class="card-icone verde">👥</span>
+            <span class="card-indicador">USUÁRIOS</span>
+          </div>
+
+          <h3>Usuários cadastrados</h3>
+
+          <strong>
+            {{ usuariosCadastrados() }}
+          </strong>
+
+          <p>
+            Contas demonstrativas no painel.
+          </p>
+
+        </article>
+
+      </section>
+
+      <section class="bloco-admin">
+
+        <div class="bloco-cabecalho">
+          <div>
+            <h2>Ações rápidas</h2>
+            <p>
+              Acesse as principais funcionalidades.
+            </p>
+          </div>
+        </div>
+
+        <div class="acoes-botoes">
+
+          <button
+            type="button"
+            class="acao-card"
+            (click)="abrirModalCadastro()"
+          >
+            <span class="acao-icone">➕</span>
+            <strong>Novo produto</strong>
+            <small>Adicionar ao catálogo</small>
+          </button>
+
+          <button
+            type="button"
+            class="acao-card"
+            (click)="selecionarSecao('produtos')"
+          >
+            <span class="acao-icone">📦</span>
+            <strong>Produtos</strong>
+            <small>Gerenciar catálogo</small>
+          </button>
+
+          <button
+            type="button"
+            class="acao-card"
+            (click)="selecionarSecao('pedidos')"
+          >
+            <span class="acao-icone">🛒</span>
+            <strong>Pedidos</strong>
+            <small>Acompanhar compras</small>
+          </button>
+
+          <button
+            type="button"
+            class="acao-card"
+            (click)="selecionarSecao('usuarios')"
+          >
+            <span class="acao-icone">👥</span>
+            <strong>Usuários</strong>
+            <small>Visualizar contas</small>
+          </button>
+
+        </div>
+
+      </section>
+
+      <section class="bloco-admin sessao-admin">
+
+        <div class="bloco-cabecalho">
+          <div>
+            <h2>Sessão administrativa</h2>
+            <p>
+              Informações da conta conectada.
+            </p>
+          </div>
+        </div>
+
+        <div class="info-usuario">
+
+          <div>
+            <span>E-mail</span>
+            <strong>
+              {{ usuarioAtual()?.email || 'Não informado' }}
+            </strong>
+          </div>
+
+          <div>
+            <span>Perfil</span>
+            <strong>
+              {{ usuarioAtual()?.perfil || 'Não identificado' }}
+            </strong>
+          </div>
+
+        </div>
+
+      </section>
+
+    }
+
+    <!-- =====================================
+         PRODUTOS
+    ====================================== -->
+
+    @if (secaoAtiva() === 'produtos') {
+
+      <section class="secao-gerenciamento">
+
+        <div class="secao-cabecalho">
+
+          <div>
+            <span class="secao-etiqueta">
+              CATÁLOGO
+            </span>
+
+            <h2>Gerenciar produtos</h2>
+
+            <p>
+              Adicione, edite ou remova produtos da MegaSport.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            class="btn-destaque"
+            (click)="abrirModalCadastro()"
+          >
+            + Novo produto
+          </button>
+
+        </div>
+
+        <div class="tabela-container">
+
+          <div class="tabela-topo">
+            <h3>Produtos cadastrados</h3>
+
+            <span>
+              {{ totalProdutos() }} produtos
+            </span>
+          </div>
+
+          <div class="tabela-responsiva">
+
+            <table class="tabela-admin">
+
+              <thead>
+                <tr>
+                  <th>Produto</th>
+                  <th>Categoria</th>
+                  <th>Preço</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                @for (
+                  produto of produtosService.obterProdutos();
+                  track $index
+                ) {
+
+                  <tr>
+
+                    <td>
+                      <div class="produto-tabela">
+
+                        <div class="produto-miniatura">
+                          @if (produto.imagem) {
+                            <img
+                              [src]="produto.imagem"
+                              [alt]="produto.nome"
+                            >
+                          } @else {
+                            📦
+                          }
+                        </div>
+
+                        <strong>
+                          {{ produto.nome }}
+                        </strong>
+
+                      </div>
+                    </td>
+
+                    <td>
+                      {{ produto.categoria || 'GERAL' }}
+                    </td>
+
+                    <td>
+                      {{ produto.preco | currency:'BRL':'symbol':'1.2-2' }}
+                    </td>
+
+                    <td>
+                      <div class="tabela-acoes">
+
+                        <button
+                          type="button"
+                          class="btn-editar"
+                          (click)="prepararEdicao($index, produto)"
+                        >
+                          Editar
+                        </button>
+
+                        <button
+                          type="button"
+                          class="btn-remover"
+                          (click)="removerProduto($index)"
+                        >
+                          Remover
+                        </button>
+
+                      </div>
+                    </td>
+
+                  </tr>
+
+                } @empty {
+
+                  <tr>
+                    <td colspan="4" class="tabela-vazia">
+                      Nenhum produto cadastrado.
+                    </td>
+                  </tr>
+
+                }
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    }
+
+    <!-- =====================================
+         PEDIDOS
+    ====================================== -->
+
+    @if (secaoAtiva() === 'pedidos') {
+
+      <section class="secao-gerenciamento">
+
+        <div class="secao-cabecalho">
+
+          <div>
+            <span class="secao-etiqueta">
+              VENDAS
+            </span>
+
+            <h2>Gerenciar pedidos</h2>
+
+            <p>
+              Acompanhe as compras registradas na MegaSport.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="tabela-container">
+
+          <div class="tabela-topo">
+            <h3>Pedidos registrados</h3>
+
+            <span>
+              {{ totalPedidos() }} pedidos
+            </span>
+          </div>
+
+          <div class="tabela-responsiva">
+
+            <table class="tabela-admin">
+
+              <thead>
+                <tr>
+                  <th>Número</th>
+                  <th>Cliente</th>
+                  <th>Produtos</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                @for (pedido of pedidos(); track pedido.id) {
+
+                  <tr>
+
+                    <td>
+                      <strong>
+                        #{{ pedido.id }}
+                      </strong>
+                    </td>
+
+                    <td>
+                      <strong>
+                        {{ pedido.cliente.nome }}
+                      </strong>
+
+                      <br>
+
+                      <small>
+                        {{ pedido.cliente.email }}
+                      </small>
+                    </td>
+
+                    <td>
+                      @for (item of pedido.itens; track $index) {
+                        <div>
+                          {{ item.nome }}
+                        </div>
+                      }
+                    </td>
+
+                    <td>
+                      {{ pedido.total | currency:'BRL':'symbol':'1.2-2' }}
+                    </td>
+
+                    <td>
+                      <select
+                        class="select-status"
+                        [ngModel]="pedido.status"
+                        (ngModelChange)="atualizarStatusPedido(pedido.id, $event)"
+                        aria-label="Status do pedido"
+                      >
+                        <option value="Pendente">
+                          Pendente
+                        </option>
+
+                        <option value="Em preparação">
+                          Em preparação
+                        </option>
+
+                        <option value="Enviado">
+                          Enviado
+                        </option>
+
+                        <option value="Entregue">
+                          Entregue
+                        </option>
+
+                        <option value="Cancelado">
+                          Cancelado
+                        </option>
+                      </select>
+                    </td>
+
+                    <td>
+                      <button
+                        type="button"
+                        class="btn-remover"
+                        (click)="removerPedido(pedido.id)"
+                      >
+                        Remover
+                      </button>
+                    </td>
+
+                  </tr>
+
+                } @empty {
+
+                  <tr>
+                    <td colspan="6" class="tabela-vazia">
+                      Nenhum pedido registrado até o momento.
+                    </td>
+                  </tr>
+
+                }
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    }
+
+    <!-- =====================================
+         USUÁRIOS
+    ====================================== -->
+
+    @if (secaoAtiva() === 'usuarios') {
+
+      <section class="secao-gerenciamento">
+
+        <div class="secao-cabecalho">
+
+          <div>
+            <span class="secao-etiqueta">
+              CONTAS
+            </span>
+
+            <h2>Gerenciar usuários</h2>
+
+            <p>
+              Visualize as contas demonstrativas da MegaSport.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="tabela-container">
+
+          <div class="tabela-topo">
+            <h3>Usuários cadastrados</h3>
+
+            <span>
+              {{ usuariosCadastrados() }} usuários
+            </span>
+          </div>
+
+          <div class="tabela-responsiva">
+
+            <table class="tabela-admin">
+
+              <thead>
+                <tr>
+                  <th>E-mail</th>
+                  <th>Perfil</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                @for (usuario of usuarios(); track usuario.email) {
+
+                  <tr>
+
+                    <td>
+                      <strong>
+                        {{ usuario.email }}
+                      </strong>
+                    </td>
+
+                    <td>
+                      <span
+                        class="badge"
+                        [class.admin]="usuario.perfil === 'ADMIN'"
+                        [class.cliente]="usuario.perfil === 'CLIENTE'"
+                      >
+                        {{ usuario.perfil }}
+                      </span>
+                    </td>
+
+                    <td>
+                      <button
+                        type="button"
+                        class="btn-remover"
+                        [disabled]="usuario.perfil === 'ADMIN'"
+                        (click)="removerUsuario(usuario.email)"
+                      >
+                        Remover
+                      </button>
+                    </td>
+
+                  </tr>
+
+                } @empty {
+
+                  <tr>
+                    <td colspan="3" class="tabela-vazia">
+                      Nenhum usuário cadastrado.
+                    </td>
+                  </tr>
+
+                }
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    }
+
+  </main>
+
+</div>
+
+<!-- =====================================
+     MODAL DE CADASTRO E EDIÇÃO
+====================================== -->
+
+<dialog
+  #modalCadastro
+  class="modal-produto"
+>
+
   <div class="modal-conteudo">
-    <h3>{{ editandoIndex !== null ? 'Editar Produto' : 'Cadastrar Novo Produto' }}</h3>
-    
-    <form (ngSubmit)="salvarProduto()">
+
+    <div class="modal-cabecalho">
+
+      <div>
+        <span class="secao-etiqueta">
+          CATÁLOGO
+        </span>
+
+        <h3>
+          {{ editandoIndex !== null ? 'Editar produto' : 'Novo produto' }}
+        </h3>
+      </div>
+
+      <button
+        type="button"
+        class="modal-fechar"
+        (click)="modalCadastro.close()"
+        aria-label="Fechar modal"
+      >
+        ✕
+      </button>
+
+    </div>
+
+    <form
+      (ngSubmit)="salvarProduto()"
+      #formProduto="ngForm"
+    >
+
       <label>
-        Nome do Produto
-        <input type="text" [(ngModel)]="novoProduto.nome" name="nome" placeholder="Ex: Tênis de Corrida" required>
+        Nome do produto
+
+        <input
+          type="text"
+          name="nome"
+          [(ngModel)]="novoProduto.nome"
+          required
+          minlength="3"
+          placeholder="Ex: Tênis de corrida"
+        >
       </label>
 
       <label>
         Preço (R$)
-        <input type="number" [(ngModel)]="novoProduto.preco" name="preco" step="0.01" placeholder="0.00" required>
+
+        <input
+          type="number"
+          name="preco"
+          [(ngModel)]="novoProduto.preco"
+          required
+          min="0.01"
+          step="0.01"
+          placeholder="Ex: 299.90"
+        >
       </label>
 
       <label>
-        URL da Imagem
-        <input type="url" [(ngModel)]="novoProduto.imagem" name="imagem" placeholder="https://exemplo.com/imagem.jpg" required>
+        Categoria
+
+        <select
+          name="categoria"
+          [(ngModel)]="novoProduto.categoria"
+          required
+        >
+          <option value="GERAL">Geral</option>
+          <option value="CALÇADOS">Calçados</option>
+          <option value="ROUPAS">Roupas</option>
+          <option value="ACESSÓRIOS">Acessórios</option>
+          <option value="EQUIPAMENTOS">Equipamentos</option>
+        </select>
+      </label>
+
+      <label>
+        URL da imagem
+
+        <input
+          type="text"
+          name="imagem"
+          [(ngModel)]="novoProduto.imagem"
+          required
+          placeholder="Cole a URL da imagem"
+        >
       </label>
 
       <div class="modal-botoes">
-        <button type="button" class="btn-cancelar" (click)="modalCadastro.close()">Cancelar</button>
-        <button type="submit" class="btn-salvar">Salvar Produto</button>
+
+        <button
+          type="button"
+          class="btn-cancelar"
+          (click)="modalCadastro.close()"
+        >
+          Cancelar
+        </button>
+
+        <button
+          type="submit"
+          class="btn-salvar"
+          [disabled]="formProduto.invalid"
+        >
+          {{ editandoIndex !== null ? 'Salvar alterações' : 'Cadastrar produto' }}
+        </button>
+
       </div>
+
     </form>
-  </div>
-</dialog>
 
-<!-- Modal Gerenciar Produtos -->
-<dialog #modalProdutos class="modal-produto">
-  <div class="modal-conteudo">
-    <h3>Gerenciar Produtos</h3>
-    <ul class="lista-gerenciamento">
-      @for (prod of produtosService.obterProdutos(); track $index) {
-        <li>
-          <span><strong>{{ prod.nome }}</strong> — R$ {{ prod.preco }}</span>
-          <div>
-            <button type="button" class="btn-editar" (click)="prepararEdicao($index, prod)">Editar</button>
-            <button type="button" class="btn-remover" (click)="removerProduto($index)">Excluir</button>
-          </div>
-        </li>
-      } @empty {
-        <p class="vazio">Nenhum produto cadastrado.</p>
-      }
-    </ul>
-    <div class="modal-botoes">
-      <button type="button" class="btn-cancelar" (click)="modalProdutos.close()">Fechar</button>
-    </div>
   </div>
-</dialog>
 
-<!-- Modal Gerenciar Pedidos -->
-<dialog #modalPedidos class="modal-produto">
-  <div class="modal-conteudo">
-    <h3>Gerenciar Pedidos Pendentes</h3>
-    <ul class="lista-gerenciamento">
-      @for (pedido of pedidos(); track pedido.id) {
-        <li>
-          <span><strong>Pedido #{{ pedido.id }}</strong> — {{ pedido.produto }}</span>
-          <button type="button" class="btn-remover" (click)="removerPedido(pedido.id)">Remover</button>
-        </li>
-      } @empty {
-        <p class="vazio">Nenhum pedido pendente.</p>
-      }
-    </ul>
-    <div class="modal-botoes">
-      <button type="button" class="btn-cancelar" (click)="modalPedidos.close()">Fechar</button>
-    </div>
-  </div>
-</dialog>
-
-<!-- Modal Gerenciar Usuários -->
-<dialog #modalUsuarios class="modal-produto">
-  <div class="modal-conteudo">
-    <h3>Usuários Cadastrados</h3>
-    <ul class="lista-gerenciamento">
-      @for (user of usuarios(); track user.email) {
-        <li>
-          <span>
-            {{ user.email }} 
-            <span class="badge" [ngClass]="user.perfil === 'ADMIN' ? 'admin' : 'cliente'">{{ user.perfil }}</span>
-          </span>
-          <button type="button" class="btn-remover" (click)="removerUsuario(user.email)">Remover</button>
-        </li>
-      } @empty {
-        <p class="vazio">Nenhum usuário cadastrado.</p>
-      }
-    </ul>
-    <div class="modal-botoes">
-      <button type="button" class="btn-cancelar" (click)="modalUsuarios.close()">Fechar</button>
-    </div>
-  </div>
 </dialog>
