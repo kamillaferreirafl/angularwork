@@ -1,8 +1,13 @@
 <section class="pagina-produtos">
+
   <div class="cabecalho-catalogo">
     <div>
-      <span class="etiqueta">MEGASPORT COLLECTION</span>
+      <span class="etiqueta">
+        MEGASPORT COLLECTION
+      </span>
+
       <h1>Encontre seu próximo desafio.</h1>
+
       <p>
         Explore nossa seleção de produtos esportivos.
       </p>
@@ -10,102 +15,174 @@
   </div>
 
   <div class="layout-catalogo">
+
     <aside class="filtros">
+
       <h2>Filtrar por</h2>
 
       <div class="grupo-filtro">
+
         <h3>Categorias</h3>
 
         @for (categoria of categorias(); track categoria) {
+
           <button
             type="button"
             class="filtro-categoria"
             [class.selecionado]="categoriaSelecionada() === categoria"
             (click)="selecionarCategoria(categoria)"
           >
-            {{ categoria === 'TODAS' ? 'Todas as categorias' : categoria }}
+            {{
+              categoria === 'TODAS'
+                ? 'Todas as categorias'
+                : categoria
+            }}
           </button>
+
         }
+
       </div>
+
     </aside>
 
     <div class="conteudo-catalogo">
+
       <div class="barra-catalogo">
+
         <div>
+
           <h2>Produtos</h2>
+
           <p>
             {{ produtosFiltrados().length }}
             produtos encontrados
           </p>
 
           @if (buscaAtual()) {
+
             <p class="resultado-busca">
               Busca: "{{ buscaAtual() }}"
             </p>
+
           }
+
         </div>
 
         <label class="ordenacao">
+
           Ordenar por
+
           <select
             [value]="ordenacao()"
             (change)="alterarOrdenacao($event)"
           >
-            <option value="relevancia">Relevância</option>
-            <option value="menor-preco">Menor preço</option>
-            <option value="maior-preco">Maior preço</option>
+            <option value="relevancia">
+              Relevância
+            </option>
+
+            <option value="menor-preco">
+              Menor preço
+            </option>
+
+            <option value="maior-preco">
+              Maior preço
+            </option>
           </select>
+
         </label>
+
       </div>
 
       <div class="grid-produtos">
-        @for (produto of produtosFiltrados(); track $index) {
+
+        @for (produto of produtosFiltrados(); track produto.id) {
+
           <article class="card-produto">
-            <div class="imagem-produto">
+
+            <a
+              class="imagem-produto"
+              [routerLink]="['/produtos', produto.id]"
+              [attr.aria-label]="'Ver detalhes de ' + produto.nome"
+            >
+
               @if (produto.imagem) {
+
                 <img
                   [src]="produto.imagem"
                   [alt]="produto.nome"
                   loading="lazy"
                 />
+
+              } @else {
+
+                <span aria-hidden="true">
+                  🏅
+                </span>
+
               }
-            </div>
+
+            </a>
 
             <div class="detalhes-produto">
+
               <span class="categoria">
-                {{ produto.categoria }}
+                {{ produto.categoria || 'GERAL' }}
               </span>
 
-              <h3>{{ produto.nome }}</h3>
+              <h3>
+                <a
+                  [routerLink]="['/produtos', produto.id]"
+                  style="color: inherit; text-decoration: none;"
+                >
+                  {{ produto.nome }}
+                </a>
+              </h3>
 
               <p class="preco">
-                {{ produto.preco | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                {{
+                  produto.preco
+                    | currency:'BRL':'symbol':'1.2-2':'pt-BR'
+                }}
               </p>
 
-              <button
-                type="button"
+              <a
                 class="btn-adicionar"
-                (click)="adicionarAoCarrinho(produto)"
+                [routerLink]="['/produtos', produto.id]"
+                style="display: block; text-align: center; text-decoration: none;"
               >
-                Adicionar ao carrinho
-              </button>
+                Ver detalhes
+              </a>
+
             </div>
+
           </article>
+
         } @empty {
+
           <div class="estado-vazio">
+
             <h3>Nenhum produto encontrado</h3>
+
             <p>
-              Experimente outra pesquisa ou selecione uma categoria diferente.
+              Experimente outra pesquisa ou selecione
+              uma categoria diferente.
             </p>
+
             <button
               type="button"
               (click)="selecionarCategoria('TODAS')"
             >
               Mostrar todas as categorias
             </button>
+
           </div>
+
         }
+
       </div>
+
     </div>
+
   </div>
+
 </section>

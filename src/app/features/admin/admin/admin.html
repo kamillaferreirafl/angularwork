@@ -67,16 +67,19 @@
     <div class="sidebar-rodape">
 
       <div class="sidebar-perfil">
+
         <div class="perfil-avatar">
           AD
         </div>
 
         <div class="perfil-dados">
           <strong>Administrador</strong>
+
           <span>
             {{ usuarioAtual()?.email || 'admin@email.com' }}
           </span>
         </div>
+
       </div>
 
       <button
@@ -100,12 +103,14 @@
     <header class="admin-topbar">
 
       <div>
+
         <span class="topbar-etiqueta">
           MEGASPORT / ADMIN
         </span>
 
         <h1>
           @switch (secaoAtiva()) {
+
             @case ('visao-geral') {
               Visão geral
             }
@@ -121,21 +126,26 @@
             @case ('usuarios') {
               Usuários
             }
+
           }
         </h1>
 
         <p>
           Gerencie sua loja em um só lugar.
         </p>
+
       </div>
 
       <div class="topbar-perfil">
+
         <span class="status-online"></span>
+
         Painel administrativo
 
         <div class="topbar-avatar">
           AD
         </div>
+
       </div>
 
     </header>
@@ -149,6 +159,7 @@
       <section class="boas-vindas">
 
         <div>
+
           <span class="boas-vindas-etiqueta">
             CENTRAL DE CONTROLE
           </span>
@@ -161,6 +172,7 @@
             Acompanhe seus produtos, pedidos e usuários
             através do painel administrativo.
           </p>
+
         </div>
 
         <button
@@ -178,8 +190,15 @@
         <article class="card-estatistica">
 
           <div class="card-estatistica-topo">
-            <span class="card-icone azul">📦</span>
-            <span class="card-indicador">CATÁLOGO</span>
+
+            <span class="card-icone azul">
+              📦
+            </span>
+
+            <span class="card-indicador">
+              CATÁLOGO
+            </span>
+
           </div>
 
           <h3>Total de produtos</h3>
@@ -197,8 +216,15 @@
         <article class="card-estatistica">
 
           <div class="card-estatistica-topo">
-            <span class="card-icone laranja">🛒</span>
-            <span class="card-indicador">PEDIDOS</span>
+
+            <span class="card-icone laranja">
+              🛒
+            </span>
+
+            <span class="card-indicador">
+              PEDIDOS
+            </span>
+
           </div>
 
           <h3>Pedidos pendentes</h3>
@@ -216,8 +242,15 @@
         <article class="card-estatistica">
 
           <div class="card-estatistica-topo">
-            <span class="card-icone verde">👥</span>
-            <span class="card-indicador">USUÁRIOS</span>
+
+            <span class="card-icone verde">
+              👥
+            </span>
+
+            <span class="card-indicador">
+              USUÁRIOS
+            </span>
+
           </div>
 
           <h3>Usuários cadastrados</h3>
@@ -237,12 +270,17 @@
       <section class="bloco-admin">
 
         <div class="bloco-cabecalho">
+
           <div>
+
             <h2>Ações rápidas</h2>
+
             <p>
               Acesse as principais funcionalidades.
             </p>
+
           </div>
+
         </div>
 
         <div class="acoes-botoes">
@@ -294,28 +332,39 @@
       <section class="bloco-admin sessao-admin">
 
         <div class="bloco-cabecalho">
+
           <div>
+
             <h2>Sessão administrativa</h2>
+
             <p>
               Informações da conta conectada.
             </p>
+
           </div>
+
         </div>
 
         <div class="info-usuario">
 
           <div>
+
             <span>E-mail</span>
+
             <strong>
               {{ usuarioAtual()?.email || 'Não informado' }}
             </strong>
+
           </div>
 
           <div>
+
             <span>Perfil</span>
+
             <strong>
               {{ usuarioAtual()?.perfil || 'Não identificado' }}
             </strong>
+
           </div>
 
         </div>
@@ -335,6 +384,7 @@
         <div class="secao-cabecalho">
 
           <div>
+
             <span class="secao-etiqueta">
               CATÁLOGO
             </span>
@@ -344,6 +394,7 @@
             <p>
               Adicione, edite ou remova produtos da MegaSport.
             </p>
+
           </div>
 
           <button
@@ -359,11 +410,13 @@
         <div class="tabela-container">
 
           <div class="tabela-topo">
+
             <h3>Produtos cadastrados</h3>
 
             <span>
               {{ totalProdutos() }} produtos
             </span>
+
           </div>
 
           <div class="tabela-responsiva">
@@ -371,35 +424,44 @@
             <table class="tabela-admin">
 
               <thead>
+
                 <tr>
                   <th>Produto</th>
                   <th>Categoria</th>
                   <th>Preço</th>
                   <th>Ações</th>
                 </tr>
+
               </thead>
 
               <tbody>
 
                 @for (
                   produto of produtosService.obterProdutos();
-                  track $index
+                  track produto.id
                 ) {
 
                   <tr>
 
                     <td>
+
                       <div class="produto-tabela">
 
                         <div class="produto-miniatura">
+
                           @if (produto.imagem) {
+
                             <img
                               [src]="produto.imagem"
                               [alt]="produto.nome"
                             >
+
                           } @else {
+
                             📦
+
                           }
+
                         </div>
 
                         <strong>
@@ -407,6 +469,7 @@
                         </strong>
 
                       </div>
+
                     </td>
 
                     <td>
@@ -414,10 +477,14 @@
                     </td>
 
                     <td>
-                      {{ produto.preco | currency:'BRL':'symbol':'1.2-2' }}
+                      {{
+                        produto.preco
+                          | currency:'BRL':'symbol':'1.2-2'
+                      }}
                     </td>
 
                     <td>
+
                       <div class="tabela-acoes">
 
                         <button
@@ -437,6 +504,7 @@
                         </button>
 
                       </div>
+
                     </td>
 
                   </tr>
@@ -444,9 +512,14 @@
                 } @empty {
 
                   <tr>
-                    <td colspan="4" class="tabela-vazia">
+
+                    <td
+                      colspan="4"
+                      class="tabela-vazia"
+                    >
                       Nenhum produto cadastrado.
                     </td>
+
                   </tr>
 
                 }
@@ -474,6 +547,7 @@
         <div class="secao-cabecalho">
 
           <div>
+
             <span class="secao-etiqueta">
               VENDAS
             </span>
@@ -483,6 +557,7 @@
             <p>
               Acompanhe as compras registradas na MegaSport.
             </p>
+
           </div>
 
         </div>
@@ -490,11 +565,13 @@
         <div class="tabela-container">
 
           <div class="tabela-topo">
+
             <h3>Pedidos registrados</h3>
 
             <span>
               {{ totalPedidos() }} pedidos
             </span>
+
           </div>
 
           <div class="tabela-responsiva">
@@ -502,6 +579,7 @@
             <table class="tabela-admin">
 
               <thead>
+
                 <tr>
                   <th>Número</th>
                   <th>Cliente</th>
@@ -510,6 +588,7 @@
                   <th>Status</th>
                   <th>Ações</th>
                 </tr>
+
               </thead>
 
               <tbody>
@@ -519,12 +598,15 @@
                   <tr>
 
                     <td>
+
                       <strong>
                         #{{ pedido.id }}
                       </strong>
+
                     </td>
 
                     <td>
+
                       <strong>
                         {{ pedido.cliente.nome }}
                       </strong>
@@ -534,27 +616,59 @@
                       <small>
                         {{ pedido.cliente.email }}
                       </small>
+
                     </td>
 
                     <td>
-                      @for (item of pedido.itens; track $index) {
+
+                      @for (
+                        item of pedido.itens;
+                        track $index
+                      ) {
+
                         <div>
                           {{ item.nome }}
+
+                          @if (item.cor) {
+                            <small>
+                              | Cor: {{ item.cor }}
+                            </small>
+                          }
+
+                          @if (item.tamanho) {
+                            <small>
+                              | Tamanho: {{ item.tamanho }}
+                            </small>
+                          }
+
+                          @if (item.capacidade) {
+                            <small>
+                              | Capacidade: {{ item.capacidade }}
+                            </small>
+                          }
+
                         </div>
+
                       }
+
                     </td>
 
                     <td>
-                      {{ pedido.total | currency:'BRL':'symbol':'1.2-2' }}
+                      {{
+                        pedido.total
+                          | currency:'BRL':'symbol':'1.2-2'
+                      }}
                     </td>
 
                     <td>
+
                       <select
                         class="select-status"
                         [ngModel]="pedido.status"
                         (ngModelChange)="atualizarStatusPedido(pedido.id, $event)"
                         aria-label="Status do pedido"
                       >
+
                         <option value="Pendente">
                           Pendente
                         </option>
@@ -574,10 +688,13 @@
                         <option value="Cancelado">
                           Cancelado
                         </option>
+
                       </select>
+
                     </td>
 
                     <td>
+
                       <button
                         type="button"
                         class="btn-remover"
@@ -585,6 +702,7 @@
                       >
                         Remover
                       </button>
+
                     </td>
 
                   </tr>
@@ -592,9 +710,14 @@
                 } @empty {
 
                   <tr>
-                    <td colspan="6" class="tabela-vazia">
+
+                    <td
+                      colspan="6"
+                      class="tabela-vazia"
+                    >
                       Nenhum pedido registrado até o momento.
                     </td>
+
                   </tr>
 
                 }
@@ -622,6 +745,7 @@
         <div class="secao-cabecalho">
 
           <div>
+
             <span class="secao-etiqueta">
               CONTAS
             </span>
@@ -631,6 +755,7 @@
             <p>
               Visualize as contas demonstrativas da MegaSport.
             </p>
+
           </div>
 
         </div>
@@ -638,11 +763,13 @@
         <div class="tabela-container">
 
           <div class="tabela-topo">
+
             <h3>Usuários cadastrados</h3>
 
             <span>
               {{ usuariosCadastrados() }} usuários
             </span>
+
           </div>
 
           <div class="tabela-responsiva">
@@ -650,26 +777,34 @@
             <table class="tabela-admin">
 
               <thead>
+
                 <tr>
                   <th>E-mail</th>
                   <th>Perfil</th>
                   <th>Ações</th>
                 </tr>
+
               </thead>
 
               <tbody>
 
-                @for (usuario of usuarios(); track usuario.email) {
+                @for (
+                  usuario of usuarios();
+                  track usuario.email
+                ) {
 
                   <tr>
 
                     <td>
+
                       <strong>
                         {{ usuario.email }}
                       </strong>
+
                     </td>
 
                     <td>
+
                       <span
                         class="badge"
                         [class.admin]="usuario.perfil === 'ADMIN'"
@@ -677,9 +812,11 @@
                       >
                         {{ usuario.perfil }}
                       </span>
+
                     </td>
 
                     <td>
+
                       <button
                         type="button"
                         class="btn-remover"
@@ -688,6 +825,7 @@
                       >
                         Remover
                       </button>
+
                     </td>
 
                   </tr>
@@ -695,9 +833,14 @@
                 } @empty {
 
                   <tr>
-                    <td colspan="3" class="tabela-vazia">
+
+                    <td
+                      colspan="3"
+                      class="tabela-vazia"
+                    >
                       Nenhum usuário cadastrado.
                     </td>
+
                   </tr>
 
                 }
@@ -725,6 +868,7 @@
 <dialog
   #modalCadastro
   class="modal-produto"
+  (close)="editandoIndex = null"
 >
 
   <div class="modal-conteudo">
@@ -732,19 +876,29 @@
     <div class="modal-cabecalho">
 
       <div>
+
         <span class="secao-etiqueta">
           CATÁLOGO
         </span>
 
         <h3>
-          {{ editandoIndex !== null ? 'Editar produto' : 'Novo produto' }}
+          {{
+            editandoIndex !== null
+              ? 'Editar produto'
+              : 'Novo produto'
+          }}
         </h3>
+
+        <p>
+          Configure as informações e opções do produto.
+        </p>
+
       </div>
 
       <button
         type="button"
         class="modal-fechar"
-        (click)="modalCadastro.close()"
+        (click)="fecharModalCadastro()"
         aria-label="Fechar modal"
       >
         ✕
@@ -757,67 +911,238 @@
       #formProduto="ngForm"
     >
 
-      <label>
-        Nome do produto
+      <!-- =====================================
+           INFORMAÇÕES PRINCIPAIS
+      ====================================== -->
 
-        <input
-          type="text"
-          name="nome"
-          [(ngModel)]="novoProduto.nome"
-          required
-          minlength="3"
-          placeholder="Ex: Tênis de corrida"
-        >
-      </label>
+      <div class="grupo-formulario">
 
-      <label>
-        Preço (R$)
+        <h4>📦 Informações principais</h4>
 
-        <input
-          type="number"
-          name="preco"
-          [(ngModel)]="novoProduto.preco"
-          required
-          min="0.01"
-          step="0.01"
-          placeholder="Ex: 299.90"
-        >
-      </label>
+        <label>
 
-      <label>
-        Categoria
+          Nome do produto *
 
-        <select
-          name="categoria"
-          [(ngModel)]="novoProduto.categoria"
-          required
-        >
-          <option value="GERAL">Geral</option>
-          <option value="CALÇADOS">Calçados</option>
-          <option value="ROUPAS">Roupas</option>
-          <option value="ACESSÓRIOS">Acessórios</option>
-          <option value="EQUIPAMENTOS">Equipamentos</option>
-        </select>
-      </label>
+          <input
+            type="text"
+            name="nome"
+            [(ngModel)]="novoProduto.nome"
+            required
+            minlength="3"
+            placeholder="Ex: Camisa Oficial do Fluminense"
+          >
 
-      <label>
-        URL da imagem
+        </label>
 
-        <input
-          type="text"
-          name="imagem"
-          [(ngModel)]="novoProduto.imagem"
-          required
-          placeholder="Cole a URL da imagem"
-        >
-      </label>
+        <label>
+
+          Preço (R$) *
+
+          <input
+            type="number"
+            name="preco"
+            [(ngModel)]="novoProduto.preco"
+            required
+            min="0.01"
+            step="0.01"
+            placeholder="Ex: 299.90"
+          >
+
+        </label>
+
+        <label>
+
+          Categoria *
+
+          <select
+            name="categoria"
+            [(ngModel)]="novoProduto.categoria"
+            required
+          >
+
+            <option value="GERAL">
+              Geral
+            </option>
+
+            <option value="CALÇADOS">
+              Calçados
+            </option>
+
+            <option value="VESTUÁRIO">
+              Vestuário
+            </option>
+
+            <option value="ROUPAS">
+              Roupas
+            </option>
+
+            <option value="ACESSÓRIOS">
+              Acessórios
+            </option>
+
+            <option value="EQUIPAMENTOS">
+              Equipamentos
+            </option>
+
+          </select>
+
+        </label>
+
+        <label>
+
+          Descrição
+
+          <textarea
+            name="descricao"
+            [(ngModel)]="novoProduto.descricao"
+            rows="4"
+            placeholder="Descreva as características e os benefícios do produto."
+          ></textarea>
+
+        </label>
+
+      </div>
+
+      <!-- =====================================
+           IMAGENS
+      ====================================== -->
+
+      <div class="grupo-formulario">
+
+        <h4>📸 Imagens do produto</h4>
+
+        <label>
+
+          URL da imagem principal *
+
+          <input
+            type="text"
+            name="imagem"
+            [(ngModel)]="novoProduto.imagem"
+            required
+            placeholder="Ex: https://exemplo.com/produto.jpg"
+          >
+
+        </label>
+
+        @if (novoProduto.imagem.trim()) {
+
+          <div class="preview-imagem">
+
+            <span>
+              Prévia da imagem principal
+            </span>
+
+            <img
+              [src]="novoProduto.imagem"
+              alt="Prévia do produto"
+              (error)="$any($event.target).style.display = 'none'"
+              (load)="$any($event.target).style.display = 'block'"
+            >
+
+          </div>
+
+        }
+
+        <label>
+
+          Imagens adicionais
+
+          <textarea
+            name="imagensAdicionais"
+            [(ngModel)]="novoProduto.imagensAdicionais"
+            rows="4"
+            placeholder="Cole uma URL por linha"
+          ></textarea>
+
+        </label>
+
+        <small class="campo-ajuda">
+          As imagens adicionais aparecerão na galeria
+          da página individual do produto.
+          Insira uma URL por linha.
+        </small>
+
+      </div>
+
+      <!-- =====================================
+           VARIAÇÕES
+      ====================================== -->
+
+      <div class="grupo-formulario">
+
+        <h4>🎨 Opções do produto</h4>
+
+        <p class="grupo-descricao">
+          Preencha apenas as opções que se aplicam
+          ao produto.
+        </p>
+
+        <label>
+
+          Cores disponíveis
+
+          <textarea
+            name="cores"
+            [(ngModel)]="novoProduto.cores"
+            rows="3"
+            placeholder="Preto, Branco, Azul"
+          ></textarea>
+
+        </label>
+
+        <small class="campo-ajuda">
+          Exemplo: Preto, Branco, Azul.
+        </small>
+
+        <label>
+
+          Tamanhos ou numerações
+
+          <textarea
+            name="tamanhos"
+            [(ngModel)]="novoProduto.tamanhos"
+            rows="3"
+            placeholder="P, M, G, GG"
+          ></textarea>
+
+        </label>
+
+        <small class="campo-ajuda">
+          Para roupas: P, M, G, GG.
+          Para tênis: 37, 38, 39, 40, 41.
+        </small>
+
+        <label>
+
+          Capacidades
+
+          <textarea
+            name="capacidades"
+            [(ngModel)]="novoProduto.capacidades"
+            rows="3"
+            placeholder="500 ml, 750 ml, 1 L"
+          ></textarea>
+
+        </label>
+
+        <small class="campo-ajuda">
+          Ideal para garrafas e outros produtos
+          que possuem diferentes capacidades.
+        </small>
+
+      </div>
+
+      <!-- =====================================
+           BOTÕES
+      ====================================== -->
 
       <div class="modal-botoes">
 
         <button
           type="button"
           class="btn-cancelar"
-          (click)="modalCadastro.close()"
+          (click)="fecharModalCadastro()"
         >
           Cancelar
         </button>
@@ -827,7 +1152,11 @@
           class="btn-salvar"
           [disabled]="formProduto.invalid"
         >
-          {{ editandoIndex !== null ? 'Salvar alterações' : 'Cadastrar produto' }}
+          {{
+            editandoIndex !== null
+              ? 'Salvar alterações'
+              : 'Cadastrar produto'
+          }}
         </button>
 
       </div>

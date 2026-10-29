@@ -481,3 +481,48 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ========================================
+   VARIAÇÕES DOS PRODUTOS NO CARRINHO
+======================================== */
+
+.variacoes-carrinho {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 14px 0;
+  padding: 12px 15px;
+  border: 1px solid #e7edf5;
+  border-radius: 10px;
+  background: #f8faff;
+}
+
+.variacao-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  font-size: 0.82rem;
+}
+
+.variacao-label {
+  color: #7a889e;
+  font-weight: 600;
+}
+
+.variacao-valor {
+  color: #10213c;
+  font-weight: 800;
+}
+
+@media (max-width: 480px) {
+  .variacoes-carrinho {
+    width: 100%;
+    padding: 10px 12px;
+  }
+
+  .variacao-item {
+    font-size: 0.78rem;
+  }
+}

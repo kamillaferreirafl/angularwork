@@ -2,20 +2,33 @@
 
   <div class="container-carrinho">
 
-    <!-- CABEÇALHO -->
-    <div class="cabecalho-carrinho">
-      <span class="etiqueta-carrinho">MEGASPORT STORE</span>
+    <!-- =====================================
+         CABEÇALHO
+    ====================================== -->
 
-      <h1>Meu Carrinho <span>🛒</span></h1>
+    <div class="cabecalho-carrinho">
+
+      <span class="etiqueta-carrinho">
+        MEGASPORT STORE
+      </span>
+
+      <h1>
+        Meu Carrinho <span>🛒</span>
+      </h1>
 
       <p>
-        Confira seus produtos antes de finalizar a compra.
+        Confira seus produtos e as opções selecionadas
+        antes de finalizar sua compra.
       </p>
+
     </div>
+
+    <!-- =====================================
+         CARRINHO VAZIO
+    ====================================== -->
 
     @if (carrinhoFacade.carrinhoVazio()) {
 
-      <!-- CARRINHO VAZIO -->
       <div class="carrinho-vazio-card">
 
         <div class="icone-carrinho-vazio">
@@ -30,7 +43,10 @@
           artigos esportivos para elevar sua performance!
         </p>
 
-        <a routerLink="/produtos" class="btn-catalogo">
+        <a
+          routerLink="/produtos"
+          class="btn-catalogo"
+        >
           Explorar produtos →
         </a>
 
@@ -38,71 +54,170 @@
 
     } @else {
 
-      <!-- LAYOUT DO CARRINHO -->
+      <!-- =====================================
+           LAYOUT DO CARRINHO
+      ====================================== -->
+
       <div class="layout-carrinho">
 
-        <!-- PRODUTOS -->
+        <!-- =====================================
+             PRODUTOS
+        ====================================== -->
+
         <section class="area-produtos">
 
           <div class="titulo-area">
-            <h2>Produtos selecionados</h2>
+
+            <h2>
+              Produtos selecionados
+            </h2>
 
             <span class="contador-itens">
               {{ carrinhoFacade.quantidade() }} itens
             </span>
+
           </div>
 
           <div class="lista-carrinho">
 
-            @for (item of carrinhoFacade.itens(); track $index) {
+            @for (
+              item of carrinhoFacade.itens();
+              track $index
+            ) {
 
               <article class="item-carrinho">
 
-                <!-- IMAGEM -->
+                <!-- =====================================
+                     IMAGEM
+                ====================================== -->
+
                 <div class="imagem-produto">
 
                   @if (item.imagem) {
+
                     <img
                       [src]="item.imagem"
                       [alt]="item.nome"
                       loading="lazy"
                     />
+
                   } @else {
+
                     <span class="imagem-placeholder">
                       🏅
                     </span>
+
                   }
 
                 </div>
 
-                <!-- INFORMAÇÕES -->
+                <!-- =====================================
+                     INFORMAÇÕES
+                ====================================== -->
+
                 <div class="info-produto">
 
                   <span class="produto-etiqueta">
                     MEGASPORT
                   </span>
 
-                  <h3>{{ item.nome }}</h3>
+                  <h3>
+                    {{ item.nome }}
+                  </h3>
+
+                  <!-- VARIAÇÕES SELECIONADAS -->
+
+                  @if (
+                    item.cor ||
+                    item.tamanho ||
+                    item.capacidade
+                  ) {
+
+                    <div class="variacoes-carrinho">
+
+                      @if (item.cor) {
+
+                        <div class="variacao-item">
+
+                          <span class="variacao-label">
+                            Cor:
+                          </span>
+
+                          <strong class="variacao-valor">
+                            {{ item.cor }}
+                          </strong>
+
+                        </div>
+
+                      }
+
+                      @if (item.tamanho) {
+
+                        <div class="variacao-item">
+
+                          <span class="variacao-label">
+                            Tamanho:
+                          </span>
+
+                          <strong class="variacao-valor">
+                            {{ item.tamanho }}
+                          </strong>
+
+                        </div>
+
+                      }
+
+                      @if (item.capacidade) {
+
+                        <div class="variacao-item">
+
+                          <span class="variacao-label">
+                            Capacidade:
+                          </span>
+
+                          <strong class="variacao-valor">
+                            {{ item.capacidade }}
+                          </strong>
+
+                        </div>
+
+                      }
+
+                    </div>
+
+                  }
+
+                  <!-- DISPONIBILIDADE -->
 
                   <p class="produto-disponibilidade">
                     ● Adicionado ao carrinho
                   </p>
 
+                  <!-- PREÇO -->
+
                   <strong class="preco-produto">
-                    R$ {{ item.preco.toFixed(2).replace('.', ',') }}
+                    {{ formatarPreco(item.preco) }}
                   </strong>
 
                 </div>
 
-                <!-- REMOVER -->
+                <!-- =====================================
+                     REMOVER ITEM
+                ====================================== -->
+
                 <button
                   class="btn-remover-item"
                   type="button"
                   (click)="removerItem($index)"
                   [attr.aria-label]="'Remover ' + item.nome"
                 >
+
                   ✕
-                  <span>Remover</span>
+
+                  <span>
+                    Remover
+                  </span>
+
                 </button>
 
               </article>
@@ -111,7 +226,10 @@
 
           </div>
 
-          <!-- AÇÕES DOS PRODUTOS -->
+          <!-- =====================================
+               AÇÕES DOS PRODUTOS
+          ====================================== -->
+
           <div class="acoes-produtos">
 
             <a
@@ -133,14 +251,23 @@
 
         </section>
 
-        <!-- RESUMO -->
+        <!-- =====================================
+             RESUMO DO PEDIDO
+        ====================================== -->
+
         <aside class="resumo-carrinho">
 
-          <h2>Resumo do pedido</h2>
+          <h2>
+            Resumo do pedido
+          </h2>
+
+          <!-- QUANTIDADE -->
 
           <div class="linha-resumo">
 
-            <span>Produtos</span>
+            <span>
+              Produtos
+            </span>
 
             <strong>
               {{ carrinhoFacade.quantidade() }}
@@ -148,19 +275,27 @@
 
           </div>
 
+          <!-- SUBTOTAL -->
+
           <div class="linha-resumo">
 
-            <span>Subtotal</span>
+            <span>
+              Subtotal
+            </span>
 
             <strong>
-              R$ {{ carrinhoFacade.total().toFixed(2).replace('.', ',') }}
+              {{ formatarPreco(carrinhoFacade.total()) }}
             </strong>
 
           </div>
 
+          <!-- FRETE -->
+
           <div class="linha-resumo">
 
-            <span>Frete</span>
+            <span>
+              Frete
+            </span>
 
             <span class="frete-info">
               Calculado no checkout
@@ -170,20 +305,28 @@
 
           <div class="divisor-resumo"></div>
 
+          <!-- TOTAL -->
+
           <div class="linha-total">
 
-            <span>Total dos produtos</span>
+            <span>
+              Total dos produtos
+            </span>
 
             <strong>
-              R$ {{ carrinhoFacade.total().toFixed(2).replace('.', ',') }}
+              {{ formatarPreco(carrinhoFacade.total()) }}
             </strong>
 
           </div>
+
+          <!-- AVISO -->
 
           <p class="aviso-frete">
             O valor do frete, quando aplicável, será informado
             durante a finalização da compra.
           </p>
+
+          <!-- CHECKOUT -->
 
           <a
             routerLink="/checkout"
@@ -192,12 +335,18 @@
             Finalizar compra →
           </a>
 
+          <!-- SEGURANÇA -->
+
           <div class="seguranca-compra">
-            <span>🔒</span>
+
+            <span>
+              🔒
+            </span>
 
             <p>
               Continue para a próxima etapa da sua compra.
             </p>
+
           </div>
 
         </aside>

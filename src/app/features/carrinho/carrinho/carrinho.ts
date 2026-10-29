@@ -14,11 +14,31 @@ export class Carrinho {
 
   carrinhoFacade = inject(CarrinhoFacade);
 
+  // ========================================
+  // REMOVER PRODUTO
+  // ========================================
+
   removerItem(indice: number): void {
     this.carrinhoFacade.removerItem(indice);
   }
 
+  // ========================================
+  // LIMPAR CARRINHO
+  // ========================================
+
   limparCarrinho(): void {
     this.carrinhoFacade.limparCarrinho();
   }
+
+  // ========================================
+  // FORMATAR PREÇOS
+  // ========================================
+
+  formatarPreco(valor: number): string {
+    return valor.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    });
+  }
+
 }

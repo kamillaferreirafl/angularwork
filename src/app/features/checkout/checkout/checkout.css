@@ -19,9 +19,7 @@
   padding-bottom: 12px;
 }
 
-/* ========================================
-   FORMULÁRIO
-======================================== */
+/* FORMULÁRIO */
 
 .grupo-checkout {
   border: 1px solid #e5e7eb;
@@ -76,9 +74,7 @@
   border-color: #dc2626;
 }
 
-/* ========================================
-   LINHAS RESPONSIVAS
-======================================== */
+/* LINHAS RESPONSIVAS */
 
 .linha-dupla {
   display: flex;
@@ -101,16 +97,34 @@
   min-width: 0;
 }
 
+/* VALIDAÇÃO */
+
 .erro-validacao {
   color: #dc2626;
   font-size: 11px;
   margin-top: 4px;
-  font-weight: normal;
+  font-weight: 500;
 }
 
-/* ========================================
-   RESUMO DO PEDIDO
-======================================== */
+.erro-geral {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+}
+
+.mensagem-cep {
+  display: block;
+  color: #2563eb;
+  font-size: 11px;
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+/* RESUMO DO PEDIDO */
 
 .resumo-checkout {
   background-color: #f8fafc;
@@ -133,9 +147,7 @@
   font-weight: 800;
 }
 
-/* ========================================
-   BOTÃO FINALIZAR
-======================================== */
+/* BOTÃO FINALIZAR */
 
 .btn-finalizar {
   width: 100%;
@@ -162,9 +174,7 @@
   cursor: not-allowed;
 }
 
-/* ========================================
-   CONFIRMAÇÃO DO PEDIDO
-======================================== */
+/* CONFIRMAÇÃO */
 
 .card-sucesso {
   text-align: center;
@@ -201,10 +211,6 @@
   flex-wrap: wrap;
 }
 
-/* ========================================
-   STATUS PENDENTE
-======================================== */
-
 .badge-pendente {
   display: inline-block;
   background: #fff2dc;
@@ -216,9 +222,7 @@
   letter-spacing: 0.5px;
 }
 
-/* ========================================
-   CÓDIGO DO PEDIDO
-======================================== */
+/* CÓDIGO DO PEDIDO */
 
 .codigo-pedido-box {
   background-color: #fff7ed;
@@ -254,9 +258,7 @@
   line-height: 1.5;
 }
 
-/* ========================================
-   BOTÃO VOLTAR À LOJA
-======================================== */
+/* BOTÃO VOLTAR */
 
 .btn-voltar-home {
   display: inline-flex;
@@ -281,9 +283,7 @@
   transform: translateY(-2px);
 }
 
-/* ========================================
-   CARRINHO VAZIO
-======================================== */
+/* CARRINHO VAZIO */
 
 .checkout-vazio {
   display: flex;
@@ -299,9 +299,7 @@
   font-size: 15px;
 }
 
-/* ========================================
-   RESPONSIVIDADE
-======================================== */
+/* RESPONSIVIDADE */
 
 @media (max-width: 650px) {
   .container-checkout {

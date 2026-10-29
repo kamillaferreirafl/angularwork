@@ -1,0 +1,214 @@
+<section class="pagina-detalhe">
+
+  <nav class="navegacao" aria-label="Navegação">
+    <a routerLink="/">Início</a>
+    <span>/</span>
+    <a routerLink="/produtos">Produtos</a>
+    <span>/</span>
+    <span>{{ produto()?.nome || 'Produto' }}</span>
+  </nav>
+
+  @if (produto(); as item) {
+
+    <div class="detalhe-layout">
+
+      <div class="galeria">
+
+        <div class="imagem-principal">
+          @if (imagemPrincipal()) {
+            <img
+              [src]="imagemPrincipal()"
+              [alt]="item.nome"
+            >
+          } @else {
+            <span class="imagem-vazia">🏅</span>
+          }
+        </div>
+
+        @if (imagens().length > 1) {
+          <div class="miniaturas">
+            @for (imagem of imagens(); track imagem) {
+              <button
+                type="button"
+                class="miniatura"
+                [class.ativa]="imagemPrincipal() === imagem"
+                (click)="selecionarImagem(imagem)"
+                [attr.aria-label]="'Visualizar imagem de ' + item.nome"
+              >
+                <img [src]="imagem" [alt]="item.nome">
+              </button>
+            }
+          </div>
+        }
+
+      </div>
+
+      <div class="informacoes">
+
+        <span class="categoria">
+          {{ item.categoria || 'MEGASPORT' }}
+        </span>
+
+        <h1>{{ item.nome }}</h1>
+
+        <div class="preco">
+          {{ item.preco | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+        </div>
+
+        <p class="descricao">
+          {{ item.descricao || 'Produto selecionado da coleção MegaSport.' }}
+        </p>
+
+        @if (item.cores?.length) {
+          <div class="grupo-opcoes">
+
+            <h2>Cor</h2>
+
+            <div class="opcoes">
+              @for (cor of item.cores; track cor) {
+                <button
+                  type="button"
+                  class="opcao"
+                  [class.selecionada]="corSelecionada() === cor"
+                  [attr.aria-pressed]="corSelecionada() === cor"
+                  (click)="selecionarCor(cor)"
+                >
+                  {{ cor }}
+                </button>
+              }
+            </div>
+
+          </div>
+        }
+
+        @if (item.tamanhos?.length) {
+          <div class="grupo-opcoes">
+
+            <h2>Tamanho</h2>
+
+            <div class="opcoes">
+              @for (tamanho of item.tamanhos; track tamanho) {
+                <button
+                  type="button"
+                  class="opcao"
+                  [class.selecionada]="tamanhoSelecionado() === tamanho"
+                  [attr.aria-pressed]="tamanhoSelecionado() === tamanho"
+                  (click)="selecionarTamanho(tamanho)"
+                >
+                  {{ tamanho }}
+                </button>
+              }
+            </div>
+
+          </div>
+        }
+
+        @if (item.capacidades?.length) {
+          <div class="grupo-opcoes">
+
+            <h2>Capacidade</h2>
+
+            <div class="opcoes">
+              @for (capacidade of item.capacidades; track capacidade) {
+                <button
+                  type="button"
+                  class="opcao"
+                  [class.selecionada]="capacidadeSelecionada() === capacidade"
+                  [attr.aria-pressed]="capacidadeSelecionada() === capacidade"
+                  (click)="selecionarCapacidade(capacidade)"
+                >
+                  {{ capacidade }}
+                </button>
+              }
+            </div>
+
+          </div>
+        }
+
+        <div class="grupo-quantidade">
+
+          <h2>Quantidade</h2>
+
+          <div class="controle-quantidade">
+            <button
+              type="button"
+              (click)="diminuirQuantidade()"
+              [disabled]="quantidade() <= 1"
+              aria-label="Diminuir quantidade"
+            >
+              −
+            </button>
+
+            <strong>{{ quantidade() }}</strong>
+
+            <button
+              type="button"
+              (click)="aumentarQuantidade()"
+              [disabled]="quantidade() >= 99"
+              aria-label="Aumentar quantidade"
+            >
+              +
+            </button>
+          </div>
+
+        </div>
+
+        <div class="resumo-total">
+          <span>Total</span>
+
+          <strong>
+            {{ total() | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+          </strong>
+        </div>
+
+        <button
+          type="button"
+          class="btn-comprar"
+          (click)="adicionarAoCarrinho()"
+        >
+          🛒 Adicionar ao carrinho
+        </button>
+
+        @if (mensagem()) {
+          <div
+            class="mensagem"
+            [class.sucesso]="adicionado()"
+            role="status"
+          >
+            {{ mensagem() }}
+          </div>
+        }
+
+        @if (adicionado()) {
+          <a routerLink="/carrinho" class="btn-ver-carrinho">
+            Ver meu carrinho →
+          </a>
+        }
+
+        <div class="beneficios">
+          <span>✓ Compra simples</span>
+          <span>✓ Produtos esportivos</span>
+          <span>✓ MegaSport Collection</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  } @else {
+
+    <div class="produto-nao-encontrado">
+      <h1>Produto não encontrado</h1>
+
+      <p>
+        Este produto pode ter sido removido do catálogo.
+      </p>
+
+      <a routerLink="/produtos">
+        Voltar ao catálogo
+      </a>
+    </div>
+
+  }
+
+</section>

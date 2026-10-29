@@ -1,35 +1,57 @@
 import { inject } from '@angular/core';
-import { HttpInterceptorFn } from '@angular/common/http';
+
+import {
+  HttpInterceptorFn,
+  HttpErrorResponse
+} from '@angular/common/http';
+
 import { Router } from '@angular/router';
-import { tap, catchError, throwError } from 'rxjs';
+
+import {
+  catchError,
+  throwError
+} from 'rxjs';
+
 import { AuthFacade } from '../facades/auth.facade';
 
 export const httpInterceptor: HttpInterceptorFn = (req, next) => {
+
   const authFacade = inject(AuthFacade);
   const router = inject(Router);
 
-  const token = authFacade.obterToken();
+  
 
-  const novaReq = token
-    ? req.clone({
-        setHeaders: { Authorization: `Bearer ${token}` },
-      })
-    : req;
+  const apiMegaSport = false;
 
-  return next(novaReq).pipe(
-    tap({
-      next: (event) => console.log('RESPONSE:', event),
-      error: (error) => console.error('ERRO:', error),
-    }),
-    catchError((error) => {
+
+  if (!apiMegaSport) {
+    return next(req);
+  }
+
+  return next(req).pipe(
+
+    catchError((error: HttpErrorResponse) => {
+
+      // Sessão não autorizada
       if (error.status === 401) {
+
         authFacade.sair();
-        router.navigateByUrl('/login');
+
+        router.navigate(['/login']);
+
       }
+
+      // Usuário sem permissão
       if (error.status === 403) {
-        router.navigateByUrl('/produtos');
+
+        router.navigate(['/acesso-negado']);
+
       }
+
       return throwError(() => error);
+
     })
+
   );
+
 };

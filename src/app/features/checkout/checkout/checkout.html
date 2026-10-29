@@ -1,9 +1,14 @@
 <section class="container-checkout">
 
+  <!-- PEDIDO CONCLUÍDO -->
+
   @if (pedidoConcluido) {
 
     <div class="card-sucesso">
-      <div class="icone-sucesso">✅</div>
+
+      <div class="icone-sucesso" aria-hidden="true">
+        ✅
+      </div>
 
       <h2>Pedido registrado com sucesso!</h2>
 
@@ -13,8 +18,11 @@
       </p>
 
       <div class="codigo-pedido-box">
+
         <span>Número do pedido:</span>
+
         <strong>#{{ codigoPedido }}</strong>
+
       </div>
 
       <p class="subtexto">
@@ -26,34 +34,43 @@
       <a routerLink="/produtos" class="btn-voltar-home">
         Voltar para a loja
       </a>
+
     </div>
 
   } @else {
 
     <h2>Finalizar compra</h2>
 
+    <!-- CARRINHO VAZIO -->
+
     @if (carrinhoFacade.carrinhoVazio()) {
 
       <div class="checkout-vazio">
+
         <p>Seu carrinho está vazio.</p>
 
         <a routerLink="/produtos" class="btn-voltar-home">
           Explorar produtos
         </a>
+
       </div>
 
     } @else {
 
       <form
-        (ngSubmit)="confirmarPedido()"
+        (ngSubmit)="confirmarPedido(formCheckout)"
         #formCheckout="ngForm"
         class="form-checkout"
       >
 
+        <!-- DADOS PESSOAIS -->
+
         <fieldset class="grupo-checkout">
+
           <legend>Dados pessoais</legend>
 
           <label>
+
             Nome completo:
 
             <input
@@ -62,65 +79,56 @@
               name="nome"
               required
               minlength="3"
+              autocomplete="name"
               #nome="ngModel"
             >
 
             @if (nome.invalid && nome.touched) {
+
               <span class="erro-validacao">
-                O nome deve ter no mínimo 3 caracteres.
+                Informe um nome com pelo menos 3 caracteres.
               </span>
+
             }
+
           </label>
 
-          <div class="linha-dupla">
+          <label>
 
-            <label>
-              E-mail:
+            E-mail:
 
-              <input
-                type="email"
-                [(ngModel)]="dadosCheckout.email"
-                name="email"
-                required
-                email
-                #email="ngModel"
-              >
+            <input
+              type="email"
+              [(ngModel)]="dadosCheckout.email"
+              name="email"
+              required
+              email
+              autocomplete="email"
+              #email="ngModel"
+            >
 
-              @if (email.invalid && email.touched) {
-                <span class="erro-validacao">
-                  Digite um e-mail válido.
-                </span>
-              }
-            </label>
+            @if (email.invalid && email.touched) {
 
-            <label>
-              Senha de confirmação:
+              <span class="erro-validacao">
+                Digite um e-mail válido.
+              </span>
 
-              <input
-                type="password"
-                [(ngModel)]="dadosCheckout.senha"
-                name="senha"
-                required
-                minlength="3"
-                #senha="ngModel"
-              >
+            }
 
-              @if (senha.invalid && senha.touched) {
-                <span class="erro-validacao">
-                  Informe sua senha.
-                </span>
-              }
-            </label>
+          </label>
 
-          </div>
         </fieldset>
 
+        <!-- ENDEREÇO -->
+
         <fieldset class="grupo-checkout">
+
           <legend>Endereço de entrega</legend>
 
           <div class="linha-dupla">
 
             <label class="campo-cep">
+
               CEP:
 
               <input
@@ -132,17 +140,38 @@
                 minlength="8"
                 maxlength="9"
                 placeholder="00000-000"
+                autocomplete="postal-code"
                 #cep="ngModel"
               >
 
               @if (cep.invalid && cep.touched) {
+
                 <span class="erro-validacao">
                   Informe um CEP válido.
                 </span>
+
               }
+
+              @if (consultandoCep) {
+
+                <span class="mensagem-cep">
+                  Consultando CEP...
+                </span>
+
+              }
+
+              @if (erroCep) {
+
+                <span class="erro-validacao" role="alert">
+                  {{ erroCep }}
+                </span>
+
+              }
+
             </label>
 
             <label class="campo-rua">
+
               Logradouro / Rua:
 
               <input
@@ -152,14 +181,18 @@
                 required
                 minlength="3"
                 placeholder="Rua, Avenida, Alameda..."
+                autocomplete="street-address"
                 #endereco="ngModel"
               >
 
               @if (endereco.invalid && endereco.touched) {
+
                 <span class="erro-validacao">
                   Informe seu endereço.
                 </span>
+
               }
+
             </label>
 
           </div>
@@ -167,6 +200,7 @@
           <div class="linha-tripla">
 
             <label>
+
               Número:
 
               <input
@@ -177,9 +211,19 @@
                 placeholder="Ex: 123"
                 #numero="ngModel"
               >
+
+              @if (numero.invalid && numero.touched) {
+
+                <span class="erro-validacao">
+                  Informe o número.
+                </span>
+
+              }
+
             </label>
 
             <label>
+
               Complemento:
 
               <input
@@ -188,9 +232,11 @@
                 name="complemento"
                 placeholder="Opcional"
               >
+
             </label>
 
             <label>
+
               Bairro:
 
               <input
@@ -201,26 +247,69 @@
                 placeholder="Seu bairro"
                 #bairro="ngModel"
               >
+
+              @if (bairro.invalid && bairro.touched) {
+
+                <span class="erro-validacao">
+                  Informe o bairro.
+                </span>
+
+              }
+
             </label>
 
           </div>
+
         </fieldset>
 
+        <!-- RESUMO -->
+
         <div class="resumo-checkout">
+
           <h3>
+
             Total da compra:
+
             <span>
-              {{ carrinhoFacade.total() | currency:'BRL':'symbol':'1.2-2' }}
+              {{
+                carrinhoFacade.total()
+                  | currency:'BRL':'symbol':'1.2-2'
+              }}
             </span>
+
           </h3>
+
         </div>
+
+        <!-- ERROS -->
+
+        @if (mensagemErro) {
+
+          <p class="erro-validacao erro-geral" role="alert">
+            {{ mensagemErro }}
+          </p>
+
+        }
+
+        <!-- FINALIZAR -->
 
         <button
           type="submit"
           class="btn-finalizar"
-          [disabled]="formCheckout.invalid || carrinhoFacade.carrinhoVazio()"
+          [disabled]="
+            formCheckout.invalid ||
+            carrinhoFacade.carrinhoVazio() ||
+            processandoPedido ||
+            consultandoCep
+          "
         >
-          Registrar pedido
+
+          @if (processandoPedido) {
+            Registrando pedido...
+          } @else {
+            Registrar pedido
+          }
+
         </button>
 
       </form>
