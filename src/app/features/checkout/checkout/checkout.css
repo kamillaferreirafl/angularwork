@@ -351,3 +351,197 @@
     font-size: 16px;
   }
 }
+
+/* ========================================
+   MEGASPORT — RESUMO DOS PRODUTOS
+======================================== */
+
+.checkout-cabecalho {
+  margin-bottom: 30px;
+}
+
+.checkout-etiqueta {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #ff641f;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+.checkout-cabecalho h2 {
+  margin: 0 0 10px;
+  color: #071a3c;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 900;
+}
+
+.checkout-cabecalho p {
+  margin: 0;
+  color: #728097;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.produtos-checkout {
+  margin-bottom: 30px;
+  border: 1px solid #e4eaf4;
+  border-radius: 16px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(8, 31, 76, 0.04);
+}
+
+.produtos-checkout-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 22px 25px;
+  border-bottom: 1px solid #e9edf5;
+}
+
+.produtos-checkout-topo h3 {
+  margin: 0;
+  color: #071a3c;
+  font-size: 1.1rem;
+  font-weight: 900;
+}
+
+.produtos-checkout-topo span {
+  color: #728097;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.lista-produtos-checkout {
+  display: flex;
+  flex-direction: column;
+}
+
+.produto-checkout-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 25px;
+  border-bottom: 1px solid #edf1f7;
+}
+
+.produto-checkout-imagem {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  border-radius: 12px;
+  background: #f5f7fc;
+  overflow: hidden;
+}
+
+.produto-checkout-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.produto-checkout-imagem span {
+  font-size: 2rem;
+}
+
+.produto-checkout-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.produto-checkout-info h4 {
+  margin: 0 0 10px;
+  color: #10213c;
+  font-size: 0.95rem;
+  font-weight: 900;
+}
+
+.produto-checkout-info p {
+  margin: 4px 0;
+  color: #64748b;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.produto-checkout-info p strong {
+  color: #34445e;
+}
+
+.produto-checkout-quantidade {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 5px 9px;
+  border-radius: 6px;
+  background: #f0f4fc;
+  color: #53647d;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.produto-checkout-preco {
+  flex-shrink: 0;
+  color: #071a3c;
+  font-size: 1rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.produtos-checkout-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 22px 25px;
+  background: #f8faff;
+}
+
+.produtos-checkout-total span {
+  color: #53647d;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.produtos-checkout-total strong {
+  color: #ff641f;
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+
+.resumo-checkout p {
+  margin: 12px 0 0;
+  color: #728097;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .produto-checkout-item {
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 18px;
+  }
+
+  .produto-checkout-imagem {
+    width: 75px;
+    height: 75px;
+  }
+
+  .produto-checkout-info {
+    flex-basis: calc(100% - 95px);
+  }
+
+  .produto-checkout-preco {
+    width: 100%;
+    padding-left: 89px;
+  }
+
+  .produtos-checkout-topo,
+  .produtos-checkout-total {
+    padding: 18px;
+  }
+}

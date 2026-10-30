@@ -55,14 +55,27 @@ export class Checkout implements OnDestroy {
     }
   }
 
+  // ========================================
+  // FORMATAR PREÇO
+  // ========================================
+
+  formatarPreco(valor: number): string {
+    return valor.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    });
+  }
+
+  // ========================================
   // CONSULTAR CEP
+  // ========================================
+
   onCepChange(): void {
 
     const cepLimpo = this.dadosCheckout.cep.replace(/\D/g, '');
 
     this.erroCep = '';
 
-    // Cancela uma consulta anterior.
     this.consultaCep?.unsubscribe();
     this.consultandoCep = false;
 
@@ -71,7 +84,6 @@ export class Checkout implements OnDestroy {
       return;
     }
 
-    // Evita consultar novamente o mesmo CEP.
     if (cepLimpo === this.ultimoCepConsultado) {
       return;
     }
@@ -86,7 +98,6 @@ export class Checkout implements OnDestroy {
 
           this.consultandoCep = false;
 
-          // Confirma que o CEP ainda é o mesmo.
           const cepAtual = this.dadosCheckout.cep.replace(/\D/g, '');
 
           if (cepAtual !== cepLimpo) {
@@ -101,7 +112,9 @@ export class Checkout implements OnDestroy {
           } else {
 
             this.ultimoCepConsultado = '';
-            this.erroCep = 'CEP não encontrado. Verifique o número informado.';
+
+            this.erroCep =
+              'CEP não encontrado. Verifique o número informado.';
 
           }
         },
@@ -116,10 +129,14 @@ export class Checkout implements OnDestroy {
           this.erroCep =
             'Não foi possível consultar o CEP. Tente novamente.';
         }
+
       });
   }
 
+  // ========================================
   // CONFIRMAR PEDIDO
+  // ========================================
+
   confirmarPedido(formCheckout: NgForm): void {
 
     this.mensagemErro = '';
@@ -193,9 +210,13 @@ export class Checkout implements OnDestroy {
           bairro: this.dadosCheckout.bairro.trim()
         },
 
-        itens: itens.map(item => ({ ...item })),
+        // Preserva as variações de cada produto.
+        itens: itens.map(item => ({
+          ...item
+        })),
 
         total
+
       });
 
       this.codigoPedido = pedido.id;
@@ -218,7 +239,12 @@ export class Checkout implements OnDestroy {
     }
   }
 
+  // ========================================
+  // LIMPEZA
+  // ========================================
+
   ngOnDestroy(): void {
     this.consultaCep?.unsubscribe();
   }
+
 }

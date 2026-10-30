@@ -13,9 +13,11 @@ import { Router, RouterLink } from '@angular/router';
 
 import { ProdutosService } from '../../../core/services/produtos.service';
 import { AuthService } from '../../../core/services/auth.service';
+
 import {
   PedidosService,
-  StatusPedido
+  StatusPedido,
+  Pedido
 } from '../../../core/services/pedidos.service';
 
 import { Produto } from '../../../core/models/produto-loja';
@@ -52,36 +54,36 @@ interface FormularioProduto {
 export class Admin {
 
   private router = inject(Router);
-
   private authService = inject(AuthService);
 
   produtosService = inject(ProdutosService);
-
   pedidosService = inject(PedidosService);
 
+  // ========================================
+  // NAVEGAÇÃO DO PAINEL
+  // ========================================
+
   secaoAtiva = signal<SecaoAdmin>('visao-geral');
-
-  @ViewChild('modalCadastro')
-  modalCadastro!: ElementRef<HTMLDialogElement>;
-
-  novoProduto: FormularioProduto = this.criarFormularioVazio();
-
-  editandoIndex: number | null = null;
-
-  // ========================================
-  // NAVEGAÇÃO
-  // ========================================
 
   selecionarSecao(secao: SecaoAdmin): void {
     this.secaoAtiva.set(secao);
   }
 
   // ========================================
-  // USUÁRIO ATUAL
+  // MODAIS
+  // ========================================
+
+  @ViewChild('modalCadastro')
+  modalCadastro!: ElementRef<HTMLDialogElement>;
+
+  @ViewChild('modalDetalhesPedido')
+  modalDetalhesPedido!: ElementRef<HTMLDialogElement>;
+
+  // ========================================
+  // DADOS DO ADMINISTRADOR
   // ========================================
 
   usuarioAtual = computed(() => {
-
     const usuario = this.authService.usuarioAtual();
 
     if (!usuario) {
@@ -92,12 +94,13 @@ export class Admin {
       email: usuario.email,
       perfil: usuario.eAdmin ? 'ADMIN' : 'CLIENTE'
     };
-
   });
 
   // ========================================
-  // PEDIDOS
+  // INDICADORES
   // ========================================
+
+  totalProdutos = this.produtosService.totalProdutos;
 
   pedidos = this.pedidosService.pedidos;
 
@@ -105,35 +108,30 @@ export class Admin {
 
   totalPedidos = this.pedidosService.totalPedidos;
 
-  // ========================================
-  // USUÁRIOS
-  // ========================================
-
   usuarios = computed(() => [
-
     {
       email: 'admin@email.com',
       nome: 'Administrador',
       perfil: 'ADMIN' as const,
       dataCadastro: ''
     },
-
     ...this.authService.usuarios()
-
   ]);
 
-  usuariosCadastrados = computed(() => {
-    return this.usuarios().length;
-  });
+  usuariosCadastrados = computed(
+    () => this.usuarios().length
+  );
 
   // ========================================
-  // PRODUTOS
+  // FORMULÁRIO DE PRODUTOS
   // ========================================
 
-  totalProdutos = this.produtosService.totalProdutos;
+  novoProduto: FormularioProduto =
+    this.criarFormularioVazio();
+
+  editandoIndex: number | null = null;
 
   private criarFormularioVazio(): FormularioProduto {
-
     return {
       nome: '',
       preco: 0,
@@ -145,60 +143,39 @@ export class Admin {
       tamanhos: '',
       capacidades: ''
     };
-
   }
 
-  // ========================================
-  // ABRIR MODAL
-  // ========================================
-
   abrirModalCadastro(): void {
-
     this.editandoIndex = null;
-
     this.novoProduto = this.criarFormularioVazio();
 
     this.modalCadastro.nativeElement.showModal();
-
   }
 
-  // ========================================
-  // FECHAR MODAL
-  // ========================================
-
   fecharModalCadastro(): void {
-
     this.modalCadastro.nativeElement.close();
 
     this.editandoIndex = null;
-
     this.novoProduto = this.criarFormularioVazio();
-
   }
 
   // ========================================
-  // CONVERTER TEXTO EM LISTA
+  // CONVERSÃO DE LISTAS
   // ========================================
 
   private textoParaLista(texto: string): string[] {
-
-    const valores = texto
-      .split(/\r?\n|,/)
-      .map(valor => valor.trim())
-      .filter(valor => valor.length > 0);
-
-    return [...new Set(valores)];
-
+    return [
+      ...new Set(
+        texto
+          .split(/\r?\n|,/)
+          .map(valor => valor.trim())
+          .filter(valor => valor.length > 0)
+      )
+    ];
   }
 
-  // ========================================
-  // CONVERTER LISTA EM TEXTO
-  // ========================================
-
   private listaParaTexto(lista?: string[]): string {
-
     return (lista ?? []).join('\n');
-
   }
 
   // ========================================
@@ -208,11 +185,8 @@ export class Admin {
   salvarProduto(): void {
 
     const nome = this.novoProduto.nome.trim();
-
     const imagem = this.novoProduto.imagem.trim();
-
     const descricao = this.novoProduto.descricao.trim();
-
     const preco = Number(this.novoProduto.preco);
 
     if (
@@ -221,26 +195,18 @@ export class Admin {
       preco <= 0 ||
       !imagem
     ) {
-
       alert(
         'Informe um nome com pelo menos 3 caracteres, ' +
         'um preço válido e uma imagem principal.'
       );
-
       return;
-
     }
 
     const produto: Produto = {
-
       nome,
-
       preco,
-
       categoria: this.novoProduto.categoria || 'GERAL',
-
       imagem,
-
       descricao,
 
       imagens: this.textoParaLista(
@@ -258,7 +224,6 @@ export class Admin {
       capacidades: this.textoParaLista(
         this.novoProduto.capacidades
       )
-
     };
 
     try {
@@ -280,18 +245,13 @@ export class Admin {
 
     } catch (erro) {
 
-      console.error(
-        'Erro ao salvar produto:',
-        erro
-      );
+      console.error('Erro ao salvar produto:', erro);
 
       alert(
         'Não foi possível salvar o produto. ' +
         'Verifique o armazenamento do navegador.'
       );
-
     }
-
   }
 
   // ========================================
@@ -303,15 +263,10 @@ export class Admin {
     this.editandoIndex = index;
 
     this.novoProduto = {
-
       nome: produto.nome,
-
       preco: produto.preco,
-
       categoria: produto.categoria ?? 'GERAL',
-
       imagem: produto.imagem ?? '',
-
       descricao: produto.descricao ?? '',
 
       imagensAdicionais: this.listaParaTexto(
@@ -329,11 +284,9 @@ export class Admin {
       capacidades: this.listaParaTexto(
         produto.capacidades
       )
-
     };
 
     this.modalCadastro.nativeElement.showModal();
-
   }
 
   // ========================================
@@ -342,23 +295,43 @@ export class Admin {
 
   removerProduto(index: number): void {
 
-    const produto =
-      this.produtosService.obterProdutos()[index];
+    const produto = this.produtosService.obterProdutos()[index];
 
     if (!produto) {
       return;
     }
 
-    const confirmou = confirm(
-      `Deseja realmente remover "${produto.nome}"?`
-    );
-
-    if (!confirmou) {
+    if (
+      !confirm(
+        `Deseja realmente remover "${produto.nome}"?`
+      )
+    ) {
       return;
     }
 
     this.produtosService.removerProduto(index);
+  }
 
+  // ========================================
+  // DETALHES DOS PEDIDOS
+  // ========================================
+
+  pedidoSelecionado: Pedido | null = null;
+
+  abrirDetalhesPedido(pedido: Pedido): void {
+
+    this.pedidoSelecionado = pedido;
+
+    this.modalDetalhesPedido.nativeElement.showModal();
+  }
+
+  fecharDetalhesPedido(): void {
+
+    if (this.modalDetalhesPedido?.nativeElement.open) {
+      this.modalDetalhesPedido.nativeElement.close();
+    }
+
+    this.pedidoSelecionado = null;
   }
 
   // ========================================
@@ -370,11 +343,14 @@ export class Admin {
     status: StatusPedido
   ): void {
 
-    this.pedidosService.atualizarStatus(
-      id,
-      status
-    );
+    this.pedidosService.atualizarStatus(id, status);
 
+    if (this.pedidoSelecionado?.id === id) {
+      this.pedidoSelecionado =
+        this.pedidosService.pedidos().find(
+          pedido => pedido.id === id
+        ) ?? null;
+    }
   }
 
   // ========================================
@@ -383,16 +359,19 @@ export class Admin {
 
   removerPedido(id: string): void {
 
-    const confirmou = confirm(
-      'Deseja realmente remover este pedido?'
-    );
-
-    if (!confirmou) {
+    if (
+      !confirm(
+        'Deseja realmente remover este pedido?'
+      )
+    ) {
       return;
     }
 
-    this.pedidosService.removerPedido(id);
+    if (this.pedidoSelecionado?.id === id) {
+      this.fecharDetalhesPedido();
+    }
 
+    this.pedidosService.removerPedido(id);
   }
 
   // ========================================
@@ -408,23 +387,21 @@ export class Admin {
       );
 
       return;
-
     }
 
-    const confirmou = confirm(
-      'Deseja realmente remover este usuário?'
-    );
-
-    if (!confirmou) {
+    if (
+      !confirm(
+        'Deseja realmente remover este usuário?'
+      )
+    ) {
       return;
     }
 
     this.authService.removerUsuario(email);
-
   }
 
   // ========================================
-  // SAIR DO PAINEL
+  // SAIR
   // ========================================
 
   sair(): void {
@@ -432,7 +409,6 @@ export class Admin {
     this.authService.logout();
 
     this.router.navigate(['/login']);
-
   }
 
 }

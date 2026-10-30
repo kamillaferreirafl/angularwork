@@ -1,236 +1,689 @@
 <div class="home-container">
 
-  <!-- BANNER PRINCIPAL -->
+  <!-- ========================================
+       BANNER PRINCIPAL
+  ======================================== -->
+
   <section class="hero-banner">
+
     <div class="hero-content">
-      <h1>Supere Seus Limites com a <span>MegaSport</span></h1>
+
+      <h1>
+        Supere Seus Limites com a
+        <span>MegaSport</span>
+      </h1>
+
       <p>
-        Equipamentos de alta performance, vestuário tecnológico e camisas
-        oficiais dos maiores clubes para elevar o seu nível no esporte.
+        Equipamentos de alta performance, vestuário tecnológico
+        e camisas oficiais dos maiores clubes para elevar o seu
+        nível no esporte.
       </p>
+
       <a routerLink="/produtos" class="btn-cta">
         Ver Catálogo Esportivo
       </a>
+
     </div>
+
   </section>
 
-  <!-- DIFERENCIAIS DA LOJA -->
+  <!-- ========================================
+       DIFERENCIAIS
+  ======================================== -->
+
   <section class="features-grid">
+
     <div class="feature-card">
+
       <span class="icon">🚀</span>
+
       <h3>Performance Máxima</h3>
+
       <p>
-        Produtos testados para garantir durabilidade e rendimento profissional.
+        Produtos testados para garantir durabilidade
+        e rendimento profissional.
       </p>
+
     </div>
 
     <div class="feature-card">
+
       <span class="icon">📦</span>
+
       <h3>Envio Rápido</h3>
+
       <p>
-        Receba seus equipamentos e mantos com agilidade direto na sua casa.
+        Receba seus equipamentos e mantos com agilidade
+        direto na sua casa.
       </p>
+
     </div>
 
     <div class="feature-card">
+
       <span class="icon">🛡️</span>
+
       <h3>Qualidade Garantida</h3>
+
       <p>
-        Trabalhamos apenas com marcas e produtos oficiais de alto padrão.
+        Trabalhamos apenas com marcas e produtos oficiais
+        de alto padrão.
       </p>
+
     </div>
+
   </section>
 
-  <!-- CATEGORIAS EM DESTAQUE -->
+  <!-- ========================================
+       CATEGORIAS
+  ======================================== -->
+
   <section class="secao-categorias">
+
     <div class="categorias-container">
 
       <div class="categorias-cabecalho">
+
         <span class="categorias-etiqueta">
           ESCOLHA SEU ESTILO
         </span>
 
-        <h2>Explore por categoria</h2>
+        <h2>
+          Explore por categoria
+        </h2>
 
         <p>
           Encontre os equipamentos certos para cada desafio.
         </p>
+
       </div>
 
       <div class="categorias-grid">
 
         <!-- CALÇADOS -->
-        <a
-          routerLink="/produtos"
-          [queryParams]="{ categoria: 'CALÇADOS' }"
-          class="categoria-card categoria-calcados"
-        >
-          <span class="categoria-icone">👟</span>
 
-          <div class="categoria-info">
-            <h3>Calçados</h3>
-            <p>Performance a cada passo.</p>
-            <span class="categoria-link">
-              Explorar categoria →
+        <article class="categoria-card categoria-calcados">
+
+          <a
+            class="categoria-destaque"
+            routerLink="/produtos"
+            [queryParams]="{ categoria: 'CALÇADOS' }"
+          >
+
+            <span class="categoria-foto">
+
+              <img
+                src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=440&auto=format&fit=crop&q=80"
+                alt="Tênis esportivo"
+                loading="lazy"
+              >
+
             </span>
+
+            <span class="categoria-info">
+
+              <strong>Calçados</strong>
+
+              <small>
+                Encontre seu próximo passo
+              </small>
+
+            </span>
+
+            <span class="categoria-seta">
+              ↗
+            </span>
+
+          </a>
+
+          <div class="categoria-submenu">
+
+            <span class="submenu-titulo">
+              EXPLORE CALÇADOS
+            </span>
+
+            <a
+              routerLink="/produtos"
+              [queryParams]="{ categoria: 'CALÇADOS' }"
+            >
+              Tênis de corrida
+            </a>
+
+            <a
+              routerLink="/produtos"
+              [queryParams]="{ categoria: 'CALÇADOS' }"
+            >
+              Tênis de treino
+            </a>
+
+            <a
+              routerLink="/produtos"
+              [queryParams]="{ categoria: 'CALÇADOS' }"
+            >
+              Tênis casual
+            </a>
+
+            <a
+              class="submenu-ver-tudo"
+              routerLink="/produtos"
+              [queryParams]="{ categoria: 'CALÇADOS' }"
+            >
+              Ver todos os calçados →
+            </a>
+
           </div>
-        </a>
+
+        </article>
 
         <!-- VESTUÁRIO -->
-        <a
-          routerLink="/produtos"
-          [queryParams]="{ categoria: 'VESTUÁRIO' }"
-          class="categoria-card categoria-vestuario"
-        >
-          <span class="categoria-icone">👕</span>
 
-          <div class="categoria-info">
-            <h3>Vestuário</h3>
-            <p>Conforto dentro e fora do jogo.</p>
-            <span class="categoria-link">
-              Explorar categoria →
+        <article class="categoria-card categoria-vestuario">
+
+          <a
+            class="categoria-destaque"
+            routerLink="/produtos"
+            [queryParams]="{ categoria: 'VESTUÁRIO' }"
+          >
+
+            <span class="categoria-foto">
+
+              <img
+                src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=440&auto=format&fit=crop&q=80"
+                alt="Camiseta esportiva"
+                loading="lazy"
+              >
+
             </span>
+
+            <span class="categoria-info">
+
+              <strong>Vestuário</strong>
+
+              <small>
+                Vista sua paixão pelo esporte
+              </small>
+
+            </span>
+
+            <span class="categoria-seta">
+              ↗
+            </span>
+
+          </a>
+
+          <div class="categoria-submenu">
+
+            <span class="submenu-titulo">
+              EXPLORE VESTUÁRIO
+            </span>
+
+            <a
+              routerLink="/produtos"
+              [queryParams]="{ categoria: 'VESTUÁRIO' }"
+            >
+              Camisetas esportivas
+            </a>
+
+            <a
+              routerLink="/produtos"
+              [queryParams]="{ categoria: 'VESTUÁRIO' }"
+            >
+              Camisas de time
+            </a>
+
+            <a
+              routerLink="/produtos"
+              [queryParams]="{ categoria: 'VESTUÁRIO' }"
+            >
+              Roupas de treino
+            </a>
+
+            <a
+              class="submenu-ver-tudo"
+              routerLink="/produtos"
+              [queryParams]="{ categoria: 'VESTUÁRIO' }"
+            >
+              Ver todo o vestuário →
+            </a>
+
           </div>
-        </a>
+
+        </article>
 
         <!-- ACESSÓRIOS -->
-        <a
-          routerLink="/produtos"
-          [queryParams]="{ categoria: 'ACESSÓRIOS' }"
-          class="categoria-card categoria-acessorios"
-        >
-          <span class="categoria-icone">🎒</span>
 
-          <div class="categoria-info">
-            <h3>Acessórios</h3>
-            <p>Os detalhes fazem a diferença.</p>
-            <span class="categoria-link">
-              Explorar categoria →
+        <article class="categoria-card categoria-acessorios">
+
+          <a
+            class="categoria-destaque"
+            routerLink="/produtos"
+            [queryParams]="{ categoria: 'ACESSÓRIOS' }"
+          >
+
+            <span class="categoria-foto">
+
+              <img
+                src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=440&auto=format&fit=crop&q=80"
+                alt="Mochila esportiva"
+                loading="lazy"
+              >
+
             </span>
+
+            <span class="categoria-info">
+
+              <strong>Acessórios</strong>
+
+              <small>
+                Os detalhes fazem a diferença
+              </small>
+
+            </span>
+
+            <span class="categoria-seta">
+              ↗
+            </span>
+
+          </a>
+
+          <div class="categoria-submenu">
+
+            <span class="submenu-titulo">
+              EXPLORE ACESSÓRIOS
+            </span>
+
+            <a
+              routerLink="/produtos"
+              [queryParams]="{ categoria: 'ACESSÓRIOS' }"
+            >
+              Mochilas
+            </a>
+
+            <a
+              routerLink="/produtos"
+              [queryParams]="{ categoria: 'ACESSÓRIOS' }"
+            >
+              Garrafas térmicas
+            </a>
+
+            <a
+              routerLink="/produtos"
+              [queryParams]="{ categoria: 'ACESSÓRIOS' }"
+            >
+              Acessórios de treino
+            </a>
+
+            <a
+              class="submenu-ver-tudo"
+              routerLink="/produtos"
+              [queryParams]="{ categoria: 'ACESSÓRIOS' }"
+            >
+              Ver todos os acessórios →
+            </a>
+
           </div>
-        </a>
+
+        </article>
 
       </div>
+
+      <p class="categorias-aviso">
+        Escolha uma categoria para explorar os produtos disponíveis.
+      </p>
+
     </div>
+
   </section>
 
-  <!-- SEÇÃO MAIS VENDIDOS -->
+  <!-- ========================================
+       MAIS VENDIDOS
+  ======================================== -->
+
   <section class="secao-mais-vendidos">
+
     <div class="container-vitrine">
 
-      <h2 class="titulo-secao">Mais vendidos</h2>
+      <h2 class="titulo-secao">
+        Mais vendidos
+      </h2>
 
       <div class="carrossel-produtos">
-        @for (produto of produtosMaisVendidos; track produto.id) {
+
+        @for (produto of produtosMaisVendidos(); track produto.id ?? $index) {
 
           <div class="card-produto">
 
-            @if (produto.desconto) {
-              <span class="badge-desconto">
-                -{{ produto.desconto }}%
-              </span>
-            }
-
             <div class="imagem-container">
+
               <img
-                [src]="produto.imagem"
+                [src]="produto.imagem || '/sem-imagem.png'"
                 [alt]="produto.nome"
-              />
+              >
+
             </div>
 
             <div class="info-produto">
+
               <h4 class="nome-produto">
                 {{ produto.nome }}
               </h4>
 
-              @if (produto.precoAntigo) {
-                <span class="preco-antigo">
-                  R$ {{ produto.precoAntigo.toFixed(2) }}
-                </span>
-              }
-
               <div class="preco-pix">
+
                 <strong>
-                  R$ {{ produto.preco.toFixed(2) }}
+                  {{ formatarPreco(produto.preco) }}
                 </strong>
+
                 <span>no Pix</span>
+
               </div>
 
-              <span class="parcelamento">
-                {{ produto.parcelamento }}
-              </span>
-
               <button
+                type="button"
                 class="btn-comprar"
-                (click)="adicionarAoCarrinho(produto)"
+                (click)="abrirSelecao(produto)"
               >
-                Adicionar ao Carrinho
+                Escolher opções
               </button>
 
             </div>
+
           </div>
+
+        } @empty {
+
+          <p>
+            Nenhum produto disponível no momento.
+          </p>
+
         }
+
       </div>
 
     </div>
+
   </section>
 
-  <!-- VALIDAÇÃO DE E-MAIL -->
+  <!-- ========================================
+       MENSAGEM DE SUCESSO
+  ======================================== -->
+
+  @if (mensagemCarrinho) {
+
+    <div
+      class="mensagem-carrinho"
+      role="status"
+    >
+
+      <span>
+        ✅ {{ mensagemCarrinho }}
+      </span>
+
+      <button
+        type="button"
+        (click)="fecharMensagemCarrinho()"
+        aria-label="Fechar mensagem"
+      >
+        ×
+      </button>
+
+    </div>
+
+  }
+
+  <!-- ========================================
+       MODAL DE VARIAÇÕES
+  ======================================== -->
+
+  @if (produtoSelecionado) {
+
+    <div
+      class="modal-variacoes-overlay"
+      (click)="fecharSelecao()"
+    >
+
+      <div
+        class="modal-variacoes"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="titulo-modal-produto"
+        (click)="$event.stopPropagation()"
+      >
+
+        <button
+          type="button"
+          class="modal-fechar"
+          (click)="fecharSelecao()"
+          aria-label="Fechar janela"
+        >
+          ×
+        </button>
+
+        <div class="modal-produto-topo">
+
+          <div class="modal-produto-imagem">
+
+            <img
+              [src]="produtoSelecionado.imagem || '/sem-imagem.png'"
+              [alt]="produtoSelecionado.nome"
+            >
+
+          </div>
+
+          <div class="modal-produto-detalhes">
+
+            <span class="modal-etiqueta">
+              MEGASPORT
+            </span>
+
+            <h2 id="titulo-modal-produto">
+              {{ produtoSelecionado.nome }}
+            </h2>
+
+            <strong class="modal-preco">
+              {{ formatarPreco(produtoSelecionado.preco) }}
+            </strong>
+
+            @if (produtoSelecionado.descricao) {
+
+              <p>
+                {{ produtoSelecionado.descricao }}
+              </p>
+
+            }
+
+          </div>
+
+        </div>
+
+        <!-- CORES -->
+
+        @if (possuiCores) {
+
+          <div class="grupo-variacao">
+
+            <h3>Escolha a cor</h3>
+
+            <div class="opcoes-variacao">
+
+              @for (cor of produtoSelecionado.cores ?? []; track cor) {
+
+                <button
+                  type="button"
+                  class="opcao-variacao"
+                  [class.selecionada]="corSelecionada === cor"
+                  [attr.aria-pressed]="corSelecionada === cor"
+                  (click)="corSelecionada = cor"
+                >
+                  {{ cor }}
+                </button>
+
+              }
+
+            </div>
+
+          </div>
+
+        }
+
+        <!-- TAMANHOS -->
+
+        @if (possuiTamanhos) {
+
+          <div class="grupo-variacao">
+
+            <h3>Escolha o tamanho</h3>
+
+            <div class="opcoes-variacao">
+
+              @for (tamanho of produtoSelecionado.tamanhos ?? []; track tamanho) {
+
+                <button
+                  type="button"
+                  class="opcao-variacao"
+                  [class.selecionada]="tamanhoSelecionado === tamanho"
+                  [attr.aria-pressed]="tamanhoSelecionado === tamanho"
+                  (click)="tamanhoSelecionado = tamanho"
+                >
+                  {{ tamanho }}
+                </button>
+
+              }
+
+            </div>
+
+          </div>
+
+        }
+
+        <!-- CAPACIDADES -->
+
+        @if (possuiCapacidades) {
+
+          <div class="grupo-variacao">
+
+            <h3>Escolha a capacidade</h3>
+
+            <div class="opcoes-variacao">
+
+              @for (capacidade of produtoSelecionado.capacidades ?? []; track capacidade) {
+
+                <button
+                  type="button"
+                  class="opcao-variacao"
+                  [class.selecionada]="capacidadeSelecionada === capacidade"
+                  [attr.aria-pressed]="capacidadeSelecionada === capacidade"
+                  (click)="capacidadeSelecionada = capacidade"
+                >
+                  {{ capacidade }}
+                </button>
+
+              }
+
+            </div>
+
+          </div>
+
+        }
+
+        @if (mensagemVariacoes) {
+
+          <p class="erro-variacoes">
+            {{ mensagemVariacoes }}
+          </p>
+
+        }
+
+        <button
+          type="button"
+          class="btn-confirmar-carrinho"
+          [disabled]="!variacoesValidas"
+          (click)="confirmarAdicao()"
+        >
+          Confirmar e adicionar ao carrinho
+        </button>
+
+        <p class="modal-ajuda">
+          Selecione as opções disponíveis para continuar.
+        </p>
+
+      </div>
+
+    </div>
+
+  }
+
+  <!-- ========================================
+       NEWSLETTER
+  ======================================== -->
+
   <section
     class="secao-newsletter"
     style="padding: 40px 20px; background-color: #111; color: #fff; text-align: center;"
   >
+
     <div style="max-width: 600px; margin: 0 auto;">
 
       <h2>Receba Ofertas Exclusivas</h2>
 
       <p>
-        Digite seu e-mail para validar e se inscrever na nossa lista VIP:
+        Digite seu e-mail para validar e se inscrever
+        na nossa lista VIP:
       </p>
 
       <div
         style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;"
       >
+
         <input
           type="email"
           [(ngModel)]="emailNewsletter"
           placeholder="seuemail@dominio.com"
           style="padding: 12px; width: 70%; border-radius: 4px; border: none;"
-        />
+        >
 
         <button
+          type="button"
           (click)="validarEmailNewsletter()"
           [disabled]="carregandoValidacao"
           style="padding: 12px 20px; background-color: #ff5500; color: #fff; border: none; border-radius: 4px; cursor: pointer;"
         >
           {{ carregandoValidacao ? 'Validando...' : 'Validar' }}
         </button>
+
       </div>
 
       @if (resultadoValidacao) {
+
         <div
           style="margin-top: 20px; padding: 15px; border-radius: 6px; text-align: left; background-color: #222;"
         >
 
           @if (resultadoValidacao.sugestao) {
+
             <p style="color: #FFC107; font-weight: bold; margin: 0;">
               ⚠️ Você quis dizer
               <u>{{ resultadoValidacao.sugestao }}</u>?
             </p>
+
           } @else if (
             resultadoValidacao.format &&
             resultadoValidacao.dns &&
             !resultadoValidacao.disposable
           ) {
+
             <p style="color: #4CAF50; font-weight: bold; margin: 0;">
               ✅ E-mail válido e pronto para cadastro!
             </p>
+
           } @else {
+
             <p style="color: #FF5252; font-weight: bold; margin: 0;">
               ❌ E-mail inválido:
             </p>
 
             <ul style="margin-top: 5px; padding-left: 20px;">
+
               @if (!resultadoValidacao.format) {
                 <li>Formato incorreto ou domínio inválido</li>
               }
@@ -240,48 +693,79 @@
               }
 
               @if (resultadoValidacao.disposable) {
-                <li>E-mails temporários/descartáveis não são permitidos</li>
+                <li>
+                  E-mails temporários/descartáveis não são permitidos
+                </li>
               }
+
             </ul>
+
           }
 
         </div>
+
       }
 
     </div>
+
   </section>
 
-  <!-- RODAPÉ -->
+  <!-- ========================================
+       RODAPÉ
+  ======================================== -->
+
   <footer class="rodape-megasport">
+
     <div class="rodape-conteudo">
 
       <div class="rodape-coluna">
-        <h3 class="logo-rodape">MegaSport</h3>
+
+        <h3 class="logo-rodape">
+          MegaSport
+        </h3>
 
         <p>
-          A sua melhor loja de artigos esportivos com garantia e entrega rápida.
+          A sua melhor loja de artigos esportivos
+          com garantia e entrega rápida.
         </p>
 
         <p class="endereco">
-          📍 Av. Principal, 1000 - Centro, Rio de Janeiro - RJ
+          📍 Av. Principal, 1000 - Centro,
+          Rio de Janeiro - RJ
         </p>
+
       </div>
 
       <div class="rodape-coluna">
+
         <h4>Navegação</h4>
 
         <ul>
-          <li><a routerLink="/produtos">Produtos</a></li>
-          <li><a routerLink="/carrinho">Carrinho</a></li>
-          <li><a routerLink="/checkout">Checkout</a></li>
+
+          <li>
+            <a routerLink="/produtos">Produtos</a>
+          </li>
+
+          <li>
+            <a routerLink="/carrinho">Carrinho</a>
+          </li>
+
+          <li>
+            <a routerLink="/checkout">Checkout</a>
+          </li>
+
         </ul>
+
       </div>
 
       <div class="rodape-coluna">
+
         <h4>Suporte</h4>
 
         <p>
-          <a href="#">FAQ & Central de Ajuda</a>
+          <a href="#">
+            FAQ &amp; Central de Ajuda
+          </a>
         </p>
 
         <p class="whatsapp-titulo">
@@ -299,6 +783,7 @@
         </a>
 
         <div class="redes-sociais">
+
           <a href="#" target="_blank" title="Instagram">
             <i class="fa-brands fa-instagram"></i>
           </a>
@@ -314,14 +799,21 @@
           <a href="#" target="_blank" title="YouTube">
             <i class="fa-brands fa-youtube"></i>
           </a>
+
         </div>
+
       </div>
 
     </div>
 
     <div class="rodape-direitos">
-      <p>© 2026 MegaSport. Todos os direitos reservados.</p>
+
+      <p>
+        © 2026 MegaSport. Todos os direitos reservados.
+      </p>
+
     </div>
+
   </footer>
 
 </div>

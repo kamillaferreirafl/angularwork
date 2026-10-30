@@ -1,6 +1,8 @@
 <section class="container-checkout">
 
-  <!-- PEDIDO CONCLUÍDO -->
+  <!-- =====================================
+       PEDIDO CONCLUÍDO
+  ====================================== -->
 
   @if (pedidoConcluido) {
 
@@ -39,9 +41,27 @@
 
   } @else {
 
-    <h2>Finalizar compra</h2>
+    <!-- =====================================
+         CABEÇALHO
+    ====================================== -->
 
-    <!-- CARRINHO VAZIO -->
+    <div class="checkout-cabecalho">
+
+      <span class="checkout-etiqueta">
+        MEGASPORT STORE
+      </span>
+
+      <h2>Finalizar compra</h2>
+
+      <p>
+        Confira seu pedido e informe os dados de entrega.
+      </p>
+
+    </div>
+
+    <!-- =====================================
+         CARRINHO VAZIO
+    ====================================== -->
 
     @if (carrinhoFacade.carrinhoVazio()) {
 
@@ -57,13 +77,131 @@
 
     } @else {
 
+      <!-- =====================================
+           RESUMO DOS PRODUTOS
+      ====================================== -->
+
+      <section class="produtos-checkout">
+
+        <div class="produtos-checkout-topo">
+
+          <h3>🛒 Seu pedido</h3>
+
+          <span>
+            {{ carrinhoFacade.quantidade() }} itens
+          </span>
+
+        </div>
+
+        <div class="lista-produtos-checkout">
+
+          @for (
+            item of carrinhoFacade.itens();
+            track $index
+          ) {
+
+            <article class="produto-checkout-item">
+
+              <!-- IMAGEM -->
+
+              <div class="produto-checkout-imagem">
+
+                @if (item.imagem) {
+
+                  <img
+                    [src]="item.imagem"
+                    [alt]="item.nome"
+                    loading="lazy"
+                  >
+
+                } @else {
+
+                  <span>🏅</span>
+
+                }
+
+              </div>
+
+              <!-- INFORMAÇÕES -->
+
+              <div class="produto-checkout-info">
+
+                <h4>
+                  {{ item.nome }}
+                </h4>
+
+                @if (item.cor) {
+
+                  <p>
+                    <strong>Cor:</strong>
+                    {{ item.cor }}
+                  </p>
+
+                }
+
+                @if (item.tamanho) {
+
+                  <p>
+                    <strong>Tamanho:</strong>
+                    {{ item.tamanho }}
+                  </p>
+
+                }
+
+                @if (item.capacidade) {
+
+                  <p>
+                    <strong>Capacidade:</strong>
+                    {{ item.capacidade }}
+                  </p>
+
+                }
+
+                <span class="produto-checkout-quantidade">
+                  Quantidade: 1
+                </span>
+
+              </div>
+
+              <!-- PREÇO -->
+
+              <strong class="produto-checkout-preco">
+                {{ formatarPreco(item.preco) }}
+              </strong>
+
+            </article>
+
+          }
+
+        </div>
+
+        <div class="produtos-checkout-total">
+
+          <span>
+            Subtotal dos produtos
+          </span>
+
+          <strong>
+            {{ formatarPreco(carrinhoFacade.total()) }}
+          </strong>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================
+           FORMULÁRIO
+      ====================================== -->
+
       <form
         (ngSubmit)="confirmarPedido(formCheckout)"
         #formCheckout="ngForm"
         class="form-checkout"
       >
 
-        <!-- DADOS PESSOAIS -->
+        <!-- =====================================
+             DADOS PESSOAIS
+        ====================================== -->
 
         <fieldset class="grupo-checkout">
 
@@ -119,7 +257,9 @@
 
         </fieldset>
 
-        <!-- ENDEREÇO -->
+        <!-- =====================================
+             ENDEREÇO
+        ====================================== -->
 
         <fieldset class="grupo-checkout">
 
@@ -262,7 +402,9 @@
 
         </fieldset>
 
-        <!-- RESUMO -->
+        <!-- =====================================
+             RESUMO FINAL
+        ====================================== -->
 
         <div class="resumo-checkout">
 
@@ -271,27 +413,36 @@
             Total da compra:
 
             <span>
-              {{
-                carrinhoFacade.total()
-                  | currency:'BRL':'symbol':'1.2-2'
-              }}
+              {{ formatarPreco(carrinhoFacade.total()) }}
             </span>
 
           </h3>
 
+          <p>
+            O pagamento ainda não será processado.
+            O pedido será registrado com status pendente.
+          </p>
+
         </div>
 
-        <!-- ERROS -->
+        <!-- =====================================
+             ERROS
+        ====================================== -->
 
         @if (mensagemErro) {
 
-          <p class="erro-validacao erro-geral" role="alert">
+          <p
+            class="erro-validacao erro-geral"
+            role="alert"
+          >
             {{ mensagemErro }}
           </p>
 
         }
 
-        <!-- FINALIZAR -->
+        <!-- =====================================
+             FINALIZAR
+        ====================================== -->
 
         <button
           type="submit"
@@ -305,9 +456,13 @@
         >
 
           @if (processandoPedido) {
+
             Registrando pedido...
+
           } @else {
+
             Registrar pedido
+
           }
 
         </button>

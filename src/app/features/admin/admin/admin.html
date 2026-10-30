@@ -1,644 +1,354 @@
 <div class="admin-layout">
 
-  <!-- =====================================
-       MENU LATERAL
-  ====================================== -->
-
+  <!-- MENU LATERAL -->
   <aside class="admin-sidebar">
 
     <div class="sidebar-topo">
       <a routerLink="/" class="sidebar-logo">
         MEGA<span>SPORT</span>
       </a>
-
-      <span class="sidebar-subtitulo">
-        PAINEL ADMINISTRATIVO
-      </span>
+      <span class="sidebar-subtitulo">PAINEL ADMINISTRATIVO</span>
     </div>
 
     <nav class="sidebar-navegacao">
+      <span class="menu-titulo">MENU PRINCIPAL</span>
 
-      <span class="menu-titulo">
-        MENU PRINCIPAL
-      </span>
-
-      <button
-        type="button"
-        class="menu-item"
+      <button type="button" class="menu-item"
         [class.ativo]="secaoAtiva() === 'visao-geral'"
-        (click)="selecionarSecao('visao-geral')"
-      >
-        <span class="menu-icone">📊</span>
-        Visão geral
+        (click)="selecionarSecao('visao-geral')">
+        <span class="menu-icone">📊</span> Visão geral
       </button>
 
-      <button
-        type="button"
-        class="menu-item"
+      <button type="button" class="menu-item"
         [class.ativo]="secaoAtiva() === 'produtos'"
-        (click)="selecionarSecao('produtos')"
-      >
-        <span class="menu-icone">📦</span>
-        Produtos
+        (click)="selecionarSecao('produtos')">
+        <span class="menu-icone">📦</span> Produtos
       </button>
 
-      <button
-        type="button"
-        class="menu-item"
+      <button type="button" class="menu-item"
         [class.ativo]="secaoAtiva() === 'pedidos'"
-        (click)="selecionarSecao('pedidos')"
-      >
-        <span class="menu-icone">🛒</span>
-        Pedidos
+        (click)="selecionarSecao('pedidos')">
+        <span class="menu-icone">🛒</span> Pedidos
       </button>
 
-      <button
-        type="button"
-        class="menu-item"
+      <button type="button" class="menu-item"
         [class.ativo]="secaoAtiva() === 'usuarios'"
-        (click)="selecionarSecao('usuarios')"
-      >
-        <span class="menu-icone">👥</span>
-        Usuários
+        (click)="selecionarSecao('usuarios')">
+        <span class="menu-icone">👥</span> Usuários
       </button>
-
     </nav>
 
     <div class="sidebar-rodape">
-
       <div class="sidebar-perfil">
-
-        <div class="perfil-avatar">
-          AD
-        </div>
-
+        <div class="perfil-avatar">AD</div>
         <div class="perfil-dados">
           <strong>Administrador</strong>
-
-          <span>
-            {{ usuarioAtual()?.email || 'admin@email.com' }}
-          </span>
+          <span>{{ usuarioAtual()?.email || 'admin@email.com' }}</span>
         </div>
-
       </div>
 
-      <button
-        type="button"
-        class="sidebar-sair"
-        (click)="sair()"
-      >
+      <button type="button" class="sidebar-sair" (click)="sair()">
         ↪ Sair do painel
       </button>
-
     </div>
 
   </aside>
 
-  <!-- =====================================
-       CONTEÚDO PRINCIPAL
-  ====================================== -->
-
+  <!-- CONTEÚDO PRINCIPAL -->
   <main class="admin-main">
 
     <header class="admin-topbar">
-
       <div>
-
-        <span class="topbar-etiqueta">
-          MEGASPORT / ADMIN
-        </span>
+        <span class="topbar-etiqueta">MEGASPORT / ADMIN</span>
 
         <h1>
           @switch (secaoAtiva()) {
-
-            @case ('visao-geral') {
-              Visão geral
-            }
-
-            @case ('produtos') {
-              Produtos
-            }
-
-            @case ('pedidos') {
-              Pedidos
-            }
-
-            @case ('usuarios') {
-              Usuários
-            }
-
+            @case ('visao-geral') { Visão geral }
+            @case ('produtos') { Produtos }
+            @case ('pedidos') { Pedidos }
+            @case ('usuarios') { Usuários }
           }
         </h1>
 
-        <p>
-          Gerencie sua loja em um só lugar.
-        </p>
-
+        <p>Gerencie sua loja em um só lugar.</p>
       </div>
 
       <div class="topbar-perfil">
-
         <span class="status-online"></span>
-
         Painel administrativo
-
-        <div class="topbar-avatar">
-          AD
-        </div>
-
+        <div class="topbar-avatar">AD</div>
       </div>
-
     </header>
 
-    <!-- =====================================
-         VISÃO GERAL
-    ====================================== -->
-
+    <!-- VISÃO GERAL -->
     @if (secaoAtiva() === 'visao-geral') {
 
       <section class="boas-vindas">
-
         <div>
-
-          <span class="boas-vindas-etiqueta">
-            CENTRAL DE CONTROLE
-          </span>
-
-          <h2>
-            Bem-vindo à MegaSport!
-          </h2>
-
+          <span class="boas-vindas-etiqueta">PAINEL DE CONTROLE</span>
+          <h2>Bem-vindo à MegaSport!</h2>
           <p>
-            Acompanhe seus produtos, pedidos e usuários
-            através do painel administrativo.
+            Acompanhe os principais indicadores e gerencie
+            os produtos, pedidos e usuários da loja.
           </p>
-
         </div>
 
-        <button
-          type="button"
-          class="btn-destaque"
-          (click)="selecionarSecao('produtos')"
-        >
+        <button type="button" class="btn-destaque"
+          (click)="selecionarSecao('produtos')">
           Gerenciar produtos →
         </button>
-
       </section>
 
       <section class="cards-admin">
 
         <article class="card-estatistica">
-
           <div class="card-estatistica-topo">
-
-            <span class="card-icone azul">
-              📦
-            </span>
-
-            <span class="card-indicador">
-              CATÁLOGO
-            </span>
-
+            <span class="card-icone azul">📦</span>
+            <span class="card-indicador">CATÁLOGO</span>
           </div>
-
-          <h3>Total de produtos</h3>
-
-          <strong>
-            {{ totalProdutos() }}
-          </strong>
-
-          <p>
-            Produtos disponíveis na loja.
-          </p>
-
+          <h3>Produtos cadastrados</h3>
+          <strong>{{ totalProdutos() }}</strong>
+          <p>Produtos disponíveis na loja.</p>
         </article>
 
         <article class="card-estatistica">
-
           <div class="card-estatistica-topo">
-
-            <span class="card-icone laranja">
-              🛒
-            </span>
-
-            <span class="card-indicador">
-              PEDIDOS
-            </span>
-
+            <span class="card-icone laranja">🛒</span>
+            <span class="card-indicador">PEDIDOS</span>
           </div>
-
           <h3>Pedidos pendentes</h3>
-
-          <strong>
-            {{ pedidosPendentes() }}
-          </strong>
-
-          <p>
-            Pedidos aguardando processamento.
-          </p>
-
+          <strong>{{ pedidosPendentes() }}</strong>
+          <p>Pedidos aguardando atendimento.</p>
         </article>
 
         <article class="card-estatistica">
-
           <div class="card-estatistica-topo">
-
-            <span class="card-icone verde">
-              👥
-            </span>
-
-            <span class="card-indicador">
-              USUÁRIOS
-            </span>
-
+            <span class="card-icone verde">👥</span>
+            <span class="card-indicador">CLIENTES</span>
           </div>
-
           <h3>Usuários cadastrados</h3>
-
-          <strong>
-            {{ usuariosCadastrados() }}
-          </strong>
-
-          <p>
-            Contas demonstrativas no painel.
-          </p>
-
+          <strong>{{ usuariosCadastrados() }}</strong>
+          <p>Contas registradas no sistema.</p>
         </article>
 
       </section>
 
       <section class="bloco-admin">
-
         <div class="bloco-cabecalho">
-
           <div>
-
             <h2>Ações rápidas</h2>
-
-            <p>
-              Acesse as principais funcionalidades.
-            </p>
-
+            <p>Acesse as principais funções administrativas.</p>
           </div>
-
         </div>
 
         <div class="acoes-botoes">
 
-          <button
-            type="button"
-            class="acao-card"
-            (click)="abrirModalCadastro()"
-          >
+          <button type="button" class="acao-card"
+            (click)="abrirModalCadastro()">
             <span class="acao-icone">➕</span>
             <strong>Novo produto</strong>
             <small>Adicionar ao catálogo</small>
           </button>
 
-          <button
-            type="button"
-            class="acao-card"
-            (click)="selecionarSecao('produtos')"
-          >
+          <button type="button" class="acao-card"
+            (click)="selecionarSecao('produtos')">
             <span class="acao-icone">📦</span>
             <strong>Produtos</strong>
             <small>Gerenciar catálogo</small>
           </button>
 
-          <button
-            type="button"
-            class="acao-card"
-            (click)="selecionarSecao('pedidos')"
-          >
+          <button type="button" class="acao-card"
+            (click)="selecionarSecao('pedidos')">
             <span class="acao-icone">🛒</span>
             <strong>Pedidos</strong>
             <small>Acompanhar compras</small>
           </button>
 
-          <button
-            type="button"
-            class="acao-card"
-            (click)="selecionarSecao('usuarios')"
-          >
+          <button type="button" class="acao-card"
+            (click)="selecionarSecao('usuarios')">
             <span class="acao-icone">👥</span>
             <strong>Usuários</strong>
-            <small>Visualizar contas</small>
+            <small>Gerenciar contas</small>
           </button>
 
         </div>
-
       </section>
 
-      <section class="bloco-admin sessao-admin">
-
+      <section class="bloco-admin">
         <div class="bloco-cabecalho">
-
           <div>
-
-            <h2>Sessão administrativa</h2>
-
-            <p>
-              Informações da conta conectada.
-            </p>
-
+            <h2>Informações da conta</h2>
+            <p>Dados do administrador conectado.</p>
           </div>
-
         </div>
 
         <div class="info-usuario">
-
           <div>
-
             <span>E-mail</span>
-
-            <strong>
-              {{ usuarioAtual()?.email || 'Não informado' }}
-            </strong>
-
+            <strong>{{ usuarioAtual()?.email || 'Não informado' }}</strong>
           </div>
 
           <div>
-
             <span>Perfil</span>
-
-            <strong>
-              {{ usuarioAtual()?.perfil || 'Não identificado' }}
-            </strong>
-
+            <strong>{{ usuarioAtual()?.perfil || 'Não identificado' }}</strong>
           </div>
-
         </div>
-
       </section>
 
     }
 
-    <!-- =====================================
-         PRODUTOS
-    ====================================== -->
-
+    <!-- PRODUTOS -->
     @if (secaoAtiva() === 'produtos') {
 
-      <section class="secao-gerenciamento">
+      <section class="sessao-admin">
 
         <div class="secao-cabecalho">
-
           <div>
-
-            <span class="secao-etiqueta">
-              CATÁLOGO
-            </span>
-
-            <h2>Gerenciar produtos</h2>
-
-            <p>
-              Adicione, edite ou remova produtos da MegaSport.
-            </p>
-
+            <span class="secao-etiqueta">CATÁLOGO</span>
+            <h2>Gerenciamento de produtos</h2>
+            <p>Cadastre, edite ou remova produtos da loja.</p>
           </div>
 
-          <button
-            type="button"
-            class="btn-destaque"
-            (click)="abrirModalCadastro()"
-          >
+          <button type="button" class="btn-destaque"
+            (click)="abrirModalCadastro()">
             + Novo produto
           </button>
-
         </div>
 
         <div class="tabela-container">
 
           <div class="tabela-topo">
-
             <h3>Produtos cadastrados</h3>
-
-            <span>
-              {{ totalProdutos() }} produtos
-            </span>
-
+            <span>{{ totalProdutos() }} produtos</span>
           </div>
 
           <div class="tabela-responsiva">
-
             <table class="tabela-admin">
-
               <thead>
-
                 <tr>
                   <th>Produto</th>
                   <th>Categoria</th>
                   <th>Preço</th>
                   <th>Ações</th>
                 </tr>
-
               </thead>
 
               <tbody>
-
                 @for (
-                  produto of produtosService.obterProdutos();
-                  track produto.id
+                  produto of produtosService.produtos();
+                  track $index
                 ) {
-
                   <tr>
-
                     <td>
-
                       <div class="produto-tabela">
-
                         <div class="produto-miniatura">
-
                           @if (produto.imagem) {
-
-                            <img
-                              [src]="produto.imagem"
-                              [alt]="produto.nome"
-                            >
-
+                            <img [src]="produto.imagem"
+                              [alt]="produto.nome">
                           } @else {
-
-                            📦
-
+                            <span>📦</span>
                           }
-
                         </div>
 
-                        <strong>
-                          {{ produto.nome }}
-                        </strong>
-
+                        <strong>{{ produto.nome }}</strong>
                       </div>
+                    </td>
 
+                    <td>{{ produto.categoria || 'GERAL' }}</td>
+
+                    <td>
+                      {{ produto.preco | currency:'BRL':'symbol':'1.2-2' }}
                     </td>
 
                     <td>
-                      {{ produto.categoria || 'GERAL' }}
-                    </td>
-
-                    <td>
-                      {{
-                        produto.preco
-                          | currency:'BRL':'symbol':'1.2-2'
-                      }}
-                    </td>
-
-                    <td>
-
                       <div class="tabela-acoes">
-
-                        <button
-                          type="button"
-                          class="btn-editar"
-                          (click)="prepararEdicao($index, produto)"
-                        >
+                        <button type="button" class="btn-editar"
+                          (click)="prepararEdicao($index, produto)">
                           Editar
                         </button>
 
-                        <button
-                          type="button"
-                          class="btn-remover"
-                          (click)="removerProduto($index)"
-                        >
+                        <button type="button" class="btn-remover"
+                          (click)="removerProduto($index)">
                           Remover
                         </button>
-
                       </div>
-
                     </td>
-
                   </tr>
-
                 } @empty {
-
                   <tr>
-
-                    <td
-                      colspan="4"
-                      class="tabela-vazia"
-                    >
+                    <td colspan="4" class="tabela-vazia">
                       Nenhum produto cadastrado.
                     </td>
-
                   </tr>
-
                 }
-
               </tbody>
-
             </table>
-
           </div>
 
         </div>
-
       </section>
 
     }
 
-    <!-- =====================================
-         PEDIDOS
-    ====================================== -->
-
+    <!-- PEDIDOS -->
     @if (secaoAtiva() === 'pedidos') {
 
-      <section class="secao-gerenciamento">
+      <section class="sessao-admin">
 
         <div class="secao-cabecalho">
-
           <div>
-
-            <span class="secao-etiqueta">
-              VENDAS
-            </span>
-
-            <h2>Gerenciar pedidos</h2>
-
+            <span class="secao-etiqueta">VENDAS</span>
+            <h2>Gerenciamento de pedidos</h2>
             <p>
-              Acompanhe as compras registradas na MegaSport.
+              Consulte os pedidos e acompanhe suas etapas.
             </p>
-
           </div>
-
         </div>
 
         <div class="tabela-container">
 
           <div class="tabela-topo">
-
             <h3>Pedidos registrados</h3>
-
-            <span>
-              {{ totalPedidos() }} pedidos
-            </span>
-
+            <span>{{ totalPedidos() }} pedidos</span>
           </div>
 
           <div class="tabela-responsiva">
-
             <table class="tabela-admin">
-
               <thead>
-
                 <tr>
-                  <th>Número</th>
+                  <th>Pedido</th>
                   <th>Cliente</th>
                   <th>Produtos</th>
                   <th>Total</th>
                   <th>Status</th>
                   <th>Ações</th>
                 </tr>
-
               </thead>
 
               <tbody>
-
                 @for (pedido of pedidos(); track pedido.id) {
-
                   <tr>
-
                     <td>
-
-                      <strong>
-                        #{{ pedido.id }}
-                      </strong>
-
+                      <strong>#{{ pedido.id }}</strong>
                     </td>
 
                     <td>
-
-                      <strong>
-                        {{ pedido.cliente.nome }}
-                      </strong>
-
+                      <strong>{{ pedido.cliente.nome }}</strong>
                       <br>
-
-                      <small>
-                        {{ pedido.cliente.email }}
-                      </small>
-
+                      <small>{{ pedido.cliente.email }}</small>
                     </td>
 
                     <td>
-
-                      @for (
-                        item of pedido.itens;
-                        track $index
-                      ) {
-
+                      @for (item of pedido.itens; track $index) {
                         <div>
                           {{ item.nome }}
 
                           @if (item.cor) {
-                            <small>
-                              | Cor: {{ item.cor }}
-                            </small>
+                            <small> | Cor: {{ item.cor }}</small>
                           }
 
                           @if (item.tamanho) {
-                            <small>
-                              | Tamanho: {{ item.tamanho }}
-                            </small>
+                            <small> | Tamanho: {{ item.tamanho }}</small>
                           }
 
                           @if (item.capacidade) {
@@ -646,213 +356,127 @@
                               | Capacidade: {{ item.capacidade }}
                             </small>
                           }
-
                         </div>
-
                       }
-
                     </td>
 
                     <td>
-                      {{
-                        pedido.total
-                          | currency:'BRL':'symbol':'1.2-2'
-                      }}
+                      {{ pedido.total | currency:'BRL':'symbol':'1.2-2' }}
                     </td>
 
                     <td>
-
                       <select
                         class="select-status"
                         [ngModel]="pedido.status"
                         (ngModelChange)="atualizarStatusPedido(pedido.id, $event)"
-                        aria-label="Status do pedido"
-                      >
+                        aria-label="Status do pedido">
 
-                        <option value="Pendente">
-                          Pendente
-                        </option>
-
-                        <option value="Em preparação">
-                          Em preparação
-                        </option>
-
-                        <option value="Enviado">
-                          Enviado
-                        </option>
-
-                        <option value="Entregue">
-                          Entregue
-                        </option>
-
-                        <option value="Cancelado">
-                          Cancelado
-                        </option>
+                        <option value="Pendente">Pendente</option>
+                        <option value="Em preparação">Em preparação</option>
+                        <option value="Enviado">Enviado</option>
+                        <option value="Entregue">Entregue</option>
+                        <option value="Cancelado">Cancelado</option>
 
                       </select>
-
                     </td>
 
                     <td>
+                      <div class="tabela-acoes">
 
-                      <button
-                        type="button"
-                        class="btn-remover"
-                        (click)="removerPedido(pedido.id)"
-                      >
-                        Remover
-                      </button>
+                        <button type="button" class="btn-editar"
+                          (click)="abrirDetalhesPedido(pedido)">
+                          Ver detalhes
+                        </button>
 
+                        <button type="button" class="btn-remover"
+                          (click)="removerPedido(pedido.id)">
+                          Remover
+                        </button>
+
+                      </div>
                     </td>
-
                   </tr>
-
                 } @empty {
-
                   <tr>
-
-                    <td
-                      colspan="6"
-                      class="tabela-vazia"
-                    >
-                      Nenhum pedido registrado até o momento.
+                    <td colspan="6" class="tabela-vazia">
+                      Nenhum pedido registrado.
                     </td>
-
                   </tr>
-
                 }
-
               </tbody>
-
             </table>
-
           </div>
 
         </div>
-
       </section>
 
     }
 
-    <!-- =====================================
-         USUÁRIOS
-    ====================================== -->
-
+    <!-- USUÁRIOS -->
     @if (secaoAtiva() === 'usuarios') {
 
-      <section class="secao-gerenciamento">
+      <section class="sessao-admin">
 
         <div class="secao-cabecalho">
-
           <div>
-
-            <span class="secao-etiqueta">
-              CONTAS
-            </span>
-
-            <h2>Gerenciar usuários</h2>
-
-            <p>
-              Visualize as contas demonstrativas da MegaSport.
-            </p>
-
+            <span class="secao-etiqueta">CONTAS</span>
+            <h2>Gerenciamento de usuários</h2>
+            <p>Consulte e gerencie os usuários cadastrados.</p>
           </div>
-
         </div>
 
         <div class="tabela-container">
 
           <div class="tabela-topo">
-
             <h3>Usuários cadastrados</h3>
-
-            <span>
-              {{ usuariosCadastrados() }} usuários
-            </span>
-
+            <span>{{ usuariosCadastrados() }} usuários</span>
           </div>
 
           <div class="tabela-responsiva">
-
             <table class="tabela-admin">
-
               <thead>
-
                 <tr>
                   <th>E-mail</th>
                   <th>Perfil</th>
                   <th>Ações</th>
                 </tr>
-
               </thead>
 
               <tbody>
-
-                @for (
-                  usuario of usuarios();
-                  track usuario.email
-                ) {
-
+                @for (usuario of usuarios(); track usuario.email) {
                   <tr>
-
                     <td>
-
-                      <strong>
-                        {{ usuario.email }}
-                      </strong>
-
+                      <strong>{{ usuario.email }}</strong>
                     </td>
 
                     <td>
-
-                      <span
-                        class="badge"
+                      <span class="badge"
                         [class.admin]="usuario.perfil === 'ADMIN'"
-                        [class.cliente]="usuario.perfil === 'CLIENTE'"
-                      >
+                        [class.cliente]="usuario.perfil === 'CLIENTE'">
                         {{ usuario.perfil }}
                       </span>
-
                     </td>
 
                     <td>
-
-                      <button
-                        type="button"
-                        class="btn-remover"
+                      <button type="button" class="btn-remover"
                         [disabled]="usuario.perfil === 'ADMIN'"
-                        (click)="removerUsuario(usuario.email)"
-                      >
+                        (click)="removerUsuario(usuario.email)">
                         Remover
                       </button>
-
                     </td>
-
                   </tr>
-
                 } @empty {
-
                   <tr>
-
-                    <td
-                      colspan="3"
-                      class="tabela-vazia"
-                    >
-                      Nenhum usuário cadastrado.
+                    <td colspan="3" class="tabela-vazia">
+                      Nenhum usuário encontrado.
                     </td>
-
                   </tr>
-
                 }
-
               </tbody>
-
             </table>
-
           </div>
 
         </div>
-
       </section>
 
     }
@@ -861,25 +485,17 @@
 
 </div>
 
-<!-- =====================================
-     MODAL DE CADASTRO E EDIÇÃO
-====================================== -->
-
+<!-- MODAL DE CADASTRO E EDIÇÃO -->
 <dialog
   #modalCadastro
   class="modal-produto"
-  (close)="editandoIndex = null"
->
+  (close)="editandoIndex = null">
 
   <div class="modal-conteudo">
 
     <div class="modal-cabecalho">
-
       <div>
-
-        <span class="secao-etiqueta">
-          CATÁLOGO
-        </span>
+        <span class="secao-etiqueta">CATÁLOGO</span>
 
         <h3>
           {{
@@ -889,38 +505,24 @@
           }}
         </h3>
 
-        <p>
-          Configure as informações e opções do produto.
-        </p>
-
+        <p>Configure as informações e opções do produto.</p>
       </div>
 
-      <button
-        type="button"
-        class="modal-fechar"
+      <button type="button" class="modal-fechar"
         (click)="fecharModalCadastro()"
-        aria-label="Fechar modal"
-      >
+        aria-label="Fechar modal">
         ✕
       </button>
-
     </div>
 
-    <form
-      (ngSubmit)="salvarProduto()"
-      #formProduto="ngForm"
-    >
+    <form (ngSubmit)="salvarProduto()" #formProduto="ngForm">
 
-      <!-- =====================================
-           INFORMAÇÕES PRINCIPAIS
-      ====================================== -->
-
+      <!-- INFORMAÇÕES PRINCIPAIS -->
       <div class="grupo-formulario">
 
         <h4>📦 Informações principais</h4>
 
         <label>
-
           Nome do produto *
 
           <input
@@ -929,13 +531,10 @@
             [(ngModel)]="novoProduto.nome"
             required
             minlength="3"
-            placeholder="Ex: Camisa Oficial do Fluminense"
-          >
-
+            placeholder="Ex: Camisa Oficial do Fluminense">
         </label>
 
         <label>
-
           Preço (R$) *
 
           <input
@@ -945,74 +544,45 @@
             required
             min="0.01"
             step="0.01"
-            placeholder="Ex: 299.90"
-          >
-
+            placeholder="Ex: 299.90">
         </label>
 
         <label>
-
           Categoria *
 
           <select
             name="categoria"
             [(ngModel)]="novoProduto.categoria"
-            required
-          >
+            required>
 
-            <option value="GERAL">
-              Geral
-            </option>
-
-            <option value="CALÇADOS">
-              Calçados
-            </option>
-
-            <option value="VESTUÁRIO">
-              Vestuário
-            </option>
-
-            <option value="ROUPAS">
-              Roupas
-            </option>
-
-            <option value="ACESSÓRIOS">
-              Acessórios
-            </option>
-
-            <option value="EQUIPAMENTOS">
-              Equipamentos
-            </option>
+            <option value="GERAL">Geral</option>
+            <option value="CALÇADOS">Calçados</option>
+            <option value="VESTUÁRIO">Vestuário</option>
+            <option value="ROUPAS">Roupas</option>
+            <option value="ACESSÓRIOS">Acessórios</option>
+            <option value="EQUIPAMENTOS">Equipamentos</option>
 
           </select>
-
         </label>
 
         <label>
-
           Descrição
 
           <textarea
             name="descricao"
             [(ngModel)]="novoProduto.descricao"
             rows="4"
-            placeholder="Descreva as características e os benefícios do produto."
-          ></textarea>
-
+            placeholder="Descreva as características e os benefícios do produto."></textarea>
         </label>
 
       </div>
 
-      <!-- =====================================
-           IMAGENS
-      ====================================== -->
-
+      <!-- IMAGENS -->
       <div class="grupo-formulario">
 
         <h4>📸 Imagens do produto</h4>
 
         <label>
-
           URL da imagem principal *
 
           <input
@@ -1020,75 +590,55 @@
             name="imagem"
             [(ngModel)]="novoProduto.imagem"
             required
-            placeholder="Ex: https://exemplo.com/produto.jpg"
-          >
-
+            placeholder="Ex: https://exemplo.com/produto.jpg">
         </label>
 
         @if (novoProduto.imagem.trim()) {
-
           <div class="preview-imagem">
-
-            <span>
-              Prévia da imagem principal
-            </span>
+            <span>Prévia da imagem principal</span>
 
             <img
               [src]="novoProduto.imagem"
               alt="Prévia do produto"
               (error)="$any($event.target).style.display = 'none'"
-              (load)="$any($event.target).style.display = 'block'"
-            >
-
+              (load)="$any($event.target).style.display = 'block'">
           </div>
-
         }
 
         <label>
-
           Imagens adicionais
 
           <textarea
             name="imagensAdicionais"
             [(ngModel)]="novoProduto.imagensAdicionais"
             rows="4"
-            placeholder="Cole uma URL por linha"
-          ></textarea>
-
+            placeholder="Cole uma URL por linha"></textarea>
         </label>
 
         <small class="campo-ajuda">
-          As imagens adicionais aparecerão na galeria
-          da página individual do produto.
-          Insira uma URL por linha.
+          As imagens adicionais aparecerão na galeria da página
+          individual do produto. Insira uma URL por linha.
         </small>
 
       </div>
 
-      <!-- =====================================
-           VARIAÇÕES
-      ====================================== -->
-
+      <!-- VARIAÇÕES -->
       <div class="grupo-formulario">
 
         <h4>🎨 Opções do produto</h4>
 
         <p class="grupo-descricao">
-          Preencha apenas as opções que se aplicam
-          ao produto.
+          Preencha apenas as opções que se aplicam ao produto.
         </p>
 
         <label>
-
           Cores disponíveis
 
           <textarea
             name="cores"
             [(ngModel)]="novoProduto.cores"
             rows="3"
-            placeholder="Preto, Branco, Azul"
-          ></textarea>
-
+            placeholder="Preto, Branco, Azul"></textarea>
         </label>
 
         <small class="campo-ajuda">
@@ -1096,16 +646,13 @@
         </small>
 
         <label>
-
           Tamanhos ou numerações
 
           <textarea
             name="tamanhos"
             [(ngModel)]="novoProduto.tamanhos"
             rows="3"
-            placeholder="P, M, G, GG"
-          ></textarea>
-
+            placeholder="P, M, G, GG"></textarea>
         </label>
 
         <small class="campo-ajuda">
@@ -1114,44 +661,32 @@
         </small>
 
         <label>
-
           Capacidades
 
           <textarea
             name="capacidades"
             [(ngModel)]="novoProduto.capacidades"
             rows="3"
-            placeholder="500 ml, 750 ml, 1 L"
-          ></textarea>
-
+            placeholder="500 ml, 750 ml, 1 L"></textarea>
         </label>
 
         <small class="campo-ajuda">
-          Ideal para garrafas e outros produtos
-          que possuem diferentes capacidades.
+          Ideal para garrafas e outros produtos que possuem
+          diferentes capacidades.
         </small>
 
       </div>
 
-      <!-- =====================================
-           BOTÕES
-      ====================================== -->
-
+      <!-- BOTÕES -->
       <div class="modal-botoes">
 
-        <button
-          type="button"
-          class="btn-cancelar"
-          (click)="fecharModalCadastro()"
-        >
+        <button type="button" class="btn-cancelar"
+          (click)="fecharModalCadastro()">
           Cancelar
         </button>
 
-        <button
-          type="submit"
-          class="btn-salvar"
-          [disabled]="formProduto.invalid"
-        >
+        <button type="submit" class="btn-salvar"
+          [disabled]="formProduto.invalid">
           {{
             editandoIndex !== null
               ? 'Salvar alterações'
@@ -1164,5 +699,137 @@
     </form>
 
   </div>
+
+</dialog>
+
+<!-- MODAL DE DETALHES DO PEDIDO -->
+<dialog
+  #modalDetalhesPedido
+  class="modal-detalhes-pedido"
+  (close)="fecharDetalhesPedido()">
+
+  @if (pedidoSelecionado) {
+
+    <div class="detalhes-pedido-conteudo">
+
+      <div class="detalhes-pedido-topo">
+        <div>
+          <span class="secao-etiqueta">DETALHES DO PEDIDO</span>
+
+          <h2>Pedido #{{ pedidoSelecionado.id }}</h2>
+
+          <p>
+            Registrado em
+            {{ pedidoSelecionado.data | date:'dd/MM/yyyy HH:mm' }}
+          </p>
+        </div>
+
+        <button type="button" class="modal-fechar"
+          (click)="fecharDetalhesPedido()"
+          aria-label="Fechar detalhes">
+          ✕
+        </button>
+      </div>
+
+      <!-- CLIENTE -->
+      <div class="detalhes-pedido-bloco">
+        <h3>👤 Dados do cliente</h3>
+
+        <p>
+          <strong>Nome:</strong>
+          {{ pedidoSelecionado.cliente.nome }}
+        </p>
+
+        <p>
+          <strong>E-mail:</strong>
+          {{ pedidoSelecionado.cliente.email }}
+        </p>
+
+        <p>
+          <strong>Status:</strong>
+          {{ pedidoSelecionado.status }}
+        </p>
+      </div>
+
+      <!-- PRODUTOS -->
+      <div class="detalhes-pedido-bloco">
+        <h3>📦 Produtos comprados</h3>
+
+        @for (item of pedidoSelecionado.itens; track $index) {
+
+          <div class="detalhes-pedido-produto">
+
+            @if (item.imagem) {
+              <img [src]="item.imagem" [alt]="item.nome">
+            }
+
+            <div>
+              <strong>{{ item.nome }}</strong>
+
+              @if (item.cor) {
+                <p>Cor: {{ item.cor }}</p>
+              }
+
+              @if (item.tamanho) {
+                <p>Tamanho: {{ item.tamanho }}</p>
+              }
+
+              @if (item.capacidade) {
+                <p>Capacidade: {{ item.capacidade }}</p>
+              }
+
+              <p>
+                Preço:
+                {{ item.preco | currency:'BRL':'symbol':'1.2-2' }}
+              </p>
+            </div>
+
+          </div>
+
+        }
+      </div>
+
+      <!-- ENDEREÇO -->
+      <div class="detalhes-pedido-bloco">
+        <h3>📍 Endereço de entrega</h3>
+
+        <p>
+          {{ pedidoSelecionado.endereco.rua }},
+          {{ pedidoSelecionado.endereco.numero }}
+        </p>
+
+        @if (pedidoSelecionado.endereco.complemento) {
+          <p>
+            Complemento:
+            {{ pedidoSelecionado.endereco.complemento }}
+          </p>
+        }
+
+        <p>
+          Bairro: {{ pedidoSelecionado.endereco.bairro }}
+        </p>
+
+        <p>
+          CEP: {{ pedidoSelecionado.endereco.cep }}
+        </p>
+      </div>
+
+      <!-- TOTAL -->
+      <div class="detalhes-pedido-total">
+        <span>Total do pedido</span>
+
+        <strong>
+          {{ pedidoSelecionado.total | currency:'BRL':'symbol':'1.2-2' }}
+        </strong>
+      </div>
+
+      <button type="button" class="btn-salvar"
+        (click)="fecharDetalhesPedido()">
+        Fechar
+      </button>
+
+    </div>
+
+  }
 
 </dialog>

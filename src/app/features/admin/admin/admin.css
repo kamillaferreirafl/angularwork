@@ -1119,3 +1119,137 @@ dialog.modal-produto::backdrop {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* ========================================
+   MEGASPORT — DETALHES DOS PEDIDOS
+======================================== */
+
+dialog.modal-detalhes-pedido {
+  position: fixed;
+  inset: 0;
+  width: min(94vw, 720px);
+  max-height: 90vh;
+  margin: auto;
+  padding: 0;
+  border: none;
+  border-radius: 18px;
+  background: #ffffff;
+  color: #10213c;
+  overflow-y: auto;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.25);
+}
+
+dialog.modal-detalhes-pedido::backdrop {
+  background: rgba(3, 15, 37, 0.7);
+}
+
+.detalhes-pedido-conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 30px;
+}
+
+.detalhes-pedido-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e8edf5;
+}
+
+.detalhes-pedido-topo h2 {
+  margin: 10px 0;
+  color: #071a3c;
+  font-size: 1.5rem;
+}
+
+.detalhes-pedido-topo p {
+  margin: 0;
+  color: #728097;
+  font-size: 0.85rem;
+}
+
+.detalhes-pedido-bloco {
+  padding: 20px;
+  border: 1px solid #e5ebf4;
+  border-radius: 12px;
+  background: #f8faff;
+}
+
+.detalhes-pedido-bloco h3 {
+  margin: 0 0 15px;
+  color: #071a3c;
+  font-size: 1rem;
+}
+
+.detalhes-pedido-bloco p {
+  margin: 7px 0;
+  color: #53647d;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.detalhes-pedido-produto {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid #e5ebf4;
+}
+
+.detalhes-pedido-produto:last-child {
+  border-bottom: none;
+}
+
+.detalhes-pedido-produto img {
+  width: 75px;
+  height: 75px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  background: #ffffff;
+  object-fit: contain;
+}
+
+.detalhes-pedido-produto strong {
+  color: #10213c;
+  font-size: 0.9rem;
+}
+
+.detalhes-pedido-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #071a3c;
+  color: #ffffff;
+}
+
+.detalhes-pedido-total span {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.detalhes-pedido-total strong {
+  color: #ff8b4e;
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+
+@media (max-width: 600px) {
+  .detalhes-pedido-conteudo {
+    padding: 20px;
+  }
+
+  .detalhes-pedido-topo h2 {
+    font-size: 1.2rem;
+    overflow-wrap: anywhere;
+  }
+
+  .detalhes-pedido-total {
+    flex-wrap: wrap;
+  }
+}
