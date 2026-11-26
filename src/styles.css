@@ -9,9 +9,9 @@
   --navy-700: #183763;
   --navy-100: #e6ecf5;
 
-  --primary-color: #ff641f;
+  --primary-color: #ff641f;       /* laranja de ação */
   --primary-hover: #e8530f;
-  --on-primary: #0a1a33;
+  --on-primary: #0a1a33;          /* texto sobre laranja (contraste AA) */
 
   --bg-color: #f4f6f9;
   --white: #ffffff;
@@ -69,7 +69,7 @@ a { text-decoration: none; color: inherit; }
 
 :focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
 
-/* Ícones SVG inline */
+/* Ícones SVG inline (sem emojis) */
 svg.ico {
   width: 1.25em; height: 1.25em; flex: none;
   fill: none; stroke: currentColor; stroke-width: 2;
